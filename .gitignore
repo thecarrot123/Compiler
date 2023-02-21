@@ -3,7 +3,6 @@
 *.depend
 *.layout
 
-
-
+.vscode/
 bin/
 obj/
