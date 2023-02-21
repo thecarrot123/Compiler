@@ -1,6 +1,12 @@
-# Compiler
+# Dysfunctional Lisp Compliler
 
-Welcome to Dysfunctional Lisp language compiler
+Dysfunctional Lisp is a functional programming language, inspired by lisp but has more simple syntax.
+In this repo you can find the compiler parts, including:
+
+Lexical Analyzer
+~~Syntax Analyzer
+~~Semantic Analyzer
+~~Code Generator
 
 ## To build the code:
 ```make```
