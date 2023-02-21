@@ -1,4 +1,4 @@
-# Dysfunctional Lisp Compliler
+# Dysfunctional Lisp Compiler
 
 Dysfunctional Lisp is a functional programming language, inspired by lisp but has more simple syntax.
 In this repo you can find the compiler parts, including:
