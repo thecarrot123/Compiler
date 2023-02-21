@@ -1,6 +1,6 @@
 #include <iostream>
-#include "token.h"
 #include "lexer.h"
+#include "token.h"
 
 using namespace std;
 string code;
@@ -32,24 +32,19 @@ string bracket_name(const string &s) {
 	return "Error finding bracket name";
 }
 
-bool is_null(const string &s) {
+bool Lexer::is_null(const string &s) {
 	return (s == "null");
 }
 
-bool is_bracket(char c) {
+bool Lexer::is_bracket(char c) {
     return (c == '(' || c == ')' || c == '[' || c == ']');
 }
 
-bool is_bracket(const string &s) {
-	char c = s[0];
-    return (c == '(' || c == ')' || c == '[' || c == ']');
-}
-
-bool is_boolean(const string &s) {
+bool Lexer::is_boolean(const string &s) {
 	return (s == "true" || s == "false");
 }
 
-bool is_integer(const string &s) {
+bool Lexer::is_integer(const string &s) {
 	bool _signed = false;
 	if ( s[0] == '-' || s[0] == '+' )
 		_signed = true;
@@ -61,7 +56,7 @@ bool is_integer(const string &s) {
 	return true;
 }
 
-bool is_real(const string &s) {
+bool Lexer::is_real(const string &s) {
 	bool has_dot = false;
 	bool _signed = false;
 	if ( s[0] == '-' || s[0] == '+')
@@ -77,11 +72,11 @@ bool is_real(const string &s) {
 	return has_dot;
 }
 
-bool is_literal(const string &s) {
+bool Lexer::is_literal(const string &s) {
 	return ( is_boolean(s) || is_integer(s) || is_real(s) || is_null(s) );
 }
 
-bool is_keyword(const string &s){
+bool Lexer::is_keyword(const string &s){
     for (int i=0;i<9;i++)
     {
         if (KEYWORDS[i] == s)
@@ -90,7 +85,7 @@ bool is_keyword(const string &s){
     return false;
 }
 
-bool is_atom(const string &s) {
+bool Lexer::is_atom(const string &s) {
 	if ( is_boolean(s) || is_null(s) || is_keyword(s) )
 		return false;
 
@@ -109,7 +104,7 @@ bool is_atom(const string &s) {
 	return false;
 }
 
-string token_name(const string &s) {
+string Lexer::token_name(const string &s) {
 	if ( is_boolean(s) )
 		return "BOOL";
 	if ( is_integer(s) )
@@ -122,12 +117,12 @@ string token_name(const string &s) {
         return "KEYWORD";
 	if ( is_atom(s) )
 		return "ATOM";
-	if ( is_bracket(s) )
+	if ( is_bracket(s[0]) )
 		return bracket_name(s);
 	return "ERR";
 }
 
-string next_token_content() {
+string Lexer::next_token_content() {
     while (ind < code.size() && (code[ind] == ' ' || code[ind] == '\n'))
         ind++;
     if (ind >= code.size())
@@ -155,25 +150,25 @@ string next_token_content() {
     return ret;
 }
 
-token next_token() {
+Token Lexer::next_token() {
 	string content = next_token_content();
-	token tok = {token_name(content), content};
+	Token tok = {token_name(content), content};
 	return tok;
 }
 
-int main() {
-    freopen("sample.F", "r", stdin);
+string Lexer::scan_code() {
     string input;
-    while (getline(cin, input)) {
+    while (getline(fin, input)) {
         code+= input + '\n';
     }
-    token pp;
+    string tokenized_code;
+    Token pp;
     pp = next_token();
     while (pp.content != "") {
-        cout << pp << endl;
+        tokenized_code += pp;
         pp = next_token();
     }
-    return 0;
+    return tokenized_code;
 }
 /**
 TODO:
