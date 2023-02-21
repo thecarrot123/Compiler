@@ -4,8 +4,11 @@ Dysfunctional Lisp is a functional programming language, inspired by lisp but ha
 In this repo you can find the compiler parts, including:
 
 Lexical Analyzer
+
 ~~Syntax Analyzer
+
 ~~Semantic Analyzer
+
 ~~Code Generator
 
 ## To build the code:
