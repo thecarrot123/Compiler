@@ -1,0 +1,47 @@
+LPAR (
+KEYWORD func
+ATOM fibonacci
+LPAR (
+ATOM n
+RPAR )
+LPAR (
+KEYWORD cond
+LPAR (
+ATOM equal
+INT 0
+ATOM n
+RPAR )
+INT 0
+ERR 	
+LPAR (
+KEYWORD cond
+LPAR (
+ATOM equal
+INT 1
+ATOM n
+RPAR )
+INT 1
+ERR 		
+LPAR (
+ATOM plus
+LPAR (
+ATOM fibonacci
+LPAR (
+ATOM minus
+ATOM n
+INT 1
+RPAR )
+LPAR (
+ATOM fibonacci
+LPAR (
+ATOM minus
+ATOM n
+INT 2
+RPAR )
+RPAR )
+RPAR )
+RPAR )
+RPAR )
+RPAR )
+RPAR )
+

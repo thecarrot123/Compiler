@@ -3,9 +3,6 @@
 #include "token.h"
 
 using namespace std;
-string code;
-int ind;
-string KEYWORDS[9] = {"quote", "setq", "func", "lambda", "prog", "cond", "while", "return", "break"};
 
 string bracket_name(char c) {
     if (c == '(')
@@ -77,9 +74,9 @@ bool Lexer::is_literal(const string &s) {
 }
 
 bool Lexer::is_keyword(const string &s){
-    for (int i=0;i<9;i++)
+    for (int i=0;i<keywords_number;i++)
     {
-        if (KEYWORDS[i] == s)
+        if (keywords[i] == s)
             return true;
     }
     return false;
@@ -104,7 +101,7 @@ bool Lexer::is_atom(const string &s) {
 	return false;
 }
 
-string Lexer::token_name(const string &s) {
+string Lexer::token_type(const string &s) {
 	if ( is_boolean(s) )
 		return "BOOL";
 	if ( is_integer(s) )
@@ -152,7 +149,7 @@ string Lexer::next_token_content() {
 
 Token Lexer::next_token() {
 	string content = next_token_content();
-	Token tok = {token_name(content), content};
+	Token tok = {token_type(content), content};
 	return tok;
 }
 
@@ -162,20 +159,17 @@ string Lexer::scan_code() {
         code+= input + '\n';
     }
     string tokenized_code;
-    Token pp;
-    pp = next_token();
-    while (pp.content != "") {
-        tokenized_code += pp;
-        pp = next_token();
+    Token token;
+    token = next_token();
+    while (token.content != "") {
+        tokenized_code += token;
+        token = next_token();
     }
     return tokenized_code;
 }
 /**
 TODO:
 3) what to do in case of error?
-4) improve code
 5) print all errors together
-*/
-/*
-quote setq func lambda prog cond while return break
+token name to token type
 */

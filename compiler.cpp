@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
     ifstream file(file_name);
     if(!file.good()) {
         cout<<"Error: file "<<argv[1]<<" doesn't exists\n";
-        return 0;
+        exit(1);
     }
     Lexer lexer(file_name);
     cout<<lexer.scan_code()<<endl;

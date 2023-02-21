@@ -6,15 +6,15 @@ using namespace std;
 
 class Token{
 public:
-	string name;
+	string type;
 	string content;
 
     operator string() const {
-        return name + " " + content + "\n";
+        return type + " " + content + "\n";
     }
 
-	friend ostream& operator<<(ostream& os, const Token& tk) {
-		return os << tk.name << ' ' << tk.content;
+	friend ostream& operator<<(ostream& os, const Token& token) {
+		return os << token.type << ' ' << token.content;
 	}
 };
 
