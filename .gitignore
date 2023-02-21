@@ -2,7 +2,7 @@
 *.cbp
 *.depend
 *.layout
-#compiler
+compiler
 sample.F
 
 .vscode/
