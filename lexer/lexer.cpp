@@ -120,12 +120,12 @@ string Lexer::token_type(const string &s) {
 }
 
 string Lexer::next_token_content() {
-    while (ind < code.size() && (code[ind] == ' ' || code[ind] == '\n'))
+    while (ind < code.size() && (code[ind] == ' ' || code[ind] == '\n' || code[ind] == '\t'))
         ind++;
     if (ind >= code.size())
         return "";
     string ret = "";
-    while (code[ind] != ' ' && code[ind] != '\n') {
+    while (code[ind] != ' ' && code[ind] != '\n' && code[ind] != '\t') {
         if (is_bracket(code[ind])) {
             if (ret != "")
                 return ret;
@@ -167,9 +167,7 @@ string Lexer::scan_code() {
     }
     return tokenized_code;
 }
+
 /**
-TODO:
-3) what to do in case of error?
-5) print all errors together
-token name to token type
+TODO: fix errors in sample.F
 */
