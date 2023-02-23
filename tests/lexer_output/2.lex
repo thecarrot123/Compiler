@@ -1,53 +1,53 @@
-ERR 1afd
-LPAR (
-KEYWORD func
-ATOM Cube
-LPAR (
-ATOM arg
-RPAR )
-LPAR (
-ATOM times
-LPAR (
-ATOM times
-ATOM arg
-ATOM arg
-RPAR )
-ATOM arg
-RPAR )
-RPAR )
-LPAR (
-KEYWORD func
-ATOM Trivial
-LPAR (
-RPAR )
-REAL 1.1
-RPAR )
-LPAR (
-KEYWORD func
-ATOM makeList
-LPAR (
-ATOM A
-RPAR )
-LPAR (
-ATOM A
-RPAR )
-RPAR )
-LPAR (
-KEYWORD quote
-ATOM Element
-RPAR )
-KEYWORD func
-KEYWORD func
-KEYWORD func
-KEYWORD func
-LPAR (
-LPAR (
-LPAR (
-LPAR (
-LPAR (
-LPAR (
-ATOM plus
-ATOM Element
-ATOM Element
-RPAR )
+ERR 1afd : 1
+LPAR ( : 2
+KEYWORD func : 2
+ATOM Cube : 2
+LPAR ( : 2
+ATOM arg : 2
+RPAR ) : 2
+LPAR ( : 2
+ATOM times : 2
+LPAR ( : 2
+ATOM times : 2
+ATOM arg : 2
+ATOM arg : 2
+RPAR ) : 2
+ATOM arg : 2
+RPAR ) : 2
+RPAR ) : 2
+LPAR ( : 3
+KEYWORD func : 3
+ATOM Trivial : 3
+LPAR ( : 3
+RPAR ) : 3
+REAL 1.1 : 3
+RPAR ) : 3
+LPAR ( : 4
+KEYWORD func : 4
+ATOM makeList : 4
+LPAR ( : 4
+ATOM A : 4
+RPAR ) : 4
+LPAR ( : 4
+ATOM A : 4
+RPAR ) : 4
+RPAR ) : 4
+LPAR ( : 11
+KEYWORD quote : 11
+ATOM Element : 11
+RPAR ) : 11
+KEYWORD func : 12
+KEYWORD func : 12
+KEYWORD func : 12
+KEYWORD func : 12
+LPAR ( : 12
+LPAR ( : 12
+LPAR ( : 12
+LPAR ( : 12
+LPAR ( : 12
+LPAR ( : 13
+ATOM plus : 13
+ATOM Element : 13
+ATOM Element : 13
+RPAR ) : 13
 

@@ -2,6 +2,7 @@
 *.cbp
 *.depend
 *.layout
+*.o
 compiler
 sample.F
 

@@ -1,37 +1,37 @@
-LPAR (
-KEYWORD func
-ATOM max
-LPAR (
-ATOM a
-ATOM b
-RPAR )
-LPAR (
-KEYWORD cond
-LPAR (
-ATOM greater
-ATOM a
-ATOM b
-RPAR )
-ATOM a
-ATOM b
-RPAR )
-RPAR )
-LPAR (
-KEYWORD func
-ATOM min
-LPAR (
-ATOM a
-ATOM b
-RPAR )
-LPAR (
-KEYWORD cond
-LPAR (
-ATOM less
-ATOM a
-ATOM b
-RPAR )
-ATOM a
-ATOM b
-RPAR )
-RPAR )
+LPAR ( : 1
+KEYWORD func : 1
+ATOM max : 1
+LPAR ( : 1
+ATOM a : 1
+ATOM b : 1
+RPAR ) : 1
+LPAR ( : 2
+KEYWORD cond : 2
+LPAR ( : 2
+ATOM greater : 2
+ATOM a : 2
+ATOM b : 2
+RPAR ) : 2
+ATOM a : 2
+ATOM b : 2
+RPAR ) : 2
+RPAR ) : 2
+LPAR ( : 4
+KEYWORD func : 4
+ATOM min : 4
+LPAR ( : 4
+ATOM a : 4
+ATOM b : 4
+RPAR ) : 4
+LPAR ( : 5
+KEYWORD cond : 5
+LPAR ( : 5
+ATOM less : 5
+ATOM a : 5
+ATOM b : 5
+RPAR ) : 5
+ATOM a : 5
+ATOM b : 5
+RPAR ) : 5
+RPAR ) : 5
 
