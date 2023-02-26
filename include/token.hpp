@@ -23,22 +23,15 @@ class Token{
 private:
 	token_type find_type_in_types(const string &type);
 	string find_type_name(const string &s);
-	token_type type;
-
+	
 public:
 	static const string keywords[];
     static const int keywords_num;
 	static const int types_num;
 	static const string types[];
+	token_type type;
 	string content;
 	int line;
-
-	/*
-	Token(string type, string content, int line) {
-		this->type = find_type_in_types(type);
-		this->content = content;
-		this->line = line;
-	}*/
 
 	Token(string content, int line) {
 		this->type = find_type(content);

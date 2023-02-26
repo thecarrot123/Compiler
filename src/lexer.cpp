@@ -42,15 +42,15 @@ Token Lexer::next_token() {
 	return Token(content,line_cnt);
 }
 
-string Lexer::scan_code() {
+vector < Token > *Lexer::scan_code() {
     string input;
     while (getline(fin, input)) {
         code+= input + '\n';
     }
-    string tokenized_code;
+    vector < Token > *tokenized_code = new vector < Token >;
     Token token(next_token());
     while (token.content != "") {
-        tokenized_code += token;
+        tokenized_code->push_back(token);
         token = next_token();
     }
     return tokenized_code;

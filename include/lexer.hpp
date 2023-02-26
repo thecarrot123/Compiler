@@ -1,6 +1,7 @@
 #ifndef LEXER_HEADER
 #define LEXER_HEADER
 #include <fstream>
+#include <vector>
 #include "token.hpp"
 
 using namespace std;
@@ -18,6 +19,6 @@ public:
     Lexer (string filename) {
         fin.open(filename);
     }
-    string scan_code();
+    vector < Token > *scan_code();
 };
 #endif
