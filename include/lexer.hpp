@@ -8,6 +8,7 @@ using namespace std;
 
 class Lexer {
 private:
+    vector < Token > *tokenized_code = NULL;
     ifstream fin;
     string code = "";
     int ind=0;
@@ -19,6 +20,8 @@ public:
     Lexer (string filename) {
         fin.open(filename);
     }
+    void print();
+    void print(string filename);
     vector < Token > *scan_code();
 };
 #endif

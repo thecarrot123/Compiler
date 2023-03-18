@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "lexer.hpp"
 #include "token.hpp"
 
@@ -43,15 +44,33 @@ Token Lexer::next_token() {
 }
 
 vector < Token > *Lexer::scan_code() {
+    if (tokenized_code != NULL)
+        return tokenized_code;
     string input;
     while (getline(fin, input)) {
         code+= input + '\n';
     }
-    vector < Token > *tokenized_code = new vector < Token >;
+    tokenized_code = new vector < Token >;
     Token token(next_token());
     while (token.content != "") {
         tokenized_code->push_back(token);
         token = next_token();
     }
     return tokenized_code;
+}
+
+void Lexer::print(string filename) {
+    filebuf file;
+    file.open(filename, ios::out);
+    ostream fout(&file);
+    for (auto token: *tokenized_code) {
+        fout<<token<<endl;
+    }
+    file.close();
+}
+
+void Lexer::print() {
+    for (auto token: *tokenized_code) {
+        cout<<token<<endl;
+    }
 }

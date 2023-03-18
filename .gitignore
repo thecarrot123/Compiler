@@ -5,6 +5,7 @@
 *.o
 compiler
 sample.F
+sample.dl
 
 .vscode/
 bin/
