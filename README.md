@@ -20,5 +20,8 @@ Lexical Analyzer
 # To remove executable and tests output
 ```make clear```
 
-# to run the executable
-```./compiler sample.F```
+# to run the compiler
+```bash 
+./compiler -f sample.dl
+```
+> To print help run: ```./compiler -h```
