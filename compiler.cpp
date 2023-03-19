@@ -63,8 +63,11 @@ public:
     }
 
     void printHelp() {
-        printf("Usage: ./compiler -f <file> [Options] <program.dl>\n");
-        printf("Options: [-l <output>] [-s <output>]\n");
+        printf("Usage: ./compiler -f <program.dl> [Options] \n");
+        printf("Options: \n\
+        \t-f <program.dl>:\tSource code to be compiled. This is a required argument\n\
+        \t[-l <output>]:\tPrint the output of lexer to <output> file.\n\
+        \t[-s <output>]:\tPrint the output of syntax analyzer to <output> file.\n");
     }
 };
 
