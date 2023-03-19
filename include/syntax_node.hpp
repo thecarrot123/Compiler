@@ -4,7 +4,7 @@
 #include <vector>
 #include "token.hpp"
 
-enum Type{
+enum NodeType{
     Program,
     Element,
     List,
@@ -24,7 +24,7 @@ class Node {
 protected:
     vector <Token> tokenized_code;
     pair<int,int> interval;
-    Type type;
+    NodeType type;
     bool terminal;
 
 public:
@@ -34,7 +34,7 @@ public:
 class NodeProgram : private Node {
     vector <Node*> children;
     
-    NodeProgram(){
+    NodeProgram() {
         type = Program;
         terminal = false;
     }
@@ -47,7 +47,7 @@ class NodeProgram : private Node {
 class NodeElement : private Node{
     vector<Node*> children;
 
-    NodeElement(){
+    NodeElement() {
         type = Element;
         terminal = false;
     }
@@ -60,20 +60,7 @@ class NodeElement : private Node{
 class NodeList : private Node{
     vector<Node*> children;
 
-    NodeList(){
-        type = List;
-        terminal = false;
-    }
-
-    NodeList(pair<int,int> interval) {
-        this->interval = interval;
-    }
-};
-
-class NodeList : private Node{
-    vector<Node*> children;
-
-    NodeList(){
+    NodeList() {
         type = List;
         terminal = false;
     }
@@ -86,7 +73,7 @@ class NodeList : private Node{
 class NodeLiteral : private Node{
     Node* child;
 
-    NodeLiteral(){
+    NodeLiteral() {
         type = Literal;
         terminal = false;
     }
@@ -99,7 +86,7 @@ class NodeLiteral : private Node{
 class NodeAtom : private Node{
     Node* child;
 
-    NodeAtom(){
+    NodeAtom() {
         type = Atom;
         terminal = false;
     }
@@ -111,11 +98,11 @@ class NodeAtom : private Node{
 
 class NodeTerminal : private Node{
     
-    NodeTerminal(){
+    NodeTerminal() {
         terminal = true;
     }
 
-    NodeTerminal(Type type){
+    NodeTerminal(NodeType type){
         this->type = type;
     }
 };

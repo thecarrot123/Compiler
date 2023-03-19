@@ -13,6 +13,9 @@ build/token.o: token.cpp token.hpp
 build/syntaxer.o: syntaxer.cpp syntaxer.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
+build/syntaxer_node.o: syntaxer_node.cpp syntaxer_node.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
 run_tests: compiler
 	./compiler -f tests/in/1.dl -l tests/lexer_output/1.lex 
 	./compiler -f tests/in/2.dl -l tests/lexer_output/2.lex 

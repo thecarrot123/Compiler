@@ -63,7 +63,7 @@ public:
     }
 
     void printHelp() {
-        printf("Usage: ./compiler -f <file> [Options] program.dl>\n");
+        printf("Usage: ./compiler -f <file> [Options] <program.dl>\n");
         printf("Options: [-l <output>] [-s <output>]\n");
     }
 };
@@ -88,5 +88,6 @@ int main(int argc, char **argv) {
     if (args.getArg('s') != "") {
         
     }
+    file.close();
     return 0;
 }
