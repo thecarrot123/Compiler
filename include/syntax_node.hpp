@@ -23,17 +23,21 @@ enum NodeType{
 class Node {
 protected:
     vector <Token> tokenized_code;
+    int* bracket_info;
     pair<int,int> interval;
     NodeType type;
     bool terminal;
 
 public:
-    void parse();
+    bool parse();
+    void set_type(NodeType type);
+    void set_terminal(bool terminal);
 };
 
-class NodeProgram : private Node {
-    vector <Node*> children;
-    
+class NodeProgram : public Node {
+    vector <Node> children;
+
+public:
     NodeProgram() {
         type = Program;
         terminal = false;
@@ -42,11 +46,14 @@ class NodeProgram : private Node {
     NodeProgram(pair<int,int> interval) {
         this->interval = interval;
     }
+
+    bool parse();
 };
 
-class NodeElement : private Node{
-    vector<Node*> children;
+class NodeElement : public Node{
+    Node* child;
 
+public:
     NodeElement() {
         type = Element;
         terminal = false;
@@ -55,11 +62,14 @@ class NodeElement : private Node{
     NodeElement(pair<int,int> interval) {
         this->interval = interval;
     }
+
+    bool parse();
 };
 
-class NodeList : private Node{
-    vector<Node*> children;
+class NodeList : public Node{
+    vector<Node> children;
 
+public:
     NodeList() {
         type = List;
         terminal = false;
@@ -68,11 +78,14 @@ class NodeList : private Node{
     NodeList(pair<int,int> interval) {
         this->interval = interval;
     }
+
+    bool parse();
 };
 
-class NodeLiteral : private Node{
+class NodeLiteral : public Node{
     Node* child;
 
+public:
     NodeLiteral() {
         type = Literal;
         terminal = false;
@@ -81,11 +94,14 @@ class NodeLiteral : private Node{
     NodeLiteral(pair<int,int> interval) {
         this->interval = interval;
     }
+
+    bool parse();
 };
 
-class NodeAtom : private Node{
+class NodeAtom : public Node{
     Node* child;
 
+public:
     NodeAtom() {
         type = Atom;
         terminal = false;
@@ -94,10 +110,13 @@ class NodeAtom : private Node{
     NodeAtom(pair<int,int> interval) {
         this->interval = interval;
     }
+
+    bool parse();
 };
 
-class NodeTerminal : private Node{
-    
+class NodeTerminal : public Node{
+
+public:  
     NodeTerminal() {
         terminal = true;
     }
