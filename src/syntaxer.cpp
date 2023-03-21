@@ -34,21 +34,14 @@ bool Syntaxer::check_brackets(){
         error = 1;
         error_messages.push_back("Error: Unclosed parentheses at line " + 
             to_string(tokenized_code[parentheses.top()].line));
-        //printf("Error: Unclosed parentheses at line %d\n",tokenized_code[parentheses.top()].line);
         parentheses.pop();
     }
-    /*
-    for(int i=0;i<size();i++) {
-        if(bracket_info[i] != -1) {
-            printf("%d: %d\n",i,bracket_info[i]);
-        }
-    }*/
     return !error;
 }
 
 pair<vector<Node*>, vector<vector<int>> > Syntaxer::parse_code(){
     queue<pair<Node*,int> > bfs;
-    bfs.push(make_pair(new NodeProgram(bracket_info, tokenized_code, make_pair(0, size())), -1));
+    bfs.push(make_pair(new NodeProgram(bracket_info, tokenized_code, make_pair(0, (int)size() - 1)), -1));
     while (!bfs.empty()){
         int index = nodes_list.size();
         nodes_list.push_back(bfs.front().first);
@@ -67,7 +60,6 @@ pair<vector<Node*>, vector<vector<int>> > Syntaxer::parse_code(){
         }
         else
         {
-            //error
         }
     }
     return make_pair(nodes_list, tree);
@@ -90,17 +82,17 @@ void Syntaxer::print(){
 void Syntaxer::print(string filename) {
     filebuf file;
     file.open(filename, ios::out);
-    ostream ffout(&file);
-    ffout << "graph {\n";
+    ostream fout(&file);
+    fout << "graph {\n";
     for (int i = 0 ; i < nodes_list.size(); i++){
-        ffout << i <<"[label=\""<< nodes_list[i]->get_type() <<"\"]\n";
+        fout << i <<"[label=\""<< nodes_list[i]->get_type() <<"\"]\n";
     }
-    ffout <<endl;
+    fout <<endl;
 
     for (int i = 0; i < nodes_list.size(); i++){
         for (int j = 0; j < tree[i].size();j++)
-            ffout << i <<" -- " <<tree[i][j]<<"\n";
+            fout << i <<" -- " <<tree[i][j]<<"\n";
     }
-    ffout<<'}';
+    fout<<'}';
     file.close();
 }

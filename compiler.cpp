@@ -7,7 +7,7 @@
 
 using namespace std;
 
-vector < Token > *tokenized_code;
+
 
 class ArgReader {
 private:
@@ -72,6 +72,8 @@ public:
 };
 
 
+vector < Token > *tokenized_code;
+
 int main(int argc, char **argv) {
     
     ArgReader args(argc, argv);
@@ -83,15 +85,19 @@ int main(int argc, char **argv) {
         exit(1);
     }
     Lexer lexer(file_name);
-    tokenized_code = lexer.scan_code();
+    tokenized_code = lexer.get_tokens();
+    if (tokenized_code == NULL) {
+        lexer.print_errors();
+        exit(0);
+    }
     if (args.getArg('l') != "") {
         lexer.print(args.getArg('l'));
     }
     Syntaxer syntaxer(tokenized_code);
     syntaxer.parse_code();
     if (args.getArg('s') != "") {
-        //syntaxer.print(args.getArg('s'));
-        syntaxer.print();
+        syntaxer.print(args.getArg('s'));
+        //syntaxer.print();
     }
     file.close();
     return 0;

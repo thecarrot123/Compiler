@@ -30,7 +30,7 @@ bool NodeProgram::parse(){
         }
 
         else if (tokenized_code[i].type == RPAR){
-            return 0;
+            return false;
         }
 
         else{
@@ -38,7 +38,7 @@ bool NodeProgram::parse(){
         }
     }
 
-    return 1;
+    return true;
 }
 
 bool NodeList::parse(){

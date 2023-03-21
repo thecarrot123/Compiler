@@ -43,23 +43,27 @@ Token Lexer::next_token() {
 	return Token(content,line_cnt);
 }
 
-vector < Token > *Lexer::scan_code() {
-    if (tokenized_code != NULL)
-        return tokenized_code;
+void Lexer::scan_code() {
+    
     string input;
     while (getline(fin, input)) {
         code+= input + '\n';
     }
-    tokenized_code = new vector < Token >;
     Token token(next_token());
     while (token.content != "") {
+        if(token.type == token_type::ERR) {
+            error_messages->push_back(token);
+        }
         tokenized_code->push_back(token);
         token = next_token();
     }
-    return tokenized_code;
+    if(error_messages->size() != 0)
+        tokenized_code->clear();
 }
 
 void Lexer::print(string filename) {
+    if(error_messages && error_messages->size() != 0)
+        return;
     filebuf file;
     file.open(filename, ios::out);
     ostream fout(&file);
@@ -70,7 +74,30 @@ void Lexer::print(string filename) {
 }
 
 void Lexer::print() {
+    if(error_messages && error_messages->size() != 0)
+        return;
     for (auto token: *tokenized_code) {
         cout<<token<<endl;
     }
+}
+
+void Lexer::print_errors() {
+    if(error_messages && error_messages->size() == 0)
+        return;
+    cout<<"Error parsing the code\n";
+    for(auto err:*error_messages) {
+        cout<<err;
+    }
+}
+
+vector < Token > *Lexer::get_tokens() {
+    if(tokenized_code->size() != 0 && error_messages->size() != 0)
+        return tokenized_code;
+    if(error_messages->size() != 0)
+        return NULL;
+    scan_code();
+    if(error_messages->size() != 0)
+        return NULL;
+    return tokenized_code;
+    
 }

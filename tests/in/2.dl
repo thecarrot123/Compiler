@@ -1,8 +1,8 @@
 1afd
-(func Cube (arg) (times (times arg arg) arg))
+(func Cube (arg) (times (times arg arg) arg)) 12sads
 (func Trivial () 1.1)
 (func makeList (A) (A)) // random comment
-
+42asd
 //
 // dofijd 
 
