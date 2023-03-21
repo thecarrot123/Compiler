@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
     Syntaxer syntaxer(tokenized_code);
     Node* root = syntaxer.get_root();
     if (root == NULL) {
-        //print errors
+        syntaxer.print_errors();
         exit(0);
     }
     if (args.getArg('s') != "") {

@@ -20,6 +20,7 @@ run_tests: compiler
 	./compiler -f tests/in/1.dl -l tests/lexer_output/1.lex -s tests/syntaxer_output/1.syn
 	./compiler -f tests/in/2.dl -l tests/lexer_output/2.lex -s tests/syntaxer_output/2.syn
 	./compiler -f tests/in/3.dl -l tests/lexer_output/3.lex -s tests/syntaxer_output/3.syn
+	./compiler -f tests/in/4.dl -l tests/lexer_output/4.lex -s tests/syntaxer_output/4.syn
 	dot -Tpng tests/syntaxer_output/1.syn > tests/syntaxer_visualization/1.png
 	dot -Tpng tests/syntaxer_output/3.syn > tests/syntaxer_visualization/3.png
 
