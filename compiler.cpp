@@ -88,8 +88,10 @@ int main(int argc, char **argv) {
         lexer.print(args.getArg('l'));
     }
     Syntaxer syntaxer(tokenized_code);
+    syntaxer.parse_code();
     if (args.getArg('s') != "") {
-        
+        //syntaxer.print(args.getArg('s'));
+        syntaxer.print();
     }
     file.close();
     return 0;

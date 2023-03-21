@@ -27,88 +27,101 @@ protected:
     pair<int,int> interval;
     NodeType type;
     bool terminal;
+    static const string node_types[];
 
 public:
-    bool parse();
-    void set_type(NodeType type);
-    void set_terminal(bool terminal);
+    vector <Node*> children;
+    virtual bool parse();
+    bool isTerminal();
+    virtual string get_type();
 };
 
 class NodeProgram : public Node {
-    vector <Node> children;
-
 public:
     NodeProgram() {
         type = Program;
         terminal = false;
     }
 
-    NodeProgram(pair<int,int> interval) {
+    NodeProgram(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+        type = Program;
+        terminal = false;
         this->interval = interval;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
     }
 
     bool parse();
 };
 
 class NodeElement : public Node{
-    Node* child;
-
 public:
     NodeElement() {
         type = Element;
         terminal = false;
     }
 
-    NodeElement(pair<int,int> interval) {
+    NodeElement(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+        type = Element;
+        terminal = false;
         this->interval = interval;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
     }
 
     bool parse();
 };
 
 class NodeList : public Node{
-    vector<Node> children;
-
 public:
     NodeList() {
         type = List;
         terminal = false;
     }
 
-    NodeList(pair<int,int> interval) {
+    NodeList(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+        type = List;
+        terminal = false;
         this->interval = interval;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
     }
 
     bool parse();
 };
 
 class NodeLiteral : public Node{
-    Node* child;
-
 public:
     NodeLiteral() {
         type = Literal;
         terminal = false;
     }
 
-    NodeLiteral(pair<int,int> interval) {
+    NodeLiteral(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+        type = Literal;
+        terminal = false;
         this->interval = interval;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
     }
 
     bool parse();
 };
 
 class NodeAtom : public Node{
-    Node* child;
-
 public:
+
     NodeAtom() {
         type = Atom;
         terminal = false;
     }
 
-    NodeAtom(pair<int,int> interval) {
+    NodeAtom(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+        type = Atom;
+        terminal = false;
         this->interval = interval;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
     }
 
     bool parse();
@@ -121,8 +134,11 @@ public:
         terminal = true;
     }
 
-    NodeTerminal(NodeType type){
+    NodeTerminal(int* bracket_info, vector <Token> tokenized_code, NodeType type){
+        terminal = true;
         this->type = type;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
     }
 };
 #endif

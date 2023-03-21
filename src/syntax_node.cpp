@@ -4,12 +4,19 @@
 #include <stdio.h>
 using namespace std;
 
-void Node::set_type(NodeType type){
-    this->type = type;
+const string Node::node_types[] = {"Program", "Element", "List",  "Literal",  "Atom",  "real", "boolean", "null", 
+                                "atom", "lpar", "rpar", "keyword", "integer"};
+
+bool Node::isTerminal(){
+    return terminal;
 }
 
-void Node::set_terminal(bool terminal){
-    this->terminal = terminal;
+bool Node::parse(){
+    return 0;
+}
+
+string Node::get_type(){
+    return node_types[type];
 }
 
 bool NodeProgram::parse(){
@@ -18,8 +25,7 @@ bool NodeProgram::parse(){
     for (int i = l; i <= r; i++)
     {
         if (tokenized_code[i].type == LPAR){
-            NodeElement newNode(make_pair(i, bracket_info[i]));
-            children.push_back(newNode);
+            children.push_back(new NodeElement(bracket_info, tokenized_code, make_pair(i, bracket_info[i])));
             i = bracket_info[i];
         }
 
@@ -28,8 +34,7 @@ bool NodeProgram::parse(){
         }
 
         else{
-            NodeElement newNode(make_pair(i, i));
-            children.push_back(newNode);
+            children.push_back(new NodeElement(bracket_info, tokenized_code, make_pair(i, i)));
         }
     }
 
@@ -37,16 +42,14 @@ bool NodeProgram::parse(){
 }
 
 bool NodeList::parse(){
-    NodeTerminal firstNode(lpar);
-    children.push_back(firstNode);
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, lpar));
 
     int l = interval.first + 1;
     int r = interval.second - 1;
     for (int i = l; i <= r; i++)
     {
         if (tokenized_code[i].type == LPAR){
-            NodeElement newNode(make_pair(i, bracket_info[i]));
-            children.push_back(newNode);
+            children.push_back(new NodeElement (bracket_info, tokenized_code, make_pair(i, bracket_info[i])));
             i = bracket_info[i];
         }
 
@@ -55,13 +58,11 @@ bool NodeList::parse(){
         }
 
         else{
-            NodeElement newNode(make_pair(i, i));
-            children.push_back(newNode);
+            children.push_back(new NodeElement(bracket_info, tokenized_code, make_pair(i, i)));
         }
     }
 
-    NodeTerminal lastNode(rpar);
-    children.push_back(lastNode);
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, rpar));
     
     return 1;
 }
@@ -72,16 +73,16 @@ bool NodeElement::parse(){
     int r = interval.second;
     if (l != r){
         if (tokenized_code[l].type == LPAR){
-            child = new NodeList(make_pair(l, r));
+            children.push_back(new NodeList(bracket_info, tokenized_code, make_pair(l, r)));
         }
         else
             return 0;
     }
     else{
         if (tokenized_code[l].type == ATOM || tokenized_code[l].type == KEYWORD)
-            child = new NodeAtom(make_pair(l, r));
+            children.push_back(new NodeAtom(bracket_info, tokenized_code, make_pair(l, r)));
         else if (tokenized_code[l].type == REAL || tokenized_code[l].type == INT || tokenized_code[l].type == BOOL || tokenized_code[l].type == NUL)
-            child = new NodeLiteral(make_pair(l, r));
+            children.push_back(new NodeLiteral(bracket_info, tokenized_code, make_pair(l, r)));
         else
             return 0;
     }
@@ -103,7 +104,7 @@ bool NodeLiteral::parse(){
         type = boolean;
     else if (tokenized_code[l].type == NUL)
         type = null;
-    child = new NodeTerminal(type);
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, type));
     return 1;
 }
 
@@ -117,6 +118,6 @@ bool NodeAtom::parse(){
         type = atom;
     if (tokenized_code[l].type == KEYWORD)
         type = keyword;
-    child = new NodeTerminal(type);
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, type));
     return 1;
 }

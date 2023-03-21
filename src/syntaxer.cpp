@@ -1,7 +1,12 @@
 #include "syntaxer.hpp"
+#include "syntax_node.hpp"
 #include "token.hpp"
 #include <stack>
 #include <stdio.h>
+#include <queue>
+#include <iostream>
+#include <fstream>
+
 
 using namespace std;
 
@@ -41,3 +46,61 @@ bool Syntaxer::check_brackets(){
     return !error;
 }
 
+pair<vector<Node*>, vector<vector<int>> > Syntaxer::parse_code(){
+    queue<pair<Node*,int> > bfs;
+    bfs.push(make_pair(new NodeProgram(bracket_info, tokenized_code, make_pair(0, size())), -1));
+    while (!bfs.empty()){
+        int index = nodes_list.size();
+        nodes_list.push_back(bfs.front().first);
+        if (bfs.front().second >= 0){
+            tree[bfs.front().second].push_back(index);
+        }
+        bfs.pop();
+        if (nodes_list.back()->isTerminal()){
+            continue;
+        }
+        if (nodes_list.back()->parse())
+        {
+            for(int i = 0; i < nodes_list.back()->children.size(); i++){
+                bfs.push(make_pair(nodes_list.back()->children[i], index));
+            }
+        }
+        else
+        {
+            //error
+        }
+    }
+    return make_pair(nodes_list, tree);
+}
+
+void Syntaxer::print(){
+    cout << "graph {\n";
+    for (int i = 0 ; i < nodes_list.size(); i++){
+        cout << i <<"[label=\""<< nodes_list[i]->get_type() <<"\"]\n";
+    }
+    cout <<endl;
+
+    for (int i = 0; i < nodes_list.size(); i++){
+        for (int j = 0; j < tree[i].size();j++)
+            cout << i <<" -- " <<tree[i][j]<<"\n";
+    }
+    cout<<'}';
+}
+
+void Syntaxer::print(string filename) {
+    filebuf file;
+    file.open(filename, ios::out);
+    ostream ffout(&file);
+    ffout << "graph {\n";
+    for (int i = 0 ; i < nodes_list.size(); i++){
+        ffout << i <<"[label=\""<< nodes_list[i]->get_type() <<"\"]\n";
+    }
+    ffout <<endl;
+
+    for (int i = 0; i < nodes_list.size(); i++){
+        for (int j = 0; j < tree[i].size();j++)
+            ffout << i <<" -- " <<tree[i][j]<<"\n";
+    }
+    ffout<<'}';
+    file.close();
+}
