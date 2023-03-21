@@ -1,224 +1,223 @@
 graph {
 0[label="Program"]
-1[label="Element"]
-2[label="List"]
-3[label="lpar"]
-4[label="Element"]
-5[label="Element"]
-6[label="Element"]
-7[label="Element"]
-8[label="rpar"]
-9[label="Atom"]
-10[label="Atom"]
-11[label="List"]
-12[label="List"]
-13[label="keyword"]
-14[label="atom"]
-15[label="lpar"]
-16[label="Element"]
-17[label="rpar"]
-18[label="lpar"]
-19[label="Element"]
-20[label="Element"]
-21[label="Element"]
-22[label="Element"]
-23[label="rpar"]
-24[label="Atom"]
-25[label="Atom"]
-26[label="List"]
-27[label="Literal"]
-28[label="List"]
-29[label="atom"]
-30[label="keyword"]
-31[label="lpar"]
-32[label="Element"]
-33[label="Element"]
-34[label="Element"]
-35[label="rpar"]
-36[label="integer"]
-37[label="lpar"]
-38[label="Element"]
-39[label="Element"]
-40[label="Element"]
-41[label="Element"]
-42[label="rpar"]
-43[label="Atom"]
-44[label="Literal"]
-45[label="Atom"]
-46[label="Atom"]
-47[label="List"]
-48[label="Literal"]
-49[label="List"]
-50[label="atom"]
-51[label="integer"]
-52[label="atom"]
-53[label="keyword"]
-54[label="lpar"]
-55[label="Element"]
-56[label="Element"]
-57[label="Element"]
-58[label="rpar"]
-59[label="integer"]
-60[label="lpar"]
-61[label="Element"]
-62[label="Element"]
-63[label="rpar"]
-64[label="Atom"]
-65[label="Literal"]
-66[label="Atom"]
-67[label="Atom"]
-68[label="List"]
-69[label="atom"]
-70[label="integer"]
-71[label="atom"]
-72[label="atom"]
-73[label="lpar"]
-74[label="Element"]
-75[label="Element"]
-76[label="Element"]
-77[label="rpar"]
-78[label="Atom"]
-79[label="List"]
-80[label="List"]
-81[label="atom"]
-82[label="lpar"]
-83[label="Element"]
-84[label="Element"]
-85[label="Element"]
-86[label="rpar"]
-87[label="lpar"]
-88[label="Element"]
-89[label="Element"]
-90[label="rpar"]
-91[label="Atom"]
-92[label="Atom"]
-93[label="Literal"]
-94[label="Atom"]
-95[label="List"]
-96[label="atom"]
-97[label="atom"]
-98[label="integer"]
-99[label="atom"]
-100[label="lpar"]
-101[label="Element"]
-102[label="Element"]
-103[label="Element"]
-104[label="rpar"]
-105[label="Atom"]
-106[label="Atom"]
-107[label="Literal"]
-108[label="atom"]
-109[label="atom"]
-110[label="integer"]
-
 0 -- 1
+1[label="Element"]
 1 -- 2
+2[label="List"]
 2 -- 3
+3[label="lpar"]
 2 -- 4
-2 -- 5
-2 -- 6
+4[label="Element"]
+4 -- 5
+5[label="Atom"]
+5 -- 6
+6[label="keyword"]
 2 -- 7
-2 -- 8
-4 -- 9
-5 -- 10
-6 -- 11
-7 -- 12
-9 -- 13
-10 -- 14
-11 -- 15
+7[label="Element"]
+7 -- 8
+8[label="Atom"]
+8 -- 9
+9[label="atom"]
+2 -- 10
+10[label="Element"]
+10 -- 11
+11[label="List"]
+11 -- 12
+12[label="lpar"]
+11 -- 13
+13[label="Element"]
+13 -- 14
+14[label="Atom"]
+14 -- 15
+15[label="atom"]
 11 -- 16
-11 -- 17
-12 -- 18
-12 -- 19
-12 -- 20
-12 -- 21
-12 -- 22
-12 -- 23
-16 -- 24
-19 -- 25
-20 -- 26
-21 -- 27
-22 -- 28
+16[label="rpar"]
+2 -- 17
+17[label="Element"]
+17 -- 18
+18[label="List"]
+18 -- 19
+19[label="lpar"]
+18 -- 20
+20[label="Element"]
+20 -- 21
+21[label="Atom"]
+21 -- 22
+22[label="keyword"]
+18 -- 23
+23[label="Element"]
+23 -- 24
+24[label="List"]
+24 -- 25
+25[label="lpar"]
+24 -- 26
+26[label="Element"]
+26 -- 27
+27[label="Atom"]
+27 -- 28
+28[label="atom"]
 24 -- 29
-25 -- 30
-26 -- 31
-26 -- 32
-26 -- 33
-26 -- 34
-26 -- 35
-27 -- 36
-28 -- 37
-28 -- 38
-28 -- 39
-28 -- 40
-28 -- 41
-28 -- 42
-32 -- 43
-33 -- 44
-34 -- 45
-38 -- 46
-39 -- 47
-40 -- 48
-41 -- 49
-43 -- 50
-44 -- 51
-45 -- 52
-46 -- 53
-47 -- 54
-47 -- 55
-47 -- 56
-47 -- 57
-47 -- 58
-48 -- 59
-49 -- 60
-49 -- 61
-49 -- 62
-49 -- 63
-55 -- 64
-56 -- 65
-57 -- 66
-61 -- 67
-62 -- 68
-64 -- 69
-65 -- 70
-66 -- 71
-67 -- 72
+29[label="Element"]
+29 -- 30
+30[label="Literal"]
+30 -- 31
+31[label="integer"]
+24 -- 32
+32[label="Element"]
+32 -- 33
+33[label="Atom"]
+33 -- 34
+34[label="atom"]
+24 -- 35
+35[label="rpar"]
+18 -- 36
+36[label="Element"]
+36 -- 37
+37[label="Literal"]
+37 -- 38
+38[label="integer"]
+18 -- 39
+39[label="Element"]
+39 -- 40
+40[label="List"]
+40 -- 41
+41[label="lpar"]
+40 -- 42
+42[label="Element"]
+42 -- 43
+43[label="Atom"]
+43 -- 44
+44[label="keyword"]
+40 -- 45
+45[label="Element"]
+45 -- 46
+46[label="List"]
+46 -- 47
+47[label="lpar"]
+46 -- 48
+48[label="Element"]
+48 -- 49
+49[label="Atom"]
+49 -- 50
+50[label="atom"]
+46 -- 51
+51[label="Element"]
+51 -- 52
+52[label="Literal"]
+52 -- 53
+53[label="integer"]
+46 -- 54
+54[label="Element"]
+54 -- 55
+55[label="Atom"]
+55 -- 56
+56[label="atom"]
+46 -- 57
+57[label="rpar"]
+40 -- 58
+58[label="Element"]
+58 -- 59
+59[label="Literal"]
+59 -- 60
+60[label="integer"]
+40 -- 61
+61[label="Element"]
+61 -- 62
+62[label="List"]
+62 -- 63
+63[label="lpar"]
+62 -- 64
+64[label="Element"]
+64 -- 65
+65[label="Atom"]
+65 -- 66
+66[label="atom"]
+62 -- 67
+67[label="Element"]
+67 -- 68
+68[label="List"]
+68 -- 69
+69[label="lpar"]
+68 -- 70
+70[label="Element"]
+70 -- 71
+71[label="Atom"]
+71 -- 72
+72[label="atom"]
 68 -- 73
-68 -- 74
-68 -- 75
-68 -- 76
-68 -- 77
-74 -- 78
-75 -- 79
-76 -- 80
-78 -- 81
-79 -- 82
-79 -- 83
-79 -- 84
-79 -- 85
-79 -- 86
-80 -- 87
-80 -- 88
-80 -- 89
-80 -- 90
-83 -- 91
-84 -- 92
-85 -- 93
-88 -- 94
-89 -- 95
-91 -- 96
-92 -- 97
+73[label="Element"]
+73 -- 74
+74[label="List"]
+74 -- 75
+75[label="lpar"]
+74 -- 76
+76[label="Element"]
+76 -- 77
+77[label="Atom"]
+77 -- 78
+78[label="atom"]
+74 -- 79
+79[label="Element"]
+79 -- 80
+80[label="Atom"]
+80 -- 81
+81[label="atom"]
+74 -- 82
+82[label="Element"]
+82 -- 83
+83[label="Literal"]
+83 -- 84
+84[label="integer"]
+74 -- 85
+85[label="rpar"]
+68 -- 86
+86[label="Element"]
+86 -- 87
+87[label="List"]
+87 -- 88
+88[label="lpar"]
+87 -- 89
+89[label="Element"]
+89 -- 90
+90[label="Atom"]
+90 -- 91
+91[label="atom"]
+87 -- 92
+92[label="Element"]
+92 -- 93
+93[label="List"]
+93 -- 94
+94[label="lpar"]
+93 -- 95
+95[label="Element"]
+95 -- 96
+96[label="Atom"]
+96 -- 97
+97[label="atom"]
 93 -- 98
-94 -- 99
-95 -- 100
-95 -- 101
-95 -- 102
-95 -- 103
-95 -- 104
-101 -- 105
-102 -- 106
-103 -- 107
-105 -- 108
-106 -- 109
-107 -- 110
+98[label="Element"]
+98 -- 99
+99[label="Atom"]
+99 -- 100
+100[label="atom"]
+93 -- 101
+101[label="Element"]
+101 -- 102
+102[label="Literal"]
+102 -- 103
+103[label="integer"]
+93 -- 104
+104[label="rpar"]
+87 -- 105
+105[label="rpar"]
+68 -- 106
+106[label="rpar"]
+62 -- 107
+107[label="rpar"]
+40 -- 108
+108[label="rpar"]
+18 -- 109
+109[label="rpar"]
+2 -- 110
+110[label="rpar"]
 }

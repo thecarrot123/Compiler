@@ -94,9 +94,13 @@ int main(int argc, char **argv) {
         lexer.print(args.getArg('l'));
     }
     Syntaxer syntaxer(tokenized_code);
-    syntaxer.parse_code();
+    Node* root = syntaxer.get_root();
+    if (root == NULL) {
+        //print errors
+        exit(0);
+    }
     if (args.getArg('s') != "") {
-        syntaxer.print(args.getArg('s'));
+        syntaxer.print(args.getArg('s'), root);
         //syntaxer.print();
     }
     file.close();

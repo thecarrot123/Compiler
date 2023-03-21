@@ -19,6 +19,14 @@ string Node::get_type(){
     return node_types[type];
 }
 
+int Node::get_index(){
+    return index;
+}
+
+void Node::set_index(int index){
+    this->index = index;
+}
+
 bool NodeProgram::parse(){
     int l = interval.first;
     int r = interval.second;

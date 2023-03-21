@@ -1,188 +1,187 @@
 graph {
 0[label="Program"]
-1[label="Element"]
-2[label="Element"]
-3[label="List"]
-4[label="List"]
-5[label="lpar"]
-6[label="Element"]
-7[label="Element"]
-8[label="Element"]
-9[label="Element"]
-10[label="rpar"]
-11[label="lpar"]
-12[label="Element"]
-13[label="Element"]
-14[label="Element"]
-15[label="Element"]
-16[label="rpar"]
-17[label="Atom"]
-18[label="Atom"]
-19[label="List"]
-20[label="List"]
-21[label="Atom"]
-22[label="Atom"]
-23[label="List"]
-24[label="List"]
-25[label="keyword"]
-26[label="atom"]
-27[label="lpar"]
-28[label="Element"]
-29[label="Element"]
-30[label="rpar"]
-31[label="lpar"]
-32[label="Element"]
-33[label="Element"]
-34[label="Element"]
-35[label="Element"]
-36[label="rpar"]
-37[label="keyword"]
-38[label="atom"]
-39[label="lpar"]
-40[label="Element"]
-41[label="Element"]
-42[label="rpar"]
-43[label="lpar"]
-44[label="Element"]
-45[label="Element"]
-46[label="Element"]
-47[label="Element"]
-48[label="rpar"]
-49[label="Atom"]
-50[label="Atom"]
-51[label="Atom"]
-52[label="List"]
-53[label="Atom"]
-54[label="Atom"]
-55[label="Atom"]
-56[label="Atom"]
-57[label="Atom"]
-58[label="List"]
-59[label="Atom"]
-60[label="Atom"]
-61[label="atom"]
-62[label="atom"]
-63[label="keyword"]
-64[label="lpar"]
-65[label="Element"]
-66[label="Element"]
-67[label="Element"]
-68[label="rpar"]
-69[label="atom"]
-70[label="atom"]
-71[label="atom"]
-72[label="atom"]
-73[label="keyword"]
-74[label="lpar"]
-75[label="Element"]
-76[label="Element"]
-77[label="Element"]
-78[label="rpar"]
-79[label="atom"]
-80[label="atom"]
-81[label="Atom"]
-82[label="Atom"]
-83[label="Atom"]
-84[label="Atom"]
-85[label="Atom"]
-86[label="Atom"]
-87[label="atom"]
-88[label="atom"]
-89[label="atom"]
-90[label="atom"]
-91[label="atom"]
-92[label="atom"]
-
 0 -- 1
-0 -- 2
-1 -- 3
+1[label="Element"]
+1 -- 2
+2[label="List"]
+2 -- 3
+3[label="lpar"]
 2 -- 4
-3 -- 5
-3 -- 6
-3 -- 7
-3 -- 8
-3 -- 9
-3 -- 10
-4 -- 11
-4 -- 12
-4 -- 13
-4 -- 14
-4 -- 15
-4 -- 16
-6 -- 17
-7 -- 18
-8 -- 19
-9 -- 20
-12 -- 21
-13 -- 22
-14 -- 23
-15 -- 24
-17 -- 25
-18 -- 26
-19 -- 27
-19 -- 28
-19 -- 29
-19 -- 30
-20 -- 31
-20 -- 32
-20 -- 33
-20 -- 34
-20 -- 35
-20 -- 36
-21 -- 37
-22 -- 38
-23 -- 39
-23 -- 40
-23 -- 41
-23 -- 42
-24 -- 43
-24 -- 44
-24 -- 45
-24 -- 46
-24 -- 47
-24 -- 48
-28 -- 49
-29 -- 50
-32 -- 51
-33 -- 52
-34 -- 53
-35 -- 54
-40 -- 55
-41 -- 56
-44 -- 57
-45 -- 58
-46 -- 59
-47 -- 60
-49 -- 61
-50 -- 62
-51 -- 63
-52 -- 64
-52 -- 65
-52 -- 66
-52 -- 67
-52 -- 68
-53 -- 69
-54 -- 70
-55 -- 71
-56 -- 72
-57 -- 73
-58 -- 74
-58 -- 75
-58 -- 76
-58 -- 77
-58 -- 78
-59 -- 79
-60 -- 80
-65 -- 81
-66 -- 82
-67 -- 83
-75 -- 84
-76 -- 85
-77 -- 86
-81 -- 87
-82 -- 88
-83 -- 89
-84 -- 90
-85 -- 91
-86 -- 92
+4[label="Element"]
+4 -- 5
+5[label="Atom"]
+5 -- 6
+6[label="keyword"]
+2 -- 7
+7[label="Element"]
+7 -- 8
+8[label="Atom"]
+8 -- 9
+9[label="atom"]
+2 -- 10
+10[label="Element"]
+10 -- 11
+11[label="List"]
+11 -- 12
+12[label="lpar"]
+11 -- 13
+13[label="Element"]
+13 -- 14
+14[label="Atom"]
+14 -- 15
+15[label="atom"]
+11 -- 16
+16[label="Element"]
+16 -- 17
+17[label="Atom"]
+17 -- 18
+18[label="atom"]
+11 -- 19
+19[label="rpar"]
+2 -- 20
+20[label="Element"]
+20 -- 21
+21[label="List"]
+21 -- 22
+22[label="lpar"]
+21 -- 23
+23[label="Element"]
+23 -- 24
+24[label="Atom"]
+24 -- 25
+25[label="keyword"]
+21 -- 26
+26[label="Element"]
+26 -- 27
+27[label="List"]
+27 -- 28
+28[label="lpar"]
+27 -- 29
+29[label="Element"]
+29 -- 30
+30[label="Atom"]
+30 -- 31
+31[label="atom"]
+27 -- 32
+32[label="Element"]
+32 -- 33
+33[label="Atom"]
+33 -- 34
+34[label="atom"]
+27 -- 35
+35[label="Element"]
+35 -- 36
+36[label="Atom"]
+36 -- 37
+37[label="atom"]
+27 -- 38
+38[label="rpar"]
+21 -- 39
+39[label="Element"]
+39 -- 40
+40[label="Atom"]
+40 -- 41
+41[label="atom"]
+21 -- 42
+42[label="Element"]
+42 -- 43
+43[label="Atom"]
+43 -- 44
+44[label="atom"]
+21 -- 45
+45[label="rpar"]
+2 -- 46
+46[label="rpar"]
+0 -- 47
+47[label="Element"]
+47 -- 48
+48[label="List"]
+48 -- 49
+49[label="lpar"]
+48 -- 50
+50[label="Element"]
+50 -- 51
+51[label="Atom"]
+51 -- 52
+52[label="keyword"]
+48 -- 53
+53[label="Element"]
+53 -- 54
+54[label="Atom"]
+54 -- 55
+55[label="atom"]
+48 -- 56
+56[label="Element"]
+56 -- 57
+57[label="List"]
+57 -- 58
+58[label="lpar"]
+57 -- 59
+59[label="Element"]
+59 -- 60
+60[label="Atom"]
+60 -- 61
+61[label="atom"]
+57 -- 62
+62[label="Element"]
+62 -- 63
+63[label="Atom"]
+63 -- 64
+64[label="atom"]
+57 -- 65
+65[label="rpar"]
+48 -- 66
+66[label="Element"]
+66 -- 67
+67[label="List"]
+67 -- 68
+68[label="lpar"]
+67 -- 69
+69[label="Element"]
+69 -- 70
+70[label="Atom"]
+70 -- 71
+71[label="keyword"]
+67 -- 72
+72[label="Element"]
+72 -- 73
+73[label="List"]
+73 -- 74
+74[label="lpar"]
+73 -- 75
+75[label="Element"]
+75 -- 76
+76[label="Atom"]
+76 -- 77
+77[label="atom"]
+73 -- 78
+78[label="Element"]
+78 -- 79
+79[label="Atom"]
+79 -- 80
+80[label="atom"]
+73 -- 81
+81[label="Element"]
+81 -- 82
+82[label="Atom"]
+82 -- 83
+83[label="atom"]
+73 -- 84
+84[label="rpar"]
+67 -- 85
+85[label="Element"]
+85 -- 86
+86[label="Atom"]
+86 -- 87
+87[label="atom"]
+67 -- 88
+88[label="Element"]
+88 -- 89
+89[label="Atom"]
+89 -- 90
+90[label="atom"]
+67 -- 91
+91[label="rpar"]
+48 -- 92
+92[label="rpar"]
 }

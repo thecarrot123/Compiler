@@ -84,7 +84,7 @@ void Lexer::print() {
 void Lexer::print_errors() {
     if(error_messages && error_messages->size() == 0)
         return;
-    cout<<"Error parsing the code\n";
+    cout<<"Lexical error(s):\n";
     for(auto err:*error_messages) {
         cout<<err;
     }

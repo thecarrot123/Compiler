@@ -39,60 +39,58 @@ bool Syntaxer::check_brackets(){
     return !error;
 }
 
-pair<vector<Node*>, vector<vector<int>> > Syntaxer::parse_code(){
-    queue<pair<Node*,int> > bfs;
-    bfs.push(make_pair(new NodeProgram(bracket_info, tokenized_code, make_pair(0, (int)size() - 1)), -1));
-    while (!bfs.empty()){
-        int index = nodes_list.size();
-        nodes_list.push_back(bfs.front().first);
-        if (bfs.front().second >= 0){
-            tree[bfs.front().second].push_back(index);
-        }
-        bfs.pop();
-        if (nodes_list.back()->isTerminal()){
-            continue;
-        }
-        if (nodes_list.back()->parse())
-        {
-            for(int i = 0; i < nodes_list.back()->children.size(); i++){
-                bfs.push(make_pair(nodes_list.back()->children[i], index));
-            }
-        }
-        else
-        {
-        }
+Node* Syntaxer::get_root(){
+    if (error){
+        return NULL;
     }
-    return make_pair(nodes_list, tree);
+    Node* root = new NodeProgram(bracket_info, tokenized_code, make_pair(0, (int)size() - 1));
+    root->set_index(0);
+    tree_size++;
+    parse_code(root);
+    if (error)
+        return NULL;
+    return root;
 }
 
-void Syntaxer::print(){
-    cout << "graph {\n";
-    for (int i = 0 ; i < nodes_list.size(); i++){
-        cout << i <<"[label=\""<< nodes_list[i]->get_type() <<"\"]\n";
+void Syntaxer::parse_code(Node* node){
+    if (node->isTerminal())
+        return;
+    if (node->parse()){
+        for (int i = 0; i < node->children.size(); i++){
+            Node* next_node = node->children[i];
+            next_node->set_index(tree_size++);
+            parse_code(next_node);
+        }
     }
-    cout <<endl;
-
-    for (int i = 0; i < nodes_list.size(); i++){
-        for (int j = 0; j < tree[i].size();j++)
-            cout << i <<" -- " <<tree[i][j]<<"\n";
+    else{
+        error = 1;
+        error_messages.push_back("Error while parsing a " + node->get_type());
+        return;
     }
-    cout<<'}';
 }
 
-void Syntaxer::print(string filename) {
+void Syntaxer::print(ostream& fout, Node* node){
+    fout << node->get_index() <<"[label=\""<< node->get_type() <<"\"]\n";
+    for (int i = 0; i < node->children.size(); i++){
+        Node* next_node = node->children[i];
+        fout << node->get_index() <<" -- " <<next_node->get_index()<<"\n";
+        print(fout, next_node);
+    }
+}
+
+void Syntaxer::print(string filename, Node* root) {
     filebuf file;
     file.open(filename, ios::out);
     ostream fout(&file);
     fout << "graph {\n";
-    for (int i = 0 ; i < nodes_list.size(); i++){
-        fout << i <<"[label=\""<< nodes_list[i]->get_type() <<"\"]\n";
-    }
-    fout <<endl;
-
-    for (int i = 0; i < nodes_list.size(); i++){
-        for (int j = 0; j < tree[i].size();j++)
-            fout << i <<" -- " <<tree[i][j]<<"\n";
-    }
+    print(fout, root);
     fout<<'}';
     file.close();
+}
+
+void Syntaxer::print_errors(){
+    cout << "Syntax error(s):\n";
+    for (int i = 0; i < error_messages.size(); i++){
+        cout << error_messages[i] << '\n';
+    }
 }

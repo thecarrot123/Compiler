@@ -28,12 +28,15 @@ protected:
     NodeType type;
     bool terminal;
     static const string node_types[];
+    int index;
 
 public:
     vector <Node*> children;
     virtual bool parse();
     bool isTerminal();
     virtual string get_type();
+    virtual int get_index();
+    virtual void set_index(int index);
 };
 
 class NodeProgram : public Node {
@@ -43,7 +46,7 @@ public:
         terminal = false;
     }
 
-    NodeProgram(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+    NodeProgram(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Program;
         terminal = false;
         this->interval = interval;
@@ -61,7 +64,7 @@ public:
         terminal = false;
     }
 
-    NodeElement(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+    NodeElement(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Element;
         terminal = false;
         this->interval = interval;
@@ -79,7 +82,7 @@ public:
         terminal = false;
     }
 
-    NodeList(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+    NodeList(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = List;
         terminal = false;
         this->interval = interval;
@@ -97,7 +100,7 @@ public:
         terminal = false;
     }
 
-    NodeLiteral(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+    NodeLiteral(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Literal;
         terminal = false;
         this->interval = interval;
@@ -116,7 +119,7 @@ public:
         terminal = false;
     }
 
-    NodeAtom(int* bracket_info, vector <Token> tokenized_code, pair<int,int> interval) {
+    NodeAtom(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Atom;
         terminal = false;
         this->interval = interval;
@@ -134,7 +137,7 @@ public:
         terminal = true;
     }
 
-    NodeTerminal(int* bracket_info, vector <Token> tokenized_code, NodeType type){
+    NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, NodeType type){
         terminal = true;
         this->type = type;
         this->tokenized_code = tokenized_code;
@@ -142,3 +145,11 @@ public:
     }
 };
 #endif
+/**
+TODO:
+png make
+check path if valid
+print terminals info in tree
+rename to syntax node
+make more expamles
+*/
