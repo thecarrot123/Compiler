@@ -1,5 +1,5 @@
 #include "syntaxer.hpp"
-#include "syntax_node.hpp"
+#include "syntax_nodes.hpp"
 #include "token.hpp"
 #include <stack>
 #include <stdio.h>
