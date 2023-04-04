@@ -1,7 +1,7 @@
 #ifndef SYNTAXER_HEADER
 #define SYNTAXER_HEADER
 #include "token.hpp"
-#include "syntax_node.hpp"
+#include "syntax_nodes.hpp"
 #include <vector>
 #include <cstring>
 
