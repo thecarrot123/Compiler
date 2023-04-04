@@ -6,7 +6,7 @@
 using namespace std;
 
 const string Node::node_types[] = {"Program", "Element", "List",  "Literal",  "Atom",  "real", "boolean", "null", 
-                                "atom", "lpar", "rpar", "keyword", "integer"};
+                                "atom", "lpar", "rpar", "keyword", "integer","SpecialForm","Params"};
 
 bool Node::isTerminal(){
     return terminal;
