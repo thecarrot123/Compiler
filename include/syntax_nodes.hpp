@@ -1,43 +1,9 @@
-#ifndef SYNTAX_NODE_HEADER
-#define SYNTAX_NODE_HEADER
+#ifndef SYNTAX_NODES_HEADER
+#define SYNTAX_NODES_HEADER
 #include <fstream>
 #include <vector>
 #include "token.hpp"
-
-enum NodeType{
-    Program,
-    Element,
-    List,
-    Literal,
-    Atom,
-    real,
-    boolean,
-    null,
-    atom,
-    lpar,
-    rpar,
-    keyword,
-    integer
-};
-
-class Node {
-protected:
-    vector <Token> tokenized_code;
-    int* bracket_info;
-    pair<int,int> interval;
-    NodeType type;
-    bool terminal;
-    static const string node_types[];
-    int index;
-
-public:
-    vector <Node*> children;
-    virtual bool parse();
-    bool isTerminal();
-    virtual string get_type();
-    virtual int get_index();
-    virtual void set_index(int index);
-};
+#include "node.hpp"
 
 class NodeProgram : public Node {
 public:
@@ -130,6 +96,7 @@ public:
     bool parse();
 };
 
+
 class NodeTerminal : public Node{
 
 public:  
@@ -137,7 +104,7 @@ public:
         terminal = true;
     }
 
-    NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, NodeType type){
+    NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval, NodeType type){
         terminal = true;
         this->type = type;
         this->tokenized_code = tokenized_code;
@@ -145,11 +112,3 @@ public:
     }
 };
 #endif
-/**
-TODO:
-png make
-check path if valid
-print terminals info in tree
-rename to syntax node
-make more expamles
-*/

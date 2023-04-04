@@ -1,7 +1,7 @@
 VPATH= ./include:./src:./build:
 CFLAGS = -std=c++17 -I include/
 
-compiler: build/token.o build/lexer.o build/syntaxer.o build/syntax_node.o  compiler.cpp
+compiler: build/token.o build/lexer.o build/syntaxer.o build/syntax_nodes.o compiler.cpp
 	g++ $(CFLAGS) $^ -o $@
 
 build/lexer.o: lexer.cpp lexer.hpp
@@ -10,10 +10,10 @@ build/lexer.o: lexer.cpp lexer.hpp
 build/token.o: token.cpp token.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
-build/syntaxer.o: syntaxer.cpp syntaxer.hpp
+build/syntaxer.o: syntaxer.cpp syntaxer.hpp 
 	g++ $(CFLAGS) -c $< -o $@
 
-build/syntax_node.o: syntax_node.cpp syntax_node.hpp
+build/syntax_nodes.o: syntax_nodes.cpp syntax_nodes.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
 run_tests: compiler

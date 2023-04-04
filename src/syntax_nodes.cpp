@@ -1,7 +1,8 @@
-#include "syntax_node.hpp"
+#include "syntax_nodes.hpp"
 #include "token.hpp"
 #include <vector>
 #include <stdio.h>
+#include <iostream>
 using namespace std;
 
 const string Node::node_types[] = {"Program", "Element", "List",  "Literal",  "Atom",  "real", "boolean", "null", 
@@ -50,11 +51,11 @@ bool NodeProgram::parse(){
 }
 
 bool NodeList::parse(){
-    children.push_back(new NodeTerminal(bracket_info, tokenized_code, lpar));
+    int l = interval.first;
+    int r = interval.second;
 
-    int l = interval.first + 1;
-    int r = interval.second - 1;
-    for (int i = l; i <= r; i++)
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, make_pair(l, l), lpar));
+    for (int i = l + 1; i <= r - 1; i++)
     {
         if (tokenized_code[i].type == LPAR){
             children.push_back(new NodeElement (bracket_info, tokenized_code, make_pair(i, bracket_info[i])));
@@ -62,7 +63,7 @@ bool NodeList::parse(){
         }
 
         else if (tokenized_code[i].type == RPAR){
-            return 0;
+            return false;
         }
 
         else{
@@ -70,9 +71,8 @@ bool NodeList::parse(){
         }
     }
 
-    children.push_back(new NodeTerminal(bracket_info, tokenized_code, rpar));
-    
-    return 1;
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, make_pair(r, r), rpar));
+    return true;
 }
 
 // Might change later (no need to NodeAtom or NodeLiteral)
@@ -84,7 +84,7 @@ bool NodeElement::parse(){
             children.push_back(new NodeList(bracket_info, tokenized_code, make_pair(l, r)));
         }
         else
-            return 0;
+            return false;
     }
     else{
         if (tokenized_code[l].type == ATOM || tokenized_code[l].type == KEYWORD)
@@ -92,17 +92,17 @@ bool NodeElement::parse(){
         else if (tokenized_code[l].type == REAL || tokenized_code[l].type == INT || tokenized_code[l].type == BOOL || tokenized_code[l].type == NUL)
             children.push_back(new NodeLiteral(bracket_info, tokenized_code, make_pair(l, r)));
         else
-            return 0;
+            return false;
     }
 
-    return 1;
+    return true;
 }
 
 bool NodeLiteral::parse(){
     int l = interval.first;
     int r = interval.second;
     if (l != r)
-        return 0;
+        return false;
     NodeType type;
     if (tokenized_code[l].type == REAL)
         type = real;
@@ -112,20 +112,20 @@ bool NodeLiteral::parse(){
         type = boolean;
     else if (tokenized_code[l].type == NUL)
         type = null;
-    children.push_back(new NodeTerminal(bracket_info, tokenized_code, type));
-    return 1;
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, interval, type));
+    return true;
 }
 
 bool NodeAtom::parse(){
     int l = interval.first;
     int r = interval.second;
     if (l != r)
-        return 0;
+        return false;
     NodeType type;
     if (tokenized_code[l].type == ATOM)
         type = atom;
     if (tokenized_code[l].type == KEYWORD)
         type = keyword;
-    children.push_back(new NodeTerminal(bracket_info, tokenized_code, type));
-    return 1;
+    children.push_back(new NodeTerminal(bracket_info, tokenized_code, interval,type));
+    return true;
 }
