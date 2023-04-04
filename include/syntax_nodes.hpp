@@ -39,6 +39,7 @@ public:
     }
 
     bool parse();
+    Node* get_child();
 };
 
 class NodeList : public Node{
@@ -94,6 +95,7 @@ public:
     }
 
     bool parse();
+    Node* get_child();
 };
 
 

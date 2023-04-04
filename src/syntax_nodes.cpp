@@ -28,6 +28,14 @@ void Node::set_index(int index){
     this->index = index;
 }
 
+Node* NodeElement::get_child(){
+        return children[0];
+}
+
+Node* NodeAtom::get_child(){
+        return children[0];
+}
+
 bool NodeProgram::parse(){
     int l = interval.first;
     int r = interval.second;

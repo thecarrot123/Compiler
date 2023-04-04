@@ -4,6 +4,7 @@
 #include <map>
 #include "lexer.hpp"
 #include "syntaxer.hpp"
+#include "semantixer.hpp"
 
 using namespace std;
 
@@ -104,11 +105,13 @@ int main(int argc, char **argv) {
     }
     if (args.getArg('s') != "") {
         syntaxer.print(args.getArg('s'), root);
-        //syntaxer.print();
     }
     // semantixer
+    Semantixer semantixer(root);
+    semantixer.first_traverse();
     if (args.getArg('S') != "") {
         // semantixer
+        semantixer.print(args.getArg('S'));
     }
     file.close();
     return 0;

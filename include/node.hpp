@@ -35,6 +35,7 @@ public:
     NodeType type;
     vector <Node*> children;
     virtual bool parse();
+    //virtual bool traverse();
     bool isTerminal();
     virtual string get_type();
     virtual int get_index();
