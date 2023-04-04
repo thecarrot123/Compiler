@@ -22,7 +22,7 @@ private:
         int opt;
 
         while (true) {
-            opt = getopt(argc, argv, "l:s:f:h");
+            opt = getopt(argc, argv, "l:s:S:f:h");
             switch(opt) {
                 case 'f':
                     parsed_args['f'] = optarg;
@@ -33,6 +33,9 @@ private:
                     continue;
                 case 's':
                     parsed_args['s'] = optarg;
+                    continue;
+                case 'S':
+                    parsed_args['S'] = optarg;
                     continue;
                 case 'h':
                     printHelp();
@@ -102,6 +105,10 @@ int main(int argc, char **argv) {
     if (args.getArg('s') != "") {
         syntaxer.print(args.getArg('s'), root);
         //syntaxer.print();
+    }
+    // semantixer
+    if (args.getArg('S') != "") {
+        // semantixer
     }
     file.close();
     return 0;
