@@ -40,6 +40,9 @@ public:
     virtual string get_type();
     virtual int get_index();
     virtual void set_index(int index);
+    vector <Token> get_tokenized_code();
+    pair<int,int> get_interval();
+    int* get_bracket_info();
 };
 
 #endif

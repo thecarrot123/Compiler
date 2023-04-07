@@ -56,7 +56,8 @@ public:
         this->tokenized_code = tokenized_code;
         this->bracket_info = bracket_info;
     }
-
+       
+    //virtual bool typecheck();
     bool parse();
 };
 

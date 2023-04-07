@@ -1,7 +1,7 @@
 graph {
 0[label="Program"]
 0 -- 2
-2[label="List"]
+2[label="SpecialForm"]
 2 -- 3
 3[label="lpar"]
 2 -- 6
@@ -9,7 +9,7 @@ graph {
 2 -- 9
 9[label="atom"]
 2 -- 11
-11[label="List"]
+11[label="Params"]
 11 -- 12
 12[label="lpar"]
 11 -- 15
@@ -19,13 +19,13 @@ graph {
 11 -- 19
 19[label="rpar"]
 2 -- 21
-21[label="List"]
+21[label="SpecialForm"]
 21 -- 22
 22[label="lpar"]
 21 -- 25
 25[label="keyword"]
 21 -- 27
-27[label="List"]
+27[label="Params"]
 27 -- 28
 28[label="lpar"]
 27 -- 31
@@ -45,7 +45,7 @@ graph {
 2 -- 46
 46[label="rpar"]
 0 -- 48
-48[label="List"]
+48[label="SpecialForm"]
 48 -- 49
 49[label="lpar"]
 48 -- 52
@@ -53,7 +53,7 @@ graph {
 48 -- 55
 55[label="atom"]
 48 -- 57
-57[label="List"]
+57[label="Params"]
 57 -- 58
 58[label="lpar"]
 57 -- 61
@@ -63,13 +63,13 @@ graph {
 57 -- 65
 65[label="rpar"]
 48 -- 67
-67[label="List"]
+67[label="SpecialForm"]
 67 -- 68
 68[label="lpar"]
 67 -- 71
 71[label="keyword"]
 67 -- 73
-73[label="List"]
+73[label="Params"]
 73 -- 74
 74[label="lpar"]
 73 -- 77

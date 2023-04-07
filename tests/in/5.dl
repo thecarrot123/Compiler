@@ -1,0 +1,13 @@
+(func plus (a b)
+   minus (a b))
+
+(minus (x y) (return a+b))
+
+(seqt l (10 20 30))
+
+(head l)
+10
+
+print l
+
+

@@ -24,6 +24,18 @@ int Node::get_index(){
     return index;
 }
 
+vector <Token> Node::get_tokenized_code(){
+    return tokenized_code;
+}
+
+pair<int,int> Node::get_interval(){
+    return interval;
+}
+
+int* Node::get_bracket_info(){
+    return bracket_info;
+}
+
 void Node::set_index(int index){
     this->index = index;
 }
@@ -78,10 +90,10 @@ bool NodeList::parse(){
             children.push_back(new NodeElement(bracket_info, tokenized_code, make_pair(i, i)));
         }
     }
-
     children.push_back(new NodeTerminal(bracket_info, tokenized_code, make_pair(r, r), rpar));
     return true;
 }
+
 
 // Might change later (no need to NodeAtom or NodeLiteral)
 bool NodeElement::parse(){

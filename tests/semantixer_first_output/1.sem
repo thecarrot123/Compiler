@@ -1,7 +1,7 @@
 graph {
 0[label="Program"]
 0 -- 2
-2[label="List"]
+2[label="SpecialForm"]
 2 -- 3
 3[label="lpar"]
 2 -- 6
@@ -9,7 +9,7 @@ graph {
 2 -- 9
 9[label="atom"]
 2 -- 11
-11[label="List"]
+11[label="Params"]
 11 -- 12
 12[label="lpar"]
 11 -- 15
@@ -17,7 +17,7 @@ graph {
 11 -- 16
 16[label="rpar"]
 2 -- 18
-18[label="List"]
+18[label="SpecialForm"]
 18 -- 19
 19[label="lpar"]
 18 -- 22
@@ -41,7 +41,7 @@ graph {
 37 -- 38
 38[label="integer"]
 18 -- 40
-40[label="List"]
+40[label="SpecialForm"]
 40 -- 41
 41[label="lpar"]
 40 -- 44
