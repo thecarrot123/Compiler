@@ -93,6 +93,7 @@ void Semantixer::third_traversal(Node* node){
                     to_string(nodeSF->get_tokenized_code()[nodeSF->get_interval().first + 1].line));
             }
         }
+        third_traversal(next_node);
     }
 }
 
