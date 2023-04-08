@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
     }
     // semantixer
     Semantixer semantixer(root);
-    semantixer.first_traverse();
+    semantixer.traverse();
     if (args.getArg('S') != "") {
         // semantixer
         semantixer.print(args.getArg('S'));

@@ -2,6 +2,7 @@
 #define NODE_HEADER
 #include "token.hpp"
 #include <vector>
+#include <map>
 
 enum NodeType{
     Program,
@@ -34,6 +35,19 @@ protected:
 public:
     NodeType type;
     vector <Node*> children;
+    map <string, Node*> param_table;
+    map <string, Node*> body_table;
+    Node (){}
+    Node (Node &other){
+        this->tokenized_code = other.tokenized_code;
+        this->bracket_info = other.bracket_info;
+        this->terminal = other.terminal;
+        this->index = other.index;
+        this->type = other.type;
+        for (int i = 0; i < other.children.size(); i++){
+            this->children.push_back(new Node(*other.children[i]));
+        }
+    }
     virtual bool parse();
     //virtual bool traverse();
     bool isTerminal();

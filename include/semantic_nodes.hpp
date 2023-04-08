@@ -7,7 +7,6 @@
 class NodeSpecialForm : public NodeList {
 public:
     NodeSpecialForm(NodeList* node){
-        cout <<"SODFIJSODF\n";
         this->type = SpecialForm;
         this->terminal = false;
         this->tokenized_code = node->get_tokenized_code();
@@ -16,7 +15,7 @@ public:
         this->index = node->get_index();
         this->children = node->children;
     }
-    bool typecheck();
+    virtual bool typecheck() = 0;
 };
 
 class QuoteSF : public NodeSpecialForm{
@@ -84,7 +83,6 @@ public:
         this->index = node->get_index();
         this->children = node->children;
     }
-    bool typecheck();
 };
 
 #endif

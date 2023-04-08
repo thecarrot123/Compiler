@@ -1,12 +1,15 @@
 #include "semantixer.hpp"
 #include <iostream>
 
-Node* Semantixer::first_traverse(){
-    first_traverse(root);
+Node* Semantixer::traverse(){
+    first_traversal(root);
+    second_traversal(root, false);
+    third_traversal(root);
     return root;
 }
 
-void Semantixer::first_traverse(Node* node){
+
+void Semantixer::first_traversal(Node* node){
     if (node->isTerminal())
         return;
     for (auto &next_node: node->children){
@@ -22,8 +25,12 @@ void Semantixer::first_traverse(Node* node){
                 delete temp;
             }
         }
-        first_traverse(next_node);
+        first_traversal(next_node);
     }
+}
+
+void Semantixer::second_traversal(Node* node, bool param_flag){
+    bool _param_flag = false;
     for (auto &next_node: node->children){
         NodeList* node_list = dynamic_cast<NodeList*>(next_node);
         if (node_list){
@@ -37,12 +44,15 @@ void Semantixer::first_traverse(Node* node){
                     next_node = new SetqSF(node_list);
                 }
                 else if (token == "func"){
+                    _param_flag = true;
                     next_node = new FuncSF(node_list);
                 }
                 else if (token == "lambda"){
+                    _param_flag = true;
                     next_node = new LambdaSF(node_list);
                 }
                 else if (token == "prog"){
+                    _param_flag = true;
                     next_node = new ProgSF(node_list);
                 }
                 else if (token == "cond"){
@@ -58,7 +68,7 @@ void Semantixer::first_traverse(Node* node){
                     next_node = new BreakSF(node_list);
                 }
             }
-            else{
+            else if (param_flag){
                 bool flag = true;
                 for (int i = 1 ; i < next_node->children.size() - 1; i++){
                     if (next_node->children[i]->type != atom)
@@ -67,6 +77,20 @@ void Semantixer::first_traverse(Node* node){
                 if (flag){
                     next_node = new NodeParams(node_list);
                 }
+            }
+        }
+        second_traversal(next_node, _param_flag);
+    }
+}
+
+void Semantixer::third_traversal(Node* node){
+    for (auto& next_node: node->children){
+        NodeSpecialForm* nodeSF = dynamic_cast<NodeSpecialForm*>(next_node);
+        if (nodeSF){
+            if (!nodeSF->typecheck()){
+                error = 1;
+                error_messages.push_back("Error: Wrong usage of a special form at line " + 
+                    to_string(nodeSF->get_tokenized_code()[nodeSF->get_interval().first + 1].line));
             }
         }
     }
