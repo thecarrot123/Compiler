@@ -18,6 +18,13 @@ string Lexer::next_token_content() {
     string ret = "";
 
     while (code[ind] != ' ' && code[ind] != '\n' && code[ind] != '\t') {
+        if (code[ind] == '\'') {
+            if (ret != "")
+                return ret;
+            ind ++;
+            return "\'";
+        }
+            
         if (code[ind] == '(' || code[ind] == ')') {
             if (ret != "")
                 return ret;
@@ -40,6 +47,15 @@ string Lexer::next_token_content() {
 
 Token Lexer::next_token() {
     string content = next_token_content();
+    if(content == "" )
+        return Token(content,line_cnt);
+    if(content[0] == '\'') {
+        Token token("(",line_cnt);
+        tokenized_code->push_back(Token("(",line_cnt));
+        tokenized_code->push_back(Token("quote",line_cnt));
+        quote_counter++;
+        return next_token();
+    }
 	return Token(content,line_cnt);
 }
 
@@ -55,7 +71,28 @@ void Lexer::scan_code() {
             error_messages->push_back(token);
         }
         tokenized_code->push_back(token);
+
+        if(quote_counter > 0) {
+            if(bracket_counter > 0) {
+                if(token.type == token_type::RPAR) {
+                    bracket_counter--;
+                }
+            }
+
+            if(token.type == token_type::LPAR) {
+                bracket_counter++;
+            }
+
+            while(quote_counter > bracket_counter) {
+                tokenized_code->push_back(Token(")",line_cnt));
+                quote_counter--;
+            }
+        }
         token = next_token();
+    }
+    while(quote_counter > 0) {
+        tokenized_code->push_back(Token(")",line_cnt));
+        quote_counter--;
     }
     if(error_messages->size() != 0)
         tokenized_code->clear();

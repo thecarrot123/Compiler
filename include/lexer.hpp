@@ -12,7 +12,10 @@ private:
     vector < string > *error_messages; 
     ifstream fin;
     string code = "";
-    int ind=0;
+    int ind = 0;
+    int quote_counter = 0;
+    int bracket_counter = 0;
+
 
     string next_token_content();
     Token next_token();
