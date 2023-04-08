@@ -49,7 +49,6 @@ public:
         }
     }
     virtual bool parse();
-    //virtual bool traverse();
     bool isTerminal();
     virtual string get_type();
     virtual int get_index();

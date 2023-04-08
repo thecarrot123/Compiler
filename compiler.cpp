@@ -8,8 +8,6 @@
 
 using namespace std;
 
-
-
 class ArgReader {
 private:
     int argc;
@@ -40,12 +38,12 @@ private:
                     continue;
                 case 'h':
                     printHelp();
-                    exit(0);
+                    exit(1);
                 case -1:
                     for(auto c:required) {
                         if (parsed_args[c] == "") {
                             printHelp();
-                            exit(0);
+                            exit(1);
                         }
                     }
                     break;
@@ -71,10 +69,10 @@ public:
         printf("Options: \n\
         \t-f <program.dl>:\tSource code to be compiled. This is a required argument\n\
         \t[-l <output>]:\tPrint the output of lexer to <output> file.\n\
-        \t[-s <output>]:\tPrint the output of syntax analyzer to <output> file.\n");
+        \t[-s <output>]:\tPrint the output of syntax analyzer to <output> file.\n\
+        \t[-S <output>]:\tPrint the output of semantic analyzer to <output> file.\n");
     }
 };
-
 
 vector < Token > *tokenized_code;
 
@@ -92,7 +90,7 @@ int main(int argc, char **argv) {
     tokenized_code = lexer.get_tokens();
     if (tokenized_code == NULL) {
         lexer.print_errors();
-        exit(0);
+        exit(2);
     }
     if (args.getArg('l') != "") {
         lexer.print(args.getArg('l'));
@@ -101,16 +99,18 @@ int main(int argc, char **argv) {
     Node* root = syntaxer.get_root();
     if (root == NULL) {
         syntaxer.print_errors();
-        exit(0);
+        exit(3);
     }
     if (args.getArg('s') != "") {
         syntaxer.print(args.getArg('s'), root);
     }
-    // semantixer
     Semantixer semantixer(root);
-    semantixer.traverse();
+    root = semantixer.traverse();
+    if (root == NULL) {
+        semantixer.print_errors();
+        exit(4);
+    }
     if (args.getArg('S') != "") {
-        // semantixer
         semantixer.print(args.getArg('S'));
     }
     file.close();

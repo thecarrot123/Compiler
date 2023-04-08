@@ -24,6 +24,7 @@ public:
 
     void print(string filename);
     void print(ostream& fout, Node* node);
+    void print_errors();
 };
 
 #endif

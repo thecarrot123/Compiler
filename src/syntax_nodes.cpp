@@ -94,8 +94,6 @@ bool NodeList::parse(){
     return true;
 }
 
-
-// Might change later (no need to NodeAtom or NodeLiteral)
 bool NodeElement::parse(){
     int l = interval.first;
     int r = interval.second;

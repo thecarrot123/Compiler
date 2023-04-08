@@ -114,3 +114,10 @@ void Semantixer::print(string filename) {
     fout<<'}';
     file.close();
 }
+
+void Semantixer::print_errors(){
+    cout << "Semantic error(s):\n";
+    for (int i = 0; i < error_messages.size(); i++){
+        cout << error_messages[i] << '\n';
+    }
+}
