@@ -48,6 +48,35 @@ Node* NodeAtom::get_child(){
         return children[0];
 }
 
+Node* NodeProgram::clone(){
+    return new NodeProgram(*this);
+}
+
+Node* NodeElement::clone(){
+    return new NodeElement(*this);
+}
+
+Node* NodeList::clone(){
+    return new NodeList(*this);
+}
+
+Node* NodeLiteral::clone(){
+    return new NodeLiteral(*this);
+}
+
+Node* NodeAtom::clone(){
+    return new NodeAtom(*this);
+}
+
+Node* NodeTerminal::clone(){
+    return new NodeTerminal(*this);
+}
+
+Node* Node::clone(){
+    return new Node(*this);
+}
+
+
 bool NodeProgram::parse(){
     int l = interval.first;
     int r = interval.second;
