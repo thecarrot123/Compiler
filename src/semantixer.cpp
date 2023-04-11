@@ -14,6 +14,8 @@ Node* Semantixer::traverse(){
         error_messages.push_back("Error: There can be one and only one definition of prog.");
     }
     forth_traversal(root);
+    if (error)
+        return NULL;
     return root;
 }
 
@@ -135,6 +137,62 @@ void Semantixer::remove_local_context(NodeParams* params){
 }
 
 void Semantixer::forth_traversal(Node *node){
+    int *a;
+        vector<Token> vec;
+        NodeList *trash = new NodeList(a,vec,make_pair(0,0));
+        trash->children.push_back(new Node);
+        trash->children.push_back(new Node);
+        trash->children.push_back(new Node);
+        trash->children.push_back(new Node);
+        param_table["plus"] = new NodeParams(trash);
+        body_table["plus"] = new Node;
+        param_table["minus"] = new NodeParams(trash);
+        body_table["minus"] = new Node;
+        param_table["times"] = new NodeParams(trash);
+        body_table["times"] = new Node;
+        param_table["divide"] = new NodeParams(trash);
+        body_table["divide"] = new Node;
+        param_table["cons"] = new NodeParams(trash);
+        body_table["cons"] = new Node;
+        param_table["equal"] = new NodeParams(trash);
+        body_table["equal"] = new Node;
+        param_table["nonequal"] = new NodeParams(trash);
+        body_table["nonequal"] = new Node;
+        param_table["less"] = new NodeParams(trash);
+        body_table["less"] = new Node;
+        param_table["lesseq"] = new NodeParams(trash);
+        body_table["lesseq"] = new Node;
+        param_table["greater"] = new NodeParams(trash);
+        body_table["greater"] = new Node;
+        param_table["greatereq"] = new NodeParams(trash);
+        body_table["greatereq"] = new Node;
+        param_table["and"] = new NodeParams(trash);
+        body_table["and"] = new Node;
+        param_table["or"] = new NodeParams(trash);
+        body_table["or"] = new Node;
+        param_table["xor"] = new NodeParams(trash);
+        body_table["xor"] = new Node;
+        trash->children.pop_back();
+        param_table["head"] = new NodeParams(trash);
+        body_table["head"] = new Node;
+        param_table["tail"] = new NodeParams(trash);
+        body_table["tail"] = new Node;
+        param_table["isint"] = new NodeParams(trash);
+        body_table["isint"] = new Node;
+        param_table["isreal"] = new NodeParams(trash);
+        body_table["isreal"] = new Node;
+        param_table["isbool"] = new NodeParams(trash);
+        body_table["isbool"] = new Node;
+        param_table["isnull"] = new NodeParams(trash);
+        body_table["isnull"] = new Node;
+        param_table["isatom"] = new NodeParams(trash);
+        body_table["isatom"] = new Node;
+        param_table["islist"] = new NodeParams(trash);
+        body_table["islist"] = new Node;
+        param_table["not"] = new NodeParams(trash);
+        body_table["not"] = new Node;
+        param_table["eval"] = new NodeParams(trash);
+        body_table["eval"] = new Node;
     if (dynamic_cast<SetqSF*>(node)){
         string atom = node->children[2]->get_tokenized_code()[node->get_interval().first + 2].content;
         Node* value = node->children[3];

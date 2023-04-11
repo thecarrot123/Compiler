@@ -3,3 +3,6 @@
 
 (func min(a b)
    (cond (less a b) a b))
+
+(prog (a b c d)
+   (min (max a b) (max c d)))
