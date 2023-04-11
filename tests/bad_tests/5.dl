@@ -1,13 +1,11 @@
-(func plus (a b)
-   minus (a b))
+(func max(a b)
+   (cond a c b))
 
-(minus (x y) (return a+b))
+(func pp (a b)
+    (a b))
 
-(seqt l (10 20 30))
+(func pp (a b)
+     'a)
 
-(head l)
-10
-
-print l
-
-
+(prog (a b)
+	(max a))
