@@ -6,7 +6,7 @@
 using namespace std;
 
 const string Node::node_types[] = {"Program", "Element", "List",  "Literal",  "Atom",  "real", "boolean", "null", 
-                                "atom", "lpar", "rpar", "keyword", "integer"};
+                                "atom", "lpar", "rpar", "keyword", "integer","SpecialForm","Params"};
 
 bool Node::isTerminal(){
     return terminal;
@@ -24,9 +24,58 @@ int Node::get_index(){
     return index;
 }
 
+vector <Token> Node::get_tokenized_code(){
+    return tokenized_code;
+}
+
+pair<int,int> Node::get_interval(){
+    return interval;
+}
+
+int* Node::get_bracket_info(){
+    return bracket_info;
+}
+
 void Node::set_index(int index){
     this->index = index;
 }
+
+Node* NodeElement::get_child(){
+        return children[0];
+}
+
+Node* NodeAtom::get_child(){
+        return children[0];
+}
+
+Node* NodeProgram::clone(){
+    return new NodeProgram(*this);
+}
+
+Node* NodeElement::clone(){
+    return new NodeElement(*this);
+}
+
+Node* NodeList::clone(){
+    return new NodeList(*this);
+}
+
+Node* NodeLiteral::clone(){
+    return new NodeLiteral(*this);
+}
+
+Node* NodeAtom::clone(){
+    return new NodeAtom(*this);
+}
+
+Node* NodeTerminal::clone(){
+    return new NodeTerminal(*this);
+}
+
+Node* Node::clone(){
+    return new Node(*this);
+}
+
 
 bool NodeProgram::parse(){
     int l = interval.first;
@@ -70,12 +119,10 @@ bool NodeList::parse(){
             children.push_back(new NodeElement(bracket_info, tokenized_code, make_pair(i, i)));
         }
     }
-
     children.push_back(new NodeTerminal(bracket_info, tokenized_code, make_pair(r, r), rpar));
     return true;
 }
 
-// Might change later (no need to NodeAtom or NodeLiteral)
 bool NodeElement::parse(){
     int l = interval.first;
     int r = interval.second;

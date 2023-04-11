@@ -12,6 +12,8 @@ public:
         terminal = false;
     }
 
+    NodeProgram(NodeProgram const& other) : Node(other){};
+
     NodeProgram(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Program;
         terminal = false;
@@ -20,6 +22,7 @@ public:
         this->bracket_info = bracket_info;
     }
 
+    Node* clone();
     bool parse();
 };
 
@@ -30,6 +33,8 @@ public:
         terminal = false;
     }
 
+    NodeElement(NodeElement const& other) : Node(other){};
+    
     NodeElement(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Element;
         terminal = false;
@@ -38,7 +43,9 @@ public:
         this->bracket_info = bracket_info;
     }
 
+    Node* clone();
     bool parse();
+    Node* get_child();
 };
 
 class NodeList : public Node{
@@ -48,6 +55,8 @@ public:
         terminal = false;
     }
 
+    NodeList(NodeList const& other) : Node(other){};
+
     NodeList(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = List;
         terminal = false;
@@ -55,7 +64,8 @@ public:
         this->tokenized_code = tokenized_code;
         this->bracket_info = bracket_info;
     }
-
+    
+    Node* clone();
     bool parse();
 };
 
@@ -66,6 +76,8 @@ public:
         terminal = false;
     }
 
+    NodeLiteral(NodeLiteral const& other) : Node(other){};
+
     NodeLiteral(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Literal;
         terminal = false;
@@ -74,6 +86,7 @@ public:
         this->bracket_info = bracket_info;
     }
 
+    Node* clone();
     bool parse();
 };
 
@@ -85,6 +98,8 @@ public:
         terminal = false;
     }
 
+    NodeAtom(NodeAtom const& other) : Node(other){};
+
     NodeAtom(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = Atom;
         terminal = false;
@@ -93,7 +108,9 @@ public:
         this->bracket_info = bracket_info;
     }
 
+    Node* clone();
     bool parse();
+    Node* get_child();
 };
 
 
@@ -104,11 +121,16 @@ public:
         terminal = true;
     }
 
+    NodeTerminal(NodeTerminal const& other) : Node(other){};
+
     NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval, NodeType type){
         terminal = true;
         this->type = type;
         this->tokenized_code = tokenized_code;
         this->bracket_info = bracket_info;
+        this->interval = interval;
     }
+
+    Node* clone();
 };
 #endif

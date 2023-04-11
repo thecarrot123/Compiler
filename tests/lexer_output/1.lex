@@ -29,6 +29,7 @@ ATOM minus : 4
 ATOM n : 4
 INT 1 : 4
 RPAR ) : 4
+RPAR ) : 4
 LPAR ( : 4
 ATOM fibonacci : 4
 LPAR ( : 4
@@ -41,4 +42,13 @@ RPAR ) : 4
 RPAR ) : 4
 RPAR ) : 4
 RPAR ) : 4
-RPAR ) : 4
+LPAR ( : 6
+KEYWORD prog : 6
+LPAR ( : 6
+ATOM a : 6
+RPAR ) : 6
+LPAR ( : 7
+ATOM fibonacci : 7
+ATOM a : 7
+RPAR ) : 7
+RPAR ) : 7

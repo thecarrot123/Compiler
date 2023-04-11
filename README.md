@@ -5,9 +5,9 @@ In this repo you can find the compiler parts, including:
 
 Lexical Analyzer
 
-~~Syntax Analyzer~~
+Syntax Analyzer
 
-~~Semantic Analyzer~~
+Semantic Analyzer
 
 ~~Code Generator~~
 
