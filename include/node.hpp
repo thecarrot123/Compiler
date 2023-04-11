@@ -38,16 +38,17 @@ public:
     map <string, Node*> param_table;
     map <string, Node*> body_table;
     Node (){}
-    Node (Node &other){
+    Node (Node const &other){
         this->tokenized_code = other.tokenized_code;
         this->bracket_info = other.bracket_info;
         this->terminal = other.terminal;
         this->index = other.index;
         this->type = other.type;
         for (int i = 0; i < other.children.size(); i++){
-            this->children.push_back(new Node(*other.children[i]));
+            this->children.push_back(other.children[i]->clone());
         }
     }
+    virtual Node* clone();
     virtual bool parse();
     bool isTerminal();
     virtual string get_type();

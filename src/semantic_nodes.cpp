@@ -1,5 +1,45 @@
 #include "semantic_nodes.hpp"
 
+Node* QuoteSF::clone(){
+    return new QuoteSF(*this);
+}
+
+Node* SetqSF::clone(){
+    return new SetqSF(*this);
+}
+
+Node* FuncSF::clone(){
+    return new FuncSF(*this);
+}
+
+Node* LambdaSF::clone(){
+    return new LambdaSF(*this);
+}
+
+Node* ProgSF::clone(){
+    return new ProgSF(*this);
+}
+
+Node* CondSF::clone(){
+    return new CondSF(*this);
+}
+
+Node* WhileSF::clone(){
+    return new WhileSF(*this);
+}
+
+Node* BreakSF::clone(){
+    return new BreakSF(*this);
+}
+
+Node* NodeParams::clone(){
+    return new NodeParams(*this);
+}
+
+Node* ReturnSF::clone(){
+    return new ReturnSF(*this);
+}
+
 bool isAtom(Node* node){
     return (node->type == atom);
 }
