@@ -113,6 +113,7 @@ int main(int argc, char **argv) {
     if (args.getArg('S') != "") {
         semantixer.print(args.getArg('S'));
     }
+    semantixer.print_errors();
     file.close();
     return 0;
 }

@@ -25,7 +25,7 @@ graph {
 21 -- 25
 25[label="keyword"]
 21 -- 27
-27[label="Params"]
+27[label="List"]
 27 -- 28
 28[label="lpar"]
 27 -- 31
@@ -69,7 +69,7 @@ graph {
 67 -- 71
 71[label="keyword"]
 67 -- 73
-73[label="Params"]
+73[label="List"]
 73 -- 74
 74[label="lpar"]
 73 -- 77

@@ -5,6 +5,15 @@ Node* Semantixer::traverse(){
     first_traversal(root);
     second_traversal(root, false);
     third_traversal(root);
+    if (!dynamic_cast<ProgSF*>(root->children.back())){
+        error = 1;
+        error_messages.push_back("Error: Prog should be the last definition.");
+    }
+    if (prog_count != 1){
+        error = 1;
+        error_messages.push_back("Error: There can be one and only one definition of prog.");
+    }
+    forth_traversal(root);
     return root;
 }
 
@@ -30,13 +39,13 @@ void Semantixer::first_traversal(Node* node){
 }
 
 void Semantixer::second_traversal(Node* node, bool param_flag){
-    bool _param_flag = false;
     for (auto &next_node: node->children){
+        bool _param_flag = 0;
         NodeList* node_list = dynamic_cast<NodeList*>(next_node);
         if (node_list){
             Node* first_arg = next_node->children[1];
             if (first_arg->type == keyword){
-                string token = first_arg->get_tokenized_code()[first_arg->get_interval().first+1].content;
+                string token = first_arg->get_tokenized_code()[first_arg->get_interval().first].content;
                 if (token == "quote"){
                     next_node = new QuoteSF(node_list);
                 }
@@ -70,12 +79,13 @@ void Semantixer::second_traversal(Node* node, bool param_flag){
             }
             else if (param_flag){
                 bool flag = true;
-                for (int i = 1 ; i < next_node->children.size() - 1; i++){
+                for (int i = 1 ; i < next_node->children.size() - 1 ; i++){
                     if (next_node->children[i]->type != atom)
                         flag = false;
                 }
                 if (flag){
                     next_node = new NodeParams(node_list);
+                    param_flag = false;
                 }
             }
         }
@@ -93,7 +103,125 @@ void Semantixer::third_traversal(Node* node){
                     to_string(nodeSF->get_tokenized_code()[nodeSF->get_interval().first + 1].line));
             }
         }
+        if (dynamic_cast<ProgSF*> (nodeSF))
+            prog_count++;
         third_traversal(next_node);
+    }
+}
+
+void Semantixer::add_to_body_table(string atom, Node* value, int line){
+    if (body_table[atom]){
+        error = 1;
+        error_messages.push_back("Error: Redefinition of an atom/function at line " + 
+            to_string(line));
+    }
+    body_table[atom] = value;
+}
+
+void Semantixer::add_params(NodeParams* params){
+    for(int i = 1; i < params->children.size() -1 ; i++){
+        Node* node = params->children[i];
+        string atom = node->get_tokenized_code()[node->get_interval().first].content;
+        add_to_body_table(atom, new Node(), node->get_tokenized_code()[node->get_interval().first].line);
+    }
+}
+
+void Semantixer::remove_local_context(NodeParams* params){
+    for(int i = 1; i < params->children.size() -1 ; i++){
+        Node* node = params->children[i];
+        string atom = node->get_tokenized_code()[node->get_interval().first].content;
+        body_table.erase(atom); 
+    }
+}
+
+void Semantixer::forth_traversal(Node *node){
+    if (dynamic_cast<SetqSF*>(node)){
+        string atom = node->children[2]->get_tokenized_code()[node->get_interval().first + 2].content;
+        Node* value = node->children[3];
+        add_to_body_table(atom, value, node->get_tokenized_code()[node->get_interval().first + 1].line);
+        node->body_table = body_table;
+        node->param_table = param_table;
+        forth_traversal(value);
+    }
+    else if (dynamic_cast<FuncSF*>(node)){
+        string atom = node->children[2]->get_tokenized_code()[node->get_interval().first + 2].content;
+        NodeParams* params = dynamic_cast<NodeParams*>(node->children[3]);
+        Node* value = node->children[4];
+        add_to_body_table(atom, value, node->get_tokenized_code()[node->get_interval().first + 1].line);
+        param_table[atom] = params;
+        node->body_table = body_table;
+        node->param_table = param_table;    
+        add_params(params);
+        forth_traversal(value);
+        remove_local_context(params);
+    }
+    else if (dynamic_cast<LambdaSF*>(node)){
+        NodeParams* params = dynamic_cast<NodeParams*>(node->children[2]);
+        Node* value = node->children[3];
+        node->body_table = body_table;
+        node->param_table = param_table;    
+        add_params(params);
+        forth_traversal(value);
+        remove_local_context(params);
+    }
+    else if (dynamic_cast<ProgSF*>(node)){
+        NodeParams* params = dynamic_cast<NodeParams*>(node->children[2]);
+        Node* value = node->children[3];
+        node->body_table = body_table;
+        node->param_table = param_table;    
+        add_params(params);
+        forth_traversal(value);
+        remove_local_context(params);
+    }
+    else if (dynamic_cast<QuoteSF*>(node)){
+        node->body_table = body_table;
+        node->param_table = param_table; 
+        if (dynamic_cast<NodeList*> (node->children[2])){
+            for (auto &next_node: node->children[2]->children){
+                forth_traversal(next_node);
+            }
+        }
+        else
+            forth_traversal(node->children[2]);
+    }
+    else{
+        node->body_table = body_table;
+        node->param_table = param_table; 
+        for(auto &next_node: node->children){
+            forth_traversal(next_node);
+        }
+    }
+    if (node->type == atom){
+        string atom = node->get_tokenized_code()[node->get_interval().first].content;
+        if (!node->body_table[atom]){
+            error = 1;
+            error_messages.push_back("Error: Reference to an undefined atom \'" + atom+ "\' in line " + 
+                to_string(node->get_tokenized_code()[node->get_interval().first].line));
+        }
+    }
+    else if (node->type == List){
+        if (node->children.size() < 3){
+            error = 1;
+            error_messages.push_back("Error: Invalid list in line " + 
+                to_string(node->get_tokenized_code()[node->get_interval().first].line));
+            return;
+        }
+        string atom = node->get_tokenized_code()[node->children[1]->get_interval().first].content;
+        if (!node->body_table[atom]){
+            error = 1;
+            error_messages.push_back("Error: Reference to an undefined function \'" + atom+ "\' in line " + 
+                to_string(node->get_tokenized_code()[node->get_interval().first].line));
+        }
+        else if (!node->param_table[atom]){
+            error = 1;
+            error_messages.push_back("Error: atom \'" + atom + "\' is not a function in line " + 
+                to_string(node->get_tokenized_code()[node->get_interval().first].line));
+        }
+        else if (node->param_table[atom]->children.size() != node->children.size() -1){
+            error = 1;
+            error_messages.push_back("Error: Unmatching number of arguments for function \'" + atom + "\' in line " + 
+                to_string(node->get_tokenized_code()[node->get_interval().first].line));
+        }
     }
 }
 
@@ -105,6 +233,7 @@ void Semantixer::print(ostream& fout, Node* node){
         print(fout, next_node);
     }
 }
+
 
 void Semantixer::print(string filename) {
     filebuf file;

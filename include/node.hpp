@@ -44,6 +44,7 @@ public:
         this->terminal = other.terminal;
         this->index = other.index;
         this->type = other.type;
+        this->interval = other.interval;
         for (int i = 0; i < other.children.size(); i++){
             this->children.push_back(other.children[i]->clone());
         }

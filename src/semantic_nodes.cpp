@@ -80,6 +80,7 @@ bool ProgSF::typecheck(){
 
 bool CondSF::typecheck(){
     /// TODO: check more
+    return true;
 }
 
 bool WhileSF::typecheck(){

@@ -128,6 +128,7 @@ public:
         this->type = type;
         this->tokenized_code = tokenized_code;
         this->bracket_info = bracket_info;
+        this->interval = interval;
     }
 
     Node* clone();
