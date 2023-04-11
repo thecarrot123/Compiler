@@ -14,9 +14,11 @@ cd tests
 [ ! -d syntaxer_visualization ] && mkdir syntaxer_visualization
 [ ! -d semantixer_output ] && mkdir semantixer_output
 [ ! -d semantixer_visualization ] && mkdir semantixer_visualization
+[ ! -d good_output ] && mkdir good_output
+[ ! -d bad_output ] && mkdir bad_output
 
 run_test() {
-    ./compiler -f $1$2 -l tests/lexer_output/$3.lex -s tests/syntaxer_output/$3.syn -S tests/semantixer_output/$3.sem > /dev/null
+    ./compiler -f $1$2 -l tests/lexer_output/$3.lex -s tests/syntaxer_output/$3.syn -S tests/semantixer_output/$3.sem > "$4/$3.out"
 }
 
 draw_test() {
@@ -25,17 +27,19 @@ draw_test() {
 }
 
 path="tests/"
-good_tests_path="${path}good_tests/"
-bad_tests_path="${path}bad_tests/"
+good_tests_in_path="${path}good_tests/"
+bad_tests_in_path="${path}bad_tests/"
+good_tests_out_path="${path}good_output/"
+bad_tests_out_path="${path}bad_output/"
 
 cd ..
 passed_tests=0
 all_tests=0
 
-for test in $(ls $good_tests_path); do
+for test in $(ls $good_tests_in_path); do
     all_tests=$(( $all_tests + 1 ))
     testname=${test%.*}
-    run_test $good_tests_path $test $testname
+    run_test $good_tests_in_path $test $testname $good_tests_out_path
     if [ $? -eq 0 ]; then
         passed_tests=$(( $passed_tests + 1 ))
         echo -n .
@@ -45,10 +49,10 @@ for test in $(ls $good_tests_path); do
     fi
 done
 
-for test in $(ls $bad_tests_path); do
+for test in $(ls $bad_tests_in_path); do
     all_tests=$(( $all_tests + 1 ))
     testname=${test%.*}
-    run_test $bad_tests_path $test $testname
+    run_test $bad_tests_in_path $test $testname $bad_tests_out_path
     if [ $? -ne 0 ]; then
         passed_tests=$(( $passed_tests + 1 ))
         echo -n .
