@@ -19,6 +19,7 @@ public:
 
     Node* traverse();
 
+    void preprocessing();
     void first_traversal(Node* node);
     void second_traversal(Node* node, bool param_flag);
     void third_traversal(Node* node);
