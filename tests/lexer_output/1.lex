@@ -8,7 +8,7 @@ LPAR ( : 2
 KEYWORD cond : 2
 LPAR ( : 2
 ATOM equal : 2
-INT 0 : 2
+NUL null : 2
 ATOM n : 2
 RPAR ) : 2
 INT 0 : 2

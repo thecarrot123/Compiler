@@ -4,5 +4,4 @@
 #include "predefined_funs.hpp"
 
 
-
 #endif

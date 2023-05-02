@@ -31,7 +31,7 @@ graph {
 24 -- 30
 30[label="Literal"]
 30 -- 31
-31[label="integer"]
+31[label="null"]
 24 -- 34
 34[label="atom"]
 24 -- 35

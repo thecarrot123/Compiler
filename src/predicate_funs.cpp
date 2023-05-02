@@ -87,11 +87,11 @@ Node* IsAtomFun::run() {
     return ret;
 }
 
-/// TODO: check the compare type
+
 Node* IsListFun::run() {
     typecheck();
     Node *p1 = params->children[1];
-    bool val = (get_predicate_val(p1) == List);
+    bool val = (dynamic_cast<NodeList *>(p1) != NULL);
     auto ret = new NodeTerminal(
         p1->get_bracket_info(),
         tokenized_code,

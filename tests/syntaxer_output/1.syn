@@ -61,7 +61,7 @@ graph {
 29 -- 30
 30[label="Literal"]
 30 -- 31
-31[label="integer"]
+31[label="null"]
 24 -- 32
 32[label="Element"]
 32 -- 33

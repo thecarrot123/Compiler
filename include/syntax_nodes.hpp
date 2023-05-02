@@ -118,7 +118,7 @@ public:
 class NodeTerminal : public Node{
 
 public:
-    variant < double, int, bool > value;
+    variant < double, int, bool, nullptr_t> value;
     NodeTerminal() {
         terminal = true;
     }
@@ -134,7 +134,7 @@ public:
         init_value();
     }
 
-    NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval, NodeType type, variant < double, int, bool > value){
+    NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval, NodeType type, variant < double, int, bool, nullptr_t > value){
         terminal = true;
         this->type = type;
         this->tokenized_code = tokenized_code;
