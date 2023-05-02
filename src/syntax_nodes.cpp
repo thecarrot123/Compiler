@@ -176,3 +176,12 @@ bool NodeAtom::parse(){
     children.push_back(new NodeTerminal(bracket_info, tokenized_code, interval,type));
     return true;
 }
+
+void NodeTerminal::init_value(){
+    if (type == boolean)
+        bool_value = (tokenized_code[interval.first].content == "true");
+    else if (type == integer)
+        int_value = stoi(tokenized_code[interval.first].content);
+    else if (type == real)
+        real_value = stod(tokenized_code[interval.first].content);
+}

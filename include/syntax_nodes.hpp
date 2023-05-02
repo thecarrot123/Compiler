@@ -117,6 +117,9 @@ public:
 class NodeTerminal : public Node{
 
 public:  
+    int int_value;
+    double real_value;
+    bool bool_value;
     NodeTerminal() {
         terminal = true;
     }
@@ -129,7 +132,11 @@ public:
         this->tokenized_code = tokenized_code;
         this->bracket_info = bracket_info;
         this->interval = interval;
+        init_value();
     }
+
+    void init_value();
+    
 
     Node* clone();
 };
