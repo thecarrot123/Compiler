@@ -32,7 +32,7 @@ enum PredefinedFunTypes {
 class PredefinedFun {
 protected: 
     PredefinedFunTypes name;
-    NodeParams *params;
+    NodeList *params;
     vector <Token> &tokenized_code;
     void print_error(string message, int code) {
         cout<<"Error"<<message<<endl;
@@ -40,7 +40,7 @@ protected:
     }
 
 public:
-    PredefinedFun(PredefinedFunTypes name, NodeParams *params, vector <Token> &vec) : tokenized_code(vec){
+    PredefinedFun(PredefinedFunTypes name, NodeList *params, vector <Token> &vec) : tokenized_code(vec){
         this->name = name;
         this->params = params;
         //check();

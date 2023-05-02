@@ -1,15 +1,5 @@
 #include "arithmetic_funs.hpp"
 
-NodeParams *ArithmeticFun::create_params() {
-    vector < Token > vec;
-    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    return new NodeParams(trash);
-}
-
 void ArithmeticFun::typecheck() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);

@@ -1,15 +1,5 @@
 #include "comparison_funs.hpp"
 
-NodeParams *ComparisonFun::create_params() {
-    vector < Token > vec;
-    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    return new NodeParams(trash);
-}
-
 void ComparisonFun::typecheck() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);

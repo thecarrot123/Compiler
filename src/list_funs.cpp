@@ -1,14 +1,5 @@
 #include "list_funs.hpp"
 
-NodeParams *ListFun::create_params() {
-    vector < Token > vec;
-    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    return new NodeParams(trash);
-}
-
 int ListFun::p1_size() {
     NodeList *p1 = dynamic_cast < NodeList *>(params->children[1]);
     if(p1)
@@ -70,17 +61,6 @@ void ConsFun::typecheck() {
     }
     
 }
-
-NodeParams *ConsFun::create_params() {
-    vector < Token > vec;
-    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    return new NodeParams(trash);
-}
-
 
 Node *ConsFun::run() {
     typecheck();
