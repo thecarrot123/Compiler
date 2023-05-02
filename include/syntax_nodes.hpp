@@ -2,6 +2,7 @@
 #define SYNTAX_NODES_HEADER
 #include <fstream>
 #include <vector>
+#include <variant>
 #include "token.hpp"
 #include "node.hpp"
 
@@ -116,10 +117,8 @@ public:
 
 class NodeTerminal : public Node{
 
-public:  
-    int int_value;
-    double real_value;
-    bool bool_value;
+public:
+    variant < double, int, bool > value;
     NodeTerminal() {
         terminal = true;
     }
@@ -133,6 +132,15 @@ public:
         this->bracket_info = bracket_info;
         this->interval = interval;
         init_value();
+    }
+
+    NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval, NodeType type, variant < double, int, bool > value){
+        terminal = true;
+        this->type = type;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
+        this->interval = interval;
+        this->value = value;
     }
 
     void init_value();

@@ -1,7 +1,9 @@
 VPATH= ./include:./src:./build:
 CFLAGS = -std=c++17 -I include/
+SRCS := $(wildcard src/*.cpp)
+OBJS := $(patsubst src/%.cpp,build/%.o,$(SRCS))
 
-compiler: build/token.o build/lexer.o build/syntaxer.o build/syntax_nodes.o build/semantic_nodes.o build/semantixer.o node.hpp compiler.cpp
+compiler: $(OBJS) predefined_funs.hpp node.hpp compiler.cpp
 	g++ $(CFLAGS) $^ -o $@
 
 build/lexer.o: lexer.cpp lexer.hpp
@@ -20,6 +22,21 @@ build/semantixer.o: semantixer.cpp semantixer.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
 build/semantic_nodes.o: semantic_nodes.cpp semantic_nodes.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
+build/arithmetic_funs.o: arithmetic_funs.cpp arithmetic_funs.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
+build/comparison_funs.o: comparison_funs.cpp comparison_funs.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
+build/logical_funs.o: logical_funs.cpp logical_funs.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
+build/predicate_funs.o: predicate_funs.cpp predicate_funs.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
+build/list_funs.o: list_funs.cpp list_funs.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
 run_tests: compiler
