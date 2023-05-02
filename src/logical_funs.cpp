@@ -13,7 +13,7 @@ NodeParams *LogicalFun::create_params() {
 void LogicalFun::typecheck() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
-    if (!p1 || p2) {
+    if (!p1 || !p2) {
         print_error(this->name + " function expecting bool",5);
     }
     if (p1->type != boolean || p2->type != boolean) {
