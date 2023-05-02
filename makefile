@@ -39,6 +39,9 @@ build/predicate_funs.o: predicate_funs.cpp predicate_funs.hpp
 build/list_funs.o: list_funs.cpp list_funs.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
+build/interpreter.o: interpreter.cpp interpreter.hpp
+	g++ $(CFLAGS) -c $< -o $@
+
 run_tests: compiler
 	./run_tests.sh
 

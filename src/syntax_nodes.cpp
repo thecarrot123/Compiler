@@ -24,7 +24,7 @@ int Node::get_index(){
     return index;
 }
 
-vector <Token> Node::get_tokenized_code(){
+vector <Token>& Node::get_tokenized_code(){
     return tokenized_code;
 }
 
