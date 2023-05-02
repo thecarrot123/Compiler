@@ -1,64 +1,106 @@
-Node* reduce(Node* node){ -> NodeTerminal or NodeList
+#include "list_funs.hpp"
 
-    if (node == SF){
-        if (node == quote){
-            return node
-        }
-        else if (node == setq){
-            return NodeTerminal(NULL);
-        }
-        else if (node == func || node == lambda){
-            print_error("Nested function is not supported!", 10);
-        }
-        else if (node == cond){
-            node.children[2] = reduce(node.children[2])
-            if (node.children[2] == true){
-                node = reduce(node.children[3]);
-            }
-            else if (node.children[2] == false){
-                if (node.children.size() == 5){
-                    node = reduce(node.children[4]);
-                }
-                else
-                    node = new NodeTerminal(NULL);
-            }
-            else{
-                print_error("Condition statement isn't a boolean!", 11);
-            }
-            return node;
-        }
-        else if (node == while){
-            return null;
-        }
-        else if (node == return){
-            node = reduce(node->chidlren[2]);
-            return node;
-        }
-    }
-    else if (node == list){
-        for (int i = children.size()-2 ; i > 0 ;i--){
-            children[i] = reduce(children[i])
-
-        }
-        if (predefined(children[1])){
-            node = ...
-        }
-        else if (function(children[1])){
-            children[1] = expand(children[1])
-            //edit context based on children [2] -> [n-2]
-            node = reduce(children[1])
-            //reedit context
-        }
-        return node;
-    }
-    else if (node == atom){
-        return new NodeTerminal()
-    }
-    else if (node == literal){
-        return children[0];
-    }
-
+NodeParams *ListFun::create_params() {
+    vector < Token > vec;
+    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
+    trash->children.push_back(new Node);
+    trash->children.push_back(new Node);
+    trash->children.push_back(new Node);
+    return new NodeParams(trash);
 }
 
-return reduce(root.children[n-2])
-print_code();
+int ListFun::p1_size() {
+    NodeList *p1 = dynamic_cast < NodeList *>(params->children[1]);
+    if(p1)
+        return p1->children.size() - 2;
+}
+
+void ListFun::typecheck() {
+    NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
+    if (!p1) {
+        print_error(this->name + " function expecting list",5);
+    }
+}
+
+void HeadFun::typecheck() {
+    ListFun::typecheck();
+    if(!p1_size()) {
+        print_error(this->name + " Cannot perform operation on empty list",5);
+    }
+}
+
+Node *HeadFun::run() {
+    typecheck();
+    NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
+
+    auto term = dynamic_cast<NodeTerminal *>(p1->children[1]);
+
+    if(term) {
+        return term;
+    }
+
+    auto lst = dynamic_cast<NodeList *>(p1->children[1]);
+
+    if(lst) {
+        return lst;
+    }
+}
+
+void TailFun::typecheck() {
+    ListFun::typecheck();
+    if(!p1_size()) {
+        print_error(this->name + " Cannot perform operation on empty list",5);
+    }
+}
+
+Node *TailFun::run() {
+    typecheck();
+    NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
+
+    NodeList *ret = new NodeList(*p1);
+    ret->children.erase(ret->children.begin() + 1);
+    return ret;
+}
+
+void ConsFun::typecheck() {
+    
+    NodeList *p2 = dynamic_cast<NodeList *>(params->children[2]);
+    if (!p2) {
+        print_error(this->name + " function expecting list",5);
+    }
+    
+}
+
+NodeParams *ConsFun::create_params() {
+    vector < Token > vec;
+    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
+    trash->children.push_back(new Node);
+    trash->children.push_back(new Node);
+    trash->children.push_back(new Node);
+    trash->children.push_back(new Node);
+    return new NodeParams(trash);
+}
+
+
+Node *ConsFun::run() {
+    typecheck();
+    NodeList *p2 = dynamic_cast<NodeList *>(params->children[2]);
+
+    NodeList *ret = new NodeList(*p2);
+    ret->children.insert(ret->children.begin() + 1, params->children[1]);
+    return ret;
+}
+
+Node *IsEmptyFun::run() {
+    typecheck();
+    NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
+
+    NodeTerminal *ret = new NodeTerminal {
+        p1->get_bracket_info(),
+        tokenized_code,
+        p1->get_interval(),
+        integer,
+        (p1_size() == 0)
+    };
+    return ret;
+}

@@ -23,6 +23,10 @@ enum PredefinedFunTypes {
     _isnull,
     _isatom,
     _islist,
+    _head,
+    _tail,
+    _cons,
+    _isempty
 };
 
 class PredefinedFun {
