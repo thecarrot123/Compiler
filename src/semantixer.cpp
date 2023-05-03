@@ -61,6 +61,8 @@ void Semantixer::preprocessing(){
     body_table["head"] = new Node;
     param_table["tail"] = new NodeParams(trash);
     body_table["tail"] = new Node;
+    param_table["isempty"] = new NodeParams(trash);
+    body_table["isempty"] = new Node;
     param_table["isint"] = new NodeParams(trash);
     body_table["isint"] = new Node;
     param_table["isreal"] = new NodeParams(trash);

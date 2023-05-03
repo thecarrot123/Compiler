@@ -132,20 +132,20 @@ graph {
 118[label="Params"]
 118 -- 119
 119[label="lpar"]
-118 -- 122
-122[label="atom"]
-118 -- 123
-123[label="rpar"]
-112 -- 125
-125[label="List"]
-125 -- 126
-126[label="lpar"]
-125 -- 129
-129[label="atom"]
-125 -- 132
-132[label="atom"]
-125 -- 133
-133[label="rpar"]
-112 -- 134
-134[label="rpar"]
+118 -- 120
+120[label="rpar"]
+112 -- 122
+122[label="List"]
+122 -- 123
+123[label="lpar"]
+122 -- 126
+126[label="atom"]
+122 -- 128
+128[label="Literal"]
+128 -- 129
+129[label="integer"]
+122 -- 130
+130[label="rpar"]
+112 -- 131
+131[label="rpar"]
 }

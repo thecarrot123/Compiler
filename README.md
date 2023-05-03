@@ -9,7 +9,7 @@ Syntax Analyzer
 
 Semantic Analyzer
 
-~~Code Generator~~
+Code Interpreter
 
 ## To build the code:
 ```make```

@@ -5,4 +5,4 @@
    (cond (less a b) a b))
 
 (prog ()
-   (min (max 3 134) (max 3 35)))
+   (min (max 3 0.0) (max 3 35)))

@@ -43,7 +43,7 @@ ATOM min : 8
 LPAR ( : 8
 ATOM max : 8
 INT 3 : 8
-INT 134 : 8
+REAL 0.0 : 8
 RPAR ) : 8
 LPAR ( : 8
 ATOM max : 8

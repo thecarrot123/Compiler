@@ -119,7 +119,7 @@ graph {
 110 -- 119
 119[label="Literal"]
 119 -- 120
-120[label="integer"]
+120[label="real"]
 110 -- 121
 121[label="rpar"]
 104 -- 123

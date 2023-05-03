@@ -24,7 +24,7 @@ int Node::get_index(){
     return index;
 }
 
-vector <Token> Node::get_tokenized_code(){
+vector <Token>& Node::get_tokenized_code(){
     return tokenized_code;
 }
 
@@ -179,9 +179,15 @@ bool NodeAtom::parse(){
 
 void NodeTerminal::init_value(){
     if (type == boolean)
-        bool_value = (tokenized_code[interval.first].content == "true");
+        value = (tokenized_code[interval.first].content == "true");
     else if (type == integer)
-        int_value = stoi(tokenized_code[interval.first].content);
+        value = stoi(tokenized_code[interval.first].content);
     else if (type == real)
-        real_value = stod(tokenized_code[interval.first].content);
+        value = stod(tokenized_code[interval.first].content);
+    else
+        value = nullptr;
+}
+
+string NodeTerminal::get_name(){
+    return tokenized_code[interval.first].content;
 }
