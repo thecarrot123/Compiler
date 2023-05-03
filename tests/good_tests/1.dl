@@ -4,4 +4,4 @@
       (plus (fibonacci (minus n 1)) (fibonacci(minus n 2))))))
 
 (prog ()
-  (fibonacci 17))
+  (fibonacci 9))

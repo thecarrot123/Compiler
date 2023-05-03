@@ -19,29 +19,71 @@ graph {
 12 -- 16
 16[label="atom"]
 12 -- 18
-18[label="SpecialForm"]
+18[label="List"]
 18 -- 19
 19[label="lpar"]
 18 -- 22
-22[label="keyword"]
+22[label="atom"]
 18 -- 24
 24[label="List"]
 24 -- 25
 25[label="lpar"]
-24 -- 27
-27[label="Literal"]
-27 -- 28
-28[label="integer"]
+24 -- 28
+28[label="atom"]
 24 -- 30
-30[label="Literal"]
+30[label="SpecialForm"]
 30 -- 31
-31[label="integer"]
-24 -- 32
-32[label="rpar"]
-18 -- 33
-33[label="rpar"]
-12 -- 34
-34[label="rpar"]
-2 -- 35
-35[label="rpar"]
+31[label="lpar"]
+30 -- 34
+34[label="keyword"]
+30 -- 36
+36[label="List"]
+36 -- 37
+37[label="lpar"]
+36 -- 39
+39[label="Literal"]
+39 -- 40
+40[label="integer"]
+36 -- 42
+42[label="Literal"]
+42 -- 43
+43[label="integer"]
+36 -- 45
+45[label="SpecialForm"]
+45 -- 46
+46[label="lpar"]
+45 -- 49
+49[label="keyword"]
+45 -- 51
+51[label="List"]
+51 -- 52
+52[label="lpar"]
+51 -- 54
+54[label="Literal"]
+54 -- 55
+55[label="integer"]
+51 -- 57
+57[label="Literal"]
+57 -- 58
+58[label="integer"]
+51 -- 59
+59[label="rpar"]
+45 -- 60
+60[label="rpar"]
+36 -- 62
+62[label="Literal"]
+62 -- 63
+63[label="integer"]
+36 -- 64
+64[label="rpar"]
+30 -- 65
+65[label="rpar"]
+24 -- 66
+66[label="rpar"]
+18 -- 67
+67[label="rpar"]
+12 -- 68
+68[label="rpar"]
+2 -- 69
+69[label="rpar"]
 }

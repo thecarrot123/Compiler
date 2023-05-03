@@ -208,7 +208,11 @@ Node* Interpreter::reduce(Node *node){
             map <string, Node*> _context = context;
             for (int i = 2; i < node->children.size() -1 ; i++){
                 string param_name = dynamic_cast<NodeTerminal*>(params->children[i-1])->get_name();
-                context[param_name] = new NodeTerminal(*dynamic_cast<NodeTerminal*>(node->children[i]));
+                ///TODO: fix to pass lists as params
+                if (dynamic_cast<NodeTerminal*>(node->children[i]))
+                    context[param_name] = new NodeTerminal(*dynamic_cast<NodeTerminal*>(node->children[i]));
+                if (!context[param_name])
+                    context[param_name] = new Node(*(node->children[i]));
             }
             node = reduce(node->children[1]);
             context = _context;

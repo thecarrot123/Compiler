@@ -1,2 +1,2 @@
 (prog ()
-    (head '(1 2)))
+    (head (tail (tail '(1 2 '(1 2) 4)))))
