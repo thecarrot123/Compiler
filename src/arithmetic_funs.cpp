@@ -4,10 +4,10 @@ void ArithmeticFun::typecheck() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     if (!p1 || p1->type == boolean || p1->type == null) {
-        print_error(this->name + " function expecting integer or real",5);
+        print_error(" function expecting integer or real",5);
     }
     if (!p2 || p2->type == boolean || p1->type == null) {
-        print_error(this->name + " function expecting integer or real",5);
+        print_error(" function expecting integer or real",5);
     }
 }
 
@@ -16,7 +16,7 @@ double ArithmeticFun::get_arithmetic_val( NodeTerminal *node) {
         return get<int>(node->value);
     if(node->type == real)
         return get<double>(node->value);
-    print_error(this->name + " function expecting integer or real",5);
+    print_error(" function expecting integer or real",5);
     return -1;
 }
 

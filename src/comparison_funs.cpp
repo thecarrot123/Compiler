@@ -4,10 +4,10 @@ void ComparisonFun::typecheck() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     if (!p1 || !p2) {
-        print_error(this->name + " function expecting integer, real, or bool",5);
+        print_error(" function expecting integer, real, or bool",5);
     }
     if (p1->type != p2->type) {
-        print_error(this->name + " function expecting equivalent types",5);
+        print_error(" function expecting equivalent types",5);
     }
 }
 
@@ -20,7 +20,7 @@ double ComparisonFun::get_comparison_val(NodeTerminal *node) {
         return get<bool>(node->value);
     if(node->type == null)
         return 0.0;
-    print_error(this->name + " function expecting integer, real, or bool",5);
+    print_error(" function expecting integer, real, or bool",5);
     return -1;
 }
 

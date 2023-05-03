@@ -42,7 +42,7 @@ build/list_funs.o: list_funs.cpp list_funs.hpp
 build/interpreter.o: interpreter.cpp interpreter.hpp
 	g++ $(CFLAGS) -c $< -o $@
 
-run_tests: compiler
+run_tests:
 	./run_tests.sh
 
 clear:

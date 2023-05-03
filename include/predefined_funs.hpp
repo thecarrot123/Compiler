@@ -35,7 +35,7 @@ protected:
     NodeList *params;
     vector <Token> &tokenized_code;
     void print_error(string message, int code) {
-        cout<<"Error "<<message<<endl;
+        cout<<"Error: "<<message<<endl;
         exit(code);
     }
 

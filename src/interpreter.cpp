@@ -29,7 +29,7 @@ bool Interpreter::ispredefined(Node *node){
         || name == "tail" || name == "cons" || name == "equal" || name == "nonequal" || name == "less"
         || name == "lesseq" || name == "greater" || name == "greatereq" || name == "isint" || name == "isreal"
         || name == "isbool" || name == "isnull" || name == "isatom" || name == "islist" || name == "and"
-        || name == "or" || name == "xor" || name == "not" || name == "eval")
+        || name == "or" || name == "xor" || name == "not" || name == "isempty" || name == "eval")
         return true;
     return false;
 }
