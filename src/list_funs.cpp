@@ -23,18 +23,7 @@ void HeadFun::typecheck() {
 Node *HeadFun::run() {
     typecheck();
     NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
-
-    auto term = dynamic_cast<NodeTerminal *>(p1->children[1]);
-
-    if(term) {
-        return term;
-    }
-
-    auto lst = dynamic_cast<NodeList *>(p1->children[1]);
-
-    if(lst) {
-        return lst;
-    }
+    return (p1->children[2]->children[1]);
 }
 
 void TailFun::typecheck() {
@@ -49,7 +38,7 @@ Node *TailFun::run() {
     NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
 
     NodeList *ret = new NodeList(*p1);
-    ret->children.erase(ret->children.begin() + 1);
+    ret->children[2]->children.erase(ret->children[2]->children.begin() + 1);
     return ret;
 }
 

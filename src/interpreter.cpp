@@ -213,6 +213,9 @@ Node* Interpreter::reduce(Node *node){
             node = reduce(node->children[1]);
             context = _context;
         }
+        else{
+            node->children[1] = reduce(node->children[1]);
+        }
     }
     else if (dynamic_cast<NodeLiteral*>(node)){
         node = reduce(node->children[0]);
