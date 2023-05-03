@@ -5,6 +5,7 @@
 #include "lexer.hpp"
 #include "syntaxer.hpp"
 #include "semantixer.hpp"
+#include "interpreter.hpp"
 
 using namespace std;
 
@@ -113,6 +114,8 @@ int main(int argc, char **argv) {
     if (args.getArg('S') != "") {
         semantixer.print(args.getArg('S'));
     }
+    Interpreter interpreter(root);
+    interpreter.interpret();
     file.close();
     return 0;
 }

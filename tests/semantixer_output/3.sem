@@ -98,48 +98,48 @@ graph {
 100[label="Params"]
 100 -- 101
 101[label="lpar"]
-100 -- 104
-104[label="atom"]
-100 -- 107
-107[label="atom"]
-100 -- 110
-110[label="atom"]
-100 -- 113
-113[label="atom"]
-100 -- 114
-114[label="rpar"]
-94 -- 116
-116[label="List"]
+100 -- 102
+102[label="rpar"]
+94 -- 104
+104[label="List"]
+104 -- 105
+105[label="lpar"]
+104 -- 108
+108[label="atom"]
+104 -- 110
+110[label="List"]
+110 -- 111
+111[label="lpar"]
+110 -- 114
+114[label="atom"]
+110 -- 116
+116[label="Literal"]
 116 -- 117
-117[label="lpar"]
-116 -- 120
-120[label="atom"]
-116 -- 122
-122[label="List"]
-122 -- 123
-123[label="lpar"]
-122 -- 126
-126[label="atom"]
-122 -- 129
-129[label="atom"]
-122 -- 132
-132[label="atom"]
-122 -- 133
-133[label="rpar"]
-116 -- 135
-135[label="List"]
-135 -- 136
-136[label="lpar"]
-135 -- 139
-139[label="atom"]
-135 -- 142
-142[label="atom"]
-135 -- 145
-145[label="atom"]
-135 -- 146
-146[label="rpar"]
-116 -- 147
-147[label="rpar"]
-94 -- 148
-148[label="rpar"]
+117[label="integer"]
+110 -- 119
+119[label="Literal"]
+119 -- 120
+120[label="integer"]
+110 -- 121
+121[label="rpar"]
+104 -- 123
+123[label="List"]
+123 -- 124
+124[label="lpar"]
+123 -- 127
+127[label="atom"]
+123 -- 129
+129[label="Literal"]
+129 -- 130
+130[label="integer"]
+123 -- 132
+132[label="Literal"]
+132 -- 133
+133[label="integer"]
+123 -- 134
+134[label="rpar"]
+104 -- 135
+135[label="rpar"]
+94 -- 136
+136[label="rpar"]
 }

@@ -1,13 +1,5 @@
 #include "predicate_funs.hpp"
 
-NodeParams *PredicateFun::create_params() {
-    vector < Token > vec;
-    NodeList *trash = new NodeList(NULL,vec,make_pair(-1,-1));
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    trash->children.push_back(new Node);
-    return new NodeParams(trash);
-}
 
 void PredicateFun::typecheck() {
     return;

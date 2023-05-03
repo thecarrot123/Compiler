@@ -203,97 +203,73 @@ graph {
 100 -- 101
 101[label="lpar"]
 100 -- 102
-102[label="Element"]
-102 -- 103
-103[label="Atom"]
+102[label="rpar"]
+94 -- 103
+103[label="Element"]
 103 -- 104
-104[label="atom"]
-100 -- 105
-105[label="Element"]
-105 -- 106
-106[label="Atom"]
+104[label="List"]
+104 -- 105
+105[label="lpar"]
+104 -- 106
+106[label="Element"]
 106 -- 107
-107[label="atom"]
-100 -- 108
-108[label="Element"]
-108 -- 109
-109[label="Atom"]
+107[label="Atom"]
+107 -- 108
+108[label="atom"]
+104 -- 109
+109[label="Element"]
 109 -- 110
-110[label="atom"]
-100 -- 111
-111[label="Element"]
-111 -- 112
-112[label="Atom"]
+110[label="List"]
+110 -- 111
+111[label="lpar"]
+110 -- 112
+112[label="Element"]
 112 -- 113
-113[label="atom"]
-100 -- 114
-114[label="rpar"]
-94 -- 115
+113[label="Atom"]
+113 -- 114
+114[label="atom"]
+110 -- 115
 115[label="Element"]
 115 -- 116
-116[label="List"]
+116[label="Literal"]
 116 -- 117
-117[label="lpar"]
-116 -- 118
+117[label="integer"]
+110 -- 118
 118[label="Element"]
 118 -- 119
-119[label="Atom"]
+119[label="Literal"]
 119 -- 120
-120[label="atom"]
-116 -- 121
-121[label="Element"]
-121 -- 122
-122[label="List"]
+120[label="integer"]
+110 -- 121
+121[label="rpar"]
+104 -- 122
+122[label="Element"]
 122 -- 123
-123[label="lpar"]
-122 -- 124
-124[label="Element"]
-124 -- 125
-125[label="Atom"]
+123[label="List"]
+123 -- 124
+124[label="lpar"]
+123 -- 125
+125[label="Element"]
 125 -- 126
-126[label="atom"]
-122 -- 127
-127[label="Element"]
-127 -- 128
-128[label="Atom"]
+126[label="Atom"]
+126 -- 127
+127[label="atom"]
+123 -- 128
+128[label="Element"]
 128 -- 129
-129[label="atom"]
-122 -- 130
-130[label="Element"]
-130 -- 131
-131[label="Atom"]
+129[label="Literal"]
+129 -- 130
+130[label="integer"]
+123 -- 131
+131[label="Element"]
 131 -- 132
-132[label="atom"]
-122 -- 133
-133[label="rpar"]
-116 -- 134
-134[label="Element"]
-134 -- 135
-135[label="List"]
-135 -- 136
-136[label="lpar"]
-135 -- 137
-137[label="Element"]
-137 -- 138
-138[label="Atom"]
-138 -- 139
-139[label="atom"]
-135 -- 140
-140[label="Element"]
-140 -- 141
-141[label="Atom"]
-141 -- 142
-142[label="atom"]
-135 -- 143
-143[label="Element"]
-143 -- 144
-144[label="Atom"]
-144 -- 145
-145[label="atom"]
-135 -- 146
-146[label="rpar"]
-116 -- 147
-147[label="rpar"]
-94 -- 148
-148[label="rpar"]
+132[label="Literal"]
+132 -- 133
+133[label="integer"]
+123 -- 134
+134[label="rpar"]
+104 -- 135
+135[label="rpar"]
+94 -- 136
+136[label="rpar"]
 }

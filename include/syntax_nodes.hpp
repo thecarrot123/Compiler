@@ -5,7 +5,6 @@
 #include <variant>
 #include "token.hpp"
 #include "node.hpp"
-
 class NodeProgram : public Node {
 public:
     NodeProgram() {
@@ -123,7 +122,9 @@ public:
         terminal = true;
     }
 
-    NodeTerminal(NodeTerminal const& other) : Node(other){};
+    NodeTerminal(NodeTerminal const& other) : Node(other){
+        value = other.value;
+    };
 
     NodeTerminal(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval, NodeType type){
         terminal = true;
@@ -144,8 +145,7 @@ public:
     }
 
     void init_value();
-    
-
+    string get_name();
     Node* clone();
 };
 #endif

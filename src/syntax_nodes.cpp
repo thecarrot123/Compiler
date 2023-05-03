@@ -184,4 +184,10 @@ void NodeTerminal::init_value(){
         value = stoi(tokenized_code[interval.first].content);
     else if (type == real)
         value = stod(tokenized_code[interval.first].content);
+    else
+        value = nullptr;
+}
+
+string NodeTerminal::get_name(){
+    return tokenized_code[interval.first].content;
 }

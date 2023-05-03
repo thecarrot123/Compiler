@@ -25,15 +25,29 @@ Node* PlusFun::run() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     NodeType type;
-    double val = get_arithmetic_val(p1) + get_arithmetic_val(p2);
-    auto ret = new NodeTerminal(
-        p2->get_bracket_info(),
-        tokenized_code,
-        make_pair(p1->get_interval().first,p2->get_interval().second),
-        ((p1->type == integer && p2->type == integer)? integer : real),
-        ((p1->type == integer && p2->type == integer)? (int)val : val)
-    );
-    return ret;
+
+    if (p1->type == integer && p2->type == integer){
+        int val = get_arithmetic_val(p1) + get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            integer,
+            val
+        );
+        return ret;
+    }
+    else{
+        double val = get_arithmetic_val(p1) + get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            real,
+            val
+        );
+        return ret;
+    }
 }
 
 Node* MinusFun::run() {
@@ -41,15 +55,28 @@ Node* MinusFun::run() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     NodeType type;
-    double val = get_arithmetic_val(p1) - get_arithmetic_val(p2);
-    auto ret = new NodeTerminal(
-        p2->get_bracket_info(),
-        tokenized_code,
-        make_pair(p1->get_interval().first,p2->get_interval().second),
-        ((p1->type == integer && p2->type == integer)? integer : real),
-        ((p1->type == integer && p2->type == integer)? (int)val : val)
-    );
-    return ret;
+    if (p1->type == integer && p2->type == integer){
+        int val = get_arithmetic_val(p1) - get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            integer,
+            val
+        );
+        return ret;
+    }
+    else{
+        double val = get_arithmetic_val(p1) - get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            real,
+            val
+        ); 
+        return ret;
+    }
 }
 
 Node* TimesFun::run() {
@@ -57,15 +84,28 @@ Node* TimesFun::run() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     NodeType type;
-    double val = get_arithmetic_val(p1) * get_arithmetic_val(p2);
-    auto ret = new NodeTerminal(
-        p2->get_bracket_info(),
-        tokenized_code,
-        make_pair(p1->get_interval().first,p2->get_interval().second),
-        ((p1->type == integer && p2->type == integer)? integer : real),
-        ((p1->type == integer && p2->type == integer)? (int)val : val)
-    );
-    return ret;
+    if (p1->type == integer && p2->type == integer){
+        int val = get_arithmetic_val(p1) * get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            integer,
+            val
+        );
+        return ret;
+    }
+    else{
+        double val = get_arithmetic_val(p1) * get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            real,
+            val
+        ); 
+        return ret;
+    }
 }
 
 void DivideFun::typecheck() {
@@ -81,13 +121,26 @@ Node* DivideFun::run() {
     NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     NodeType type;
-    double val = get_arithmetic_val(p1) / get_arithmetic_val(p2);
-    auto ret = new NodeTerminal(
-        p2->get_bracket_info(),
-        tokenized_code,
-        make_pair(p1->get_interval().first,p2->get_interval().second),
-        ((p1->type == integer && p2->type == integer)? integer : real),
-        ((p1->type == integer && p2->type == integer)? (int)val : val)
-    );
-    return ret;
+    if (p1->type == integer && p2->type == integer){
+        int val = get_arithmetic_val(p1) / get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            integer,
+            val
+        );
+        return ret;
+    }
+    else{
+        double val = get_arithmetic_val(p1) / get_arithmetic_val(p2);
+        auto ret = new NodeTerminal(
+            p2->get_bracket_info(),
+            tokenized_code,
+            make_pair(p1->get_interval().first,p2->get_interval().second),
+            real,
+            val
+        ); 
+        return ret;
+    }
 }

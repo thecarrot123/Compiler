@@ -79,7 +79,8 @@ bool ProgSF::typecheck(){
 }
 
 bool CondSF::typecheck(){
-    /// TODO: check more
+    if (children.size() < 5 || children.size() > 6)
+        return false;
     return true;
 }
 
