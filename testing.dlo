@@ -19,33 +19,29 @@ graph {
 12 -- 16
 16[label="atom"]
 12 -- 18
-18[label="Literal"]
+18[label="SpecialForm"]
 18 -- 19
-19[label="integer"]
-12 -- 21
-21[label="SpecialForm"]
-21 -- 22
-22[label="lpar"]
-21 -- 25
-25[label="keyword"]
-21 -- 27
-27[label="List"]
+19[label="lpar"]
+18 -- 22
+22[label="keyword"]
+18 -- 24
+24[label="List"]
+24 -- 25
+25[label="lpar"]
+24 -- 27
+27[label="Literal"]
 27 -- 28
-28[label="lpar"]
-27 -- 30
+28[label="integer"]
+24 -- 30
 30[label="Literal"]
 30 -- 31
 31[label="integer"]
-27 -- 33
-33[label="Literal"]
-33 -- 34
-34[label="integer"]
-27 -- 35
+24 -- 32
+32[label="rpar"]
+18 -- 33
+33[label="rpar"]
+12 -- 34
+34[label="rpar"]
+2 -- 35
 35[label="rpar"]
-21 -- 36
-36[label="rpar"]
-12 -- 37
-37[label="rpar"]
-2 -- 38
-38[label="rpar"]
 }
