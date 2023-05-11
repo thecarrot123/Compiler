@@ -1,2 +1,5 @@
+(func pp (a b)
+    (cons a b))
+
 (prog ()
-    (cons '(1 2) '(3 4)))
+    (pp 3 '(1 2 3)))
