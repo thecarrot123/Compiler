@@ -4,8 +4,7 @@
 *.layout
 *.o
 compiler
-sample.F
-sample.dl
+sample*
 
 .vscode/
 bin/
