@@ -160,10 +160,7 @@ void Semantixer::third_traversal(Node* node){
     for (auto& next_node: node->children){
         NodeSpecialForm* nodeSF = dynamic_cast<NodeSpecialForm*>(next_node);
         if (nodeSF){
-            cout <<next_node->children[1]->get_type()<<endl;
-            cout <<"poadsijfo\n" << dynamic_cast<NodeTerminal*>(next_node->children[1]) << endl;;
             string name = dynamic_cast<NodeTerminal*>(next_node->children[1])->get_name();
-            cout <<"GOT NAME\n";
             if (name == "func" || name == "prog" || name == "lambda" || name == "while"){
                 int idx = 3 + (name == "func");
                 pair <int,int> interval = {next_node->children[idx]->get_interval().first,

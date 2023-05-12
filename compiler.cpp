@@ -114,10 +114,9 @@ int main(int argc, char **argv) {
     if (args.getArg('S') != "") {
         semantixer.print(args.getArg('S'));
     }
-    /// TODO: make semantixer returns prog params flag.
-    bool flag = false;
+    int prog_params = semantixer.prog_params;
     Node* param_root = NULL;
-    if(flag) {
+    if(prog_params) {
         cout<<"Enter prog params:\n";
         Lexer param_lexer(cin);
         vector < Token > * param_token = param_lexer.get_tokens();
@@ -144,6 +143,10 @@ int main(int argc, char **argv) {
             exit(4);
         }
         param_semantixer.print("sample.sem");
+        if((int)param_root->children.size() != prog_params) {
+            cout<<"Error: Prog has "<<prog_params<<" params but got "<<(int)param_root->children.size()<<endl;
+            exit(4);
+        }
     }
     Interpreter interpreter(root,param_root);
     interpreter.interpret();
