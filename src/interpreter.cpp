@@ -8,6 +8,17 @@
 #include <variant>
 
 void Interpreter::interpret(){
+    auto param_list = dynamic_cast<NodeParams*>(root->children.back()->children[2]);
+    for (int i=1;i<param_list->children.size()-1;i++) {
+        auto param = dynamic_cast<NodeTerminal*>(param_list->children[i]);
+        auto param_quote = dynamic_cast<QuoteSF*>(param_root->children[i-1]);
+        if(param_quote)
+            context[param->get_name()] = new QuoteSF(*param_quote);
+        else {
+            auto param_value = dynamic_cast<NodeTerminal*>(param_root->children[i-1]->children[0]);
+            context[param->get_name()] = new NodeTerminal(*param_value);
+        }
+    }
     Node* node = reduce(root->children[root->children.size()-1]);
     cout <<"done interpreting\n";
     root = node;
@@ -41,7 +52,7 @@ Node* Interpreter::expand(Node* node){
     return node;
 }
 
-Node* Interpreter::reduce(Node *node){
+Node* Interpreter::reduce(Node *node) {
     if (dynamic_cast<ProgSF*>(node))
     {
         node = reduce(node->children[3]);

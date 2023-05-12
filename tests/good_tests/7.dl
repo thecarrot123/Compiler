@@ -2,6 +2,6 @@
     (setq a 5)
     (cons a b))
 
-(prog ()
+(prog (a)
     (pp 3 '(1 2 3))
-    (pp 1 '(2 3 4)))
+    (pp a '(2 3 4)))
