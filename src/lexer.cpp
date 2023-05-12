@@ -65,6 +65,10 @@ void Lexer::scan_code() {
     while (getline(fin, input)) {
         code+= input + '\n';
     }
+    if(code.size() == 0) {
+        error_messages->push_back("Lexer Error:Input cannot be empty\n");
+        return;
+    }
     Token token(next_token());
     while (token.content != "") {
         if(token.type == token_type::ERR) {
