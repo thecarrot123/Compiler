@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
         semantixer.print(args.getArg('S'));
     }
     /// TODO: make semantixer returns prog params flag.
-    bool flag = true;
+    bool flag = false;
     Node* param_root = NULL;
     if(flag) {
         cout<<"Enter prog params:\n";

@@ -1,0 +1,5 @@
+(func add (a)
+    (plus (head a) (head (tail a))))
+
+(prog ()
+  (eval '(add '(1 2))))

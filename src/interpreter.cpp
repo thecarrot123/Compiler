@@ -198,7 +198,9 @@ Node* Interpreter::reduce(Node *node){
                 node = x.run();
             }
             else if (name == "eval"){
-                ///TODO: Implement
+                EvalFun x(params, node->get_tokenized_code());
+                node = x.run();
+                node = reduce(node);
             }
         }
         else if (node->children[1]->type == atom){
