@@ -3,5 +3,10 @@
     (cons a b))
 
 (prog (a)
-    (pp 3 '(1 2 3))
-    (pp a '(2 3 4)))
+    (while true
+        (setq a (plus a 2))
+        (cond (greater a 10) (break)))
+    (return a)
+    (while (less a 14)
+        (setq a (plus a 2)))
+    a)
