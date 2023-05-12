@@ -11,7 +11,7 @@ private:
     map <string, Node*> param_table;
     map <string, Node*> body_table;
     int prog_count = 0;
-    bool prog_flag = true;
+    bool prog_flag = false;
 
 public:
     Semantixer(Node *root){

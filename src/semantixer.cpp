@@ -160,6 +160,25 @@ void Semantixer::third_traversal(Node* node){
     for (auto& next_node: node->children){
         NodeSpecialForm* nodeSF = dynamic_cast<NodeSpecialForm*>(next_node);
         if (nodeSF){
+            cout <<next_node->children[1]->get_type()<<endl;
+            cout <<"poadsijfo\n" << dynamic_cast<NodeTerminal*>(next_node->children[1]) << endl;;
+            string name = dynamic_cast<NodeTerminal*>(next_node->children[1])->get_name();
+            cout <<"GOT NAME\n";
+            if (name == "func" || name == "prog" || name == "lambda" || name == "while"){
+                int idx = 3 + (name == "func");
+                pair <int,int> interval = {next_node->children[idx]->get_interval().first,
+                                           next_node->children[next_node->children.size() - 2]->get_interval().second};
+                NodeBody* newNode = new NodeBody(next_node->get_bracket_info(), next_node->get_tokenized_code(), interval);
+                for (int i = idx; i < next_node->children.size()-1; i++){
+                    newNode->children.push_back(next_node->children[i]);
+                }
+                vector<Node*> _children;
+                for (int i = 0; i < idx; i++)
+                    _children.push_back(next_node->children[i]);
+                _children.push_back(newNode);
+                _children.push_back(next_node->children.back());
+                next_node->children = _children;
+            }
             if (!nodeSF->typecheck()){
                 error = 1;
                 error_messages.push_back("Error: Wrong usage of a special form at line " + 

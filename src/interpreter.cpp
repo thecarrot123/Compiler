@@ -46,6 +46,12 @@ Node* Interpreter::reduce(Node *node){
     {
         node = reduce(node->children[3]);
     }
+    else if (node->type == Body){
+        for (int i = 0 ; i < node->children.size(); i++){
+            node->children[i] = reduce(node->children[i]);
+        }
+        node = node->children.back();
+    }
     else if (node->type == SpecialForm){
         string name = dynamic_cast<NodeTerminal*>(node->children[1])->get_name();
         if (name == "quote"){
