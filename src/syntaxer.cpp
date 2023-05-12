@@ -88,6 +88,12 @@ void Syntaxer::print(string filename, Node* root) {
     file.close();
 }
 
+void Syntaxer::print(Node* root) {
+    cout << "graph {\n";
+    print(cout, root);
+    cout<<'}';
+}
+
 void Syntaxer::print_errors(){
     cout << "Syntax error(s):\n";
     for (int i = 0; i < error_messages.size(); i++){

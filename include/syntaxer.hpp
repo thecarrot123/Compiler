@@ -29,10 +29,10 @@ public:
 
     Node* get_root();
 
-    void parse_code(Node* node);
-    void print();
     void print(string filename, Node* root);
     void print(ostream& fout, Node* node);
+    void parse_code(Node* node);
+    void print(Node* root);
     void print_errors();
 };
 

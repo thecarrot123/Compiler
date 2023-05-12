@@ -11,10 +11,15 @@ private:
     map <string, Node*> param_table;
     map <string, Node*> body_table;
     int prog_count = 0;
+    bool prog_flag = true;
 
 public:
     Semantixer(Node *root){
-        this-> root = root;
+        this->root = root;
+    }
+    Semantixer(Node *root, bool prog_flag){
+        this->root = root;
+        this->prog_flag = prog_flag;
     }
 
     Node* traverse();

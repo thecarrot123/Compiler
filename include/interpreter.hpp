@@ -5,10 +5,15 @@
 class Interpreter{
 private:
     Node* root;
+    Node* param_root;
     map<string, Node*> context;
 public:
     Interpreter(Node *root){
         this->root = root;
+    }
+    Interpreter(Node *root, Node* param_root){
+        this->root = root;
+        this->param_root = param_root;
     }
     bool ispredefined(Node *node);
     Node* reduce(Node *node);

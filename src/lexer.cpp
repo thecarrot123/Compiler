@@ -4,7 +4,7 @@
 #include "token.hpp"
 
 using namespace std;
-int line_cnt = 1;
+
 
 string Lexer::next_token_content() {
     while (ind < code.size() && (code[ind] == ' ' || code[ind] == '\n' || code[ind] == '\t')) {

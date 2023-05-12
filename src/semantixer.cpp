@@ -6,11 +6,11 @@ Node* Semantixer::traverse(){
     first_traversal(root);
     second_traversal(root, false);
     third_traversal(root);
-    if (!dynamic_cast<ProgSF*>(root->children.back())){
+    if (!dynamic_cast<ProgSF*>(root->children.back()) && prog_flag){
         error = 1;
         error_messages.push_back("Error: Prog should be the last definition.");
     }
-    if (prog_count != 1){
+    if (prog_count != 1 && prog_flag){
         error = 1;
         error_messages.push_back("Error: There can be one and only one definition of prog.");
     }
