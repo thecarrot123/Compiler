@@ -160,10 +160,7 @@ void Semantixer::third_traversal(Node* node){
     for (auto& next_node: node->children){
         NodeSpecialForm* nodeSF = dynamic_cast<NodeSpecialForm*>(next_node);
         if (nodeSF){
-            cout <<next_node->children[1]->get_type()<<endl;
-            cout <<"poadsijfo\n" << dynamic_cast<NodeTerminal*>(next_node->children[1]) << endl;;
             string name = dynamic_cast<NodeTerminal*>(next_node->children[1])->get_name();
-            cout <<"GOT NAME\n";
             if (name == "func" || name == "prog" || name == "lambda" || name == "while"){
                 int idx = 3 + (name == "func");
                 pair <int,int> interval = {next_node->children[idx]->get_interval().first,
@@ -223,7 +220,7 @@ void Semantixer::forth_traversal(Node *node){
     if (dynamic_cast<SetqSF*>(node)){
         string atom = node->children[2]->get_tokenized_code()[node->get_interval().first + 2].content;
         Node* value = node->children[3];
-        add_to_body_table(atom, value, node->get_tokenized_code()[node->get_interval().first + 1].line);
+        //add_to_body_table(atom, value, node->get_tokenized_code()[node->get_interval().first + 1].line);
         node->body_table = body_table;
         node->param_table = param_table;
         forth_traversal(value);

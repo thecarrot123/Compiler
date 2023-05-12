@@ -1,5 +1,5 @@
 (func pp (a b)
-    (tail b)
+    (setq a 5)
     (cons a b))
 
 (prog ()

@@ -58,6 +58,14 @@ Node* Interpreter::reduce(Node *node){
             return node;
         }
         else if (name == "setq"){
+            node->children[3] = reduce(node->children[3]);
+            string name = dynamic_cast<NodeTerminal*>(node->children[2])->get_name();
+            if (dynamic_cast<NodeTerminal*>(node->children[3]))
+                context[name] = new NodeTerminal (*dynamic_cast<NodeTerminal*>(node->children[3]));
+            else if (dynamic_cast<QuoteSF*>(node->children[3]))
+                context[name] = new QuoteSF (*dynamic_cast<QuoteSF*>(node->children[3]));
+            else
+                print_error("Invalid value returned from setq body!", 11);
             node = new NodeTerminal(
                 node->get_bracket_info(),
                 node->get_tokenized_code(),
@@ -88,7 +96,7 @@ Node* Interpreter::reduce(Node *node){
             }
         }
         else if (name == "while" || name == "break"){
-            return new NodeTerminal(
+            node = new NodeTerminal(
                 node->get_bracket_info(),
                 node->get_tokenized_code(),
                 node->get_interval(),
@@ -261,8 +269,9 @@ void Interpreter::print_code(Node *node){
         else if (node->type == null){
             cout << "null ";
         }
-        else
+        else{
             cout << _node->get_name()<<" ";
+        }
         return;
     }
     for (int i = 0; i < node->children.size();i ++){
