@@ -186,7 +186,10 @@ void Semantixer::third_traversal(Node* node){
             }
         }
         if (dynamic_cast<ProgSF*> (nodeSF))
+        {
             prog_count++;
+            prog_params = (nodeSF->children[2]->children.size()) - 2;
+        }
         third_traversal(next_node);
     }
 }

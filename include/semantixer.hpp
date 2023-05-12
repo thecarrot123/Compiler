@@ -14,6 +14,7 @@ private:
     bool prog_flag = false;
 
 public:
+    int prog_params = 0;
     Semantixer(Node *root){
         this->root = root;
     }
