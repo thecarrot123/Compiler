@@ -7,6 +7,8 @@ private:
     Node* root;
     Node* param_root;
     map<string, Node*> context;
+    bool return_flag = false;
+    bool break_flag = false;
     string ans = "";
 public:
     Interpreter(Node *root){

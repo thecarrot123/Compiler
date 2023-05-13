@@ -57,10 +57,17 @@ Node* Interpreter::reduce(Node *node) {
         node = reduce(node->children[3]);
     }
     else if (node->type == Body){
+        int return_index = node->children.size() - 1;
         for (int i = 0 ; i < node->children.size(); i++){
             node->children[i] = reduce(node->children[i]);
+            if (return_flag)
+            {
+                return_flag = false;
+                return_index = i;
+                break;
+            }
         }
-        node = node->children.back();
+        node = node->children[return_index];
     }
     else if (node->type == SpecialForm){
         string name = dynamic_cast<NodeTerminal*>(node->children[1])->get_name();
@@ -68,6 +75,14 @@ Node* Interpreter::reduce(Node *node) {
             return node;
         }
         else if (name == "setq"){
+            node->children[3] = reduce(node->children[3]);
+            string name = dynamic_cast<NodeTerminal*>(node->children[2])->get_name();
+            if (dynamic_cast<NodeTerminal*>(node->children[3]))
+                context[name] = new NodeTerminal (*dynamic_cast<NodeTerminal*>(node->children[3]));
+            else if (dynamic_cast<QuoteSF*>(node->children[3]))
+                context[name] = new QuoteSF (*dynamic_cast<QuoteSF*>(node->children[3]));
+            else
+                print_error("Invalid value returned from setq body!", 11);
             node = new NodeTerminal(
                 node->get_bracket_info(),
                 node->get_tokenized_code(),
@@ -97,8 +112,44 @@ Node* Interpreter::reduce(Node *node) {
                     nullptr);
             }
         }
-        else if (name == "while" || name == "break"){
-            return new NodeTerminal(
+        else if (name == "while"){
+            Node* condition = new Node(*node->children[2]);
+            Node* body = new Node(*node->children[3]);
+
+            while (true){
+                if (break_flag){
+                    break_flag = false;
+                    node = new NodeTerminal(
+                        node->get_bracket_info(),
+                        node->get_tokenized_code(),
+                        node->get_interval(),
+                        null,
+                        nullptr);
+                    break;
+                }
+                condition = reduce(condition);
+                if (condition->type != boolean)
+                    print_error("Error: Condition statement isn't boolean!", 13);
+                NodeTerminal* _node = dynamic_cast<NodeTerminal*>(condition);
+                if (get<bool>(_node->value)){
+                    condition = new Node(*node->children[2]);
+                    body = reduce(body);
+                    body = new Node(*(node->children[3]));
+                }
+                else{
+                    node = new NodeTerminal(
+                        node->get_bracket_info(),
+                        node->get_tokenized_code(),
+                        node->get_interval(),
+                        null,
+                        nullptr);
+                    break;
+                }
+            }    
+        }
+        else if (name == "break"){
+            break_flag = true;
+            node = new NodeTerminal(
                 node->get_bracket_info(),
                 node->get_tokenized_code(),
                 node->get_interval(),
@@ -106,6 +157,7 @@ Node* Interpreter::reduce(Node *node) {
                 nullptr);
         }
         else if (name == "return"){
+            return_flag = true;
             node = reduce(node->children[2]);
         }
     }
@@ -240,7 +292,7 @@ Node* Interpreter::reduce(Node *node) {
             node->children[1] = reduce(node->children[1]);
         }
     }
-    else if (dynamic_cast<NodeLiteral*>(node)){
+    else if (node->type == Literal){
         node = reduce(node->children[0]);
     }
     else if (node->type == atom){
