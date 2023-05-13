@@ -20,6 +20,7 @@ enum NodeType{
     integer,
     SpecialForm,
     Params,
+    Body,
 };
 
 

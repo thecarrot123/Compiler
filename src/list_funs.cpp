@@ -4,11 +4,11 @@ int ListFun::p1_size() {
     NodeList *p1 = dynamic_cast < NodeList *>(params->children[1]);
     if(p1)
         return p1->children.size() - 2;
+    return -1;
 }
 
 void ListFun::typecheck() {
 }
-//(1 (qoute 1 2 3))
 
 void ListFun::strip(int idx) {
     if(params->children[idx]->type != SpecialForm)    
@@ -132,4 +132,11 @@ Node *IsEmptyFun::run() {
         v
     };
     return ret;
+}
+
+void EvalFun::typecheck() {
+}
+
+Node *EvalFun::run() {
+    return params->children[1];
 }

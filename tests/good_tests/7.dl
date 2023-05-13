@@ -1,2 +1,13 @@
+(func f (a b)
+  (setq a 5)
+  (cons a b))
+
 (prog ()
-    (cons '(1 2) '(3 4)))
+  (setq a 10)
+  (while true
+    (setq a (plus a 2))
+    (cond (greater a 10) (break)))
+  (return a)
+  (while (less a 14)
+    (setq a (plus a 2)))
+  )

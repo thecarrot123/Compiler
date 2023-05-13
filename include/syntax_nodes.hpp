@@ -56,6 +56,7 @@ public:
     }
 
     NodeList(NodeList const& other) : Node(other){};
+    NodeList(Node const& other) : Node(other){};
 
     NodeList(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
         type = List;

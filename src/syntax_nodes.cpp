@@ -6,7 +6,7 @@
 using namespace std;
 
 const string Node::node_types[] = {"Program", "Element", "List",  "Literal",  "Atom",  "real", "boolean", "null", 
-                                "atom", "lpar", "rpar", "keyword", "integer","SpecialForm","Params"};
+                                "atom", "lpar", "rpar", "keyword", "integer","SpecialForm","Params", "Body"};
 
 bool Node::isTerminal(){
     return terminal;
@@ -21,7 +21,7 @@ string Node::get_type(){
 }
 
 int Node::get_index(){
-    return index;
+    return (long long)this;
 }
 
 vector <Token>& Node::get_tokenized_code(){

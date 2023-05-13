@@ -8,12 +8,21 @@
 #include <variant>
 
 void Interpreter::interpret(){
+    auto param_list = dynamic_cast<NodeParams*>(root->children.back()->children[2]);
+    for (int i=1;i<param_list->children.size()-1;i++) {
+        auto param = dynamic_cast<NodeTerminal*>(param_list->children[i]);
+        auto param_quote = dynamic_cast<QuoteSF*>(param_root->children[i-1]);
+        if(param_quote)
+            context[param->get_name()] = new QuoteSF(*param_quote);
+        else {
+            auto param_value = dynamic_cast<NodeTerminal*>(param_root->children[i-1]->children[0]);
+            context[param->get_name()] = new NodeTerminal(*param_value);
+        }
+    }
     Node* node = reduce(root->children[root->children.size()-1]);
     cout <<"done interpreting\n";
     root = node;
-    print("testing.pp");
-    print_code(node);
-    cout <<endl;
+    print_code();
 }
 
 void Interpreter::print_error(string error_message, int error_number){
@@ -41,10 +50,25 @@ Node* Interpreter::expand(Node* node){
     return node;
 }
 
-Node* Interpreter::reduce(Node *node){
+Node* Interpreter::reduce(Node *node) {
     if (dynamic_cast<ProgSF*>(node))
     {
         node = reduce(node->children[3]);
+    }
+    else if (node->type == Body){
+        int return_index = node->children.size() - 1;
+        for (int i = 0 ; i < node->children.size(); i++){
+            node->children[i] = reduce(node->children[i]);
+            if (return_flag)
+            {
+                return_flag = false;
+                return_index = i;
+                break;
+            }
+            if (break_flag)
+                break;
+        }
+        node = node->children[return_index];
     }
     else if (node->type == SpecialForm){
         string name = dynamic_cast<NodeTerminal*>(node->children[1])->get_name();
@@ -52,6 +76,14 @@ Node* Interpreter::reduce(Node *node){
             return node;
         }
         else if (name == "setq"){
+            node->children[3] = reduce(node->children[3]);
+            string name = dynamic_cast<NodeTerminal*>(node->children[2])->get_name();
+            if (dynamic_cast<NodeTerminal*>(node->children[3]))
+                context[name] = new NodeTerminal (*dynamic_cast<NodeTerminal*>(node->children[3]));
+            else if (dynamic_cast<QuoteSF*>(node->children[3]))
+                context[name] = new QuoteSF (*dynamic_cast<QuoteSF*>(node->children[3]));
+            else
+                print_error("Invalid value returned from setq body!", 11);
             node = new NodeTerminal(
                 node->get_bracket_info(),
                 node->get_tokenized_code(),
@@ -81,8 +113,44 @@ Node* Interpreter::reduce(Node *node){
                     nullptr);
             }
         }
-        else if (name == "while" || name == "break"){
-            return new NodeTerminal(
+        else if (name == "while"){
+            Node* condition = new Node(*node->children[2]);
+            Node* body = new Node(*node->children[3]);
+
+            while (true){
+                if (break_flag){
+                    break_flag = false;
+                    node = new NodeTerminal(
+                        node->get_bracket_info(),
+                        node->get_tokenized_code(),
+                        node->get_interval(),
+                        null,
+                        nullptr);
+                    break;
+                }
+                condition = reduce(condition);
+                if (condition->type != boolean)
+                    print_error("Error: Condition statement isn't boolean!", 13);
+                NodeTerminal* _node = dynamic_cast<NodeTerminal*>(condition);
+                if (get<bool>(_node->value)){
+                    condition = new Node(*node->children[2]);
+                    body = reduce(body);
+                    body = new Node(*(node->children[3]));
+                }
+                else{
+                    node = new NodeTerminal(
+                        node->get_bracket_info(),
+                        node->get_tokenized_code(),
+                        node->get_interval(),
+                        null,
+                        nullptr);
+                    break;
+                }
+            }    
+        }
+        else if (name == "break"){
+            break_flag = true;
+            node = new NodeTerminal(
                 node->get_bracket_info(),
                 node->get_tokenized_code(),
                 node->get_interval(),
@@ -91,6 +159,7 @@ Node* Interpreter::reduce(Node *node){
         }
         else if (name == "return"){
             node = reduce(node->children[2]);
+            return_flag = true;
         }
     }
     else if (node->type == List){
@@ -99,7 +168,7 @@ Node* Interpreter::reduce(Node *node){
         }
         if (ispredefined(node->children[1])){
             string name = dynamic_cast<NodeTerminal*>(node->children[1])->get_name();
-            NodeList *params = new NodeList(*dynamic_cast<NodeList*>(node));
+            NodeList *params = new NodeList(*(node));
             params->children.erase(params->children.begin() + 1);
             if (name == "plus"){
                 PlusFun x(params, node->get_tokenized_code());
@@ -198,7 +267,9 @@ Node* Interpreter::reduce(Node *node){
                 node = x.run();
             }
             else if (name == "eval"){
-                ///TODO: Implement
+                EvalFun x(params, node->get_tokenized_code());
+                node = x.run();
+                node = reduce(node);
             }
         }
         else if (node->children[1]->type == atom){
@@ -208,11 +279,12 @@ Node* Interpreter::reduce(Node *node){
             map <string, Node*> _context = context;
             for (int i = 2; i < node->children.size() -1 ; i++){
                 string param_name = dynamic_cast<NodeTerminal*>(params->children[i-1])->get_name();
-                ///TODO: fix to pass lists as params
                 if (dynamic_cast<NodeTerminal*>(node->children[i]))
                     context[param_name] = new NodeTerminal(*dynamic_cast<NodeTerminal*>(node->children[i]));
                 if (!context[param_name])
-                    context[param_name] = new Node(*(node->children[i]));
+                {
+                    context[param_name] = new QuoteSF(*(dynamic_cast<QuoteSF*>(node->children[i])));
+                }
             }
             node = reduce(node->children[1]);
             context = _context;
@@ -221,7 +293,7 @@ Node* Interpreter::reduce(Node *node){
             node->children[1] = reduce(node->children[1]);
         }
     }
-    else if (dynamic_cast<NodeLiteral*>(node)){
+    else if (node->type == Literal){
         node = reduce(node->children[0]);
     }
     else if (node->type == atom){
@@ -231,6 +303,12 @@ Node* Interpreter::reduce(Node *node){
         }
         node = context[name];
     }
+    else if (node->isTerminal()){
+        return node;
+    }
+    else{
+        print_error("Unknown error.", 69);
+    }
     return node;
 }
 
@@ -239,26 +317,38 @@ void Interpreter::print_code(Node *node){
         NodeTerminal* _node = dynamic_cast<NodeTerminal*>(node);
         if (node->type == boolean){
             if (get<bool>(_node->value))
-                cout << "true ";
+                cout<< "true ";
             else
-                cout << "false ";
+                cout<< "false ";
         }
         else if (node->type == integer){
-            cout << get<int>(_node->value) <<" ";
+            cout<< to_string(get<int>(_node->value)) << " ";
         }
         else if (node->type == real){
-            cout << get<double>(_node->value) <<" ";
+            cout<< to_string(get<double>(_node->value)) << " ";
         }
         else if (node->type == null){
-            cout << "null ";
+            cout<< "null ";
         }
         else
-            cout << _node->get_name()<<" ";
+            cout<< _node->get_name() << " ";
         return;
     }
-    for (int i = 0; i < node->children.size();i ++){
-        print_code(node->children[i]);
+    if(node->children.size() > 2 && dynamic_cast<NodeTerminal*>(node->children[1]) 
+        && dynamic_cast<NodeTerminal*>(node->children[1])->get_name() == "quote") {
+        cout<<"\'";
+        print_code(node->children[2]);
     }
+    else {
+        for (int i = 0; i < node->children.size();i ++){
+            print_code(node->children[i]);
+        }
+    }
+}
+
+void Interpreter::print_code() {
+    print_code(root);
+    cout<<endl;
 }
 
 void Interpreter::print(ostream& fout, Node* node){

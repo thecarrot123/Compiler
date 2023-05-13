@@ -63,19 +63,19 @@ bool SetqSF::typecheck(){
 bool FuncSF::typecheck(){
     if (children.size() != 6)
         return false;
-    return (isAtom(children[2]) && dynamic_cast<NodeParams*>(children[3]) && isElement(children[4]));
+    return (isAtom(children[2]) && dynamic_cast<NodeParams*>(children[3]) && dynamic_cast<NodeBody*>(children[4]));
 }
 
 bool LambdaSF::typecheck(){
     if (children.size() != 5)
         return false;
-    return (dynamic_cast<NodeParams*>(children[2]) && isElement(children[3]));
+    return (dynamic_cast<NodeParams*>(children[2]) && dynamic_cast<NodeBody*>(children[3]));
 }
 
 bool ProgSF::typecheck(){
     if (children.size() != 5)
         return false;
-    return (dynamic_cast<NodeParams*>(children[2]) && isElement(children[3]));
+    return (dynamic_cast<NodeParams*>(children[2]) && dynamic_cast<NodeBody*>(children[3]));
 }
 
 bool CondSF::typecheck(){
@@ -87,7 +87,7 @@ bool CondSF::typecheck(){
 bool WhileSF::typecheck(){
     if (children.size() != 5)
         return false;
-    return (isElement(children[2]) && isElement(children[3]));
+    return (isElement(children[2]) && dynamic_cast<NodeBody*>(children[3]));
 }
 
 bool ReturnSF::typecheck(){

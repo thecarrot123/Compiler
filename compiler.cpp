@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
         cout<<"Error: file "<<file_name<<" doesn't exists\n";
         exit(1);
     }
-    Lexer lexer(file_name);
+    Lexer lexer(file);
     tokenized_code = lexer.get_tokens();
     if (tokenized_code == NULL) {
         lexer.print_errors();
@@ -114,7 +114,41 @@ int main(int argc, char **argv) {
     if (args.getArg('S') != "") {
         semantixer.print(args.getArg('S'));
     }
-    Interpreter interpreter(root);
+    int prog_params = semantixer.prog_params;
+    Node* param_root = NULL;
+    if(prog_params) {
+        cout<<"Enter prog params:\n";
+        Lexer param_lexer(cin);
+        vector < Token > * param_token = param_lexer.get_tokens();
+        if (param_token == NULL) {
+            param_lexer.print_errors();
+            exit(2);
+        }
+        for(auto token: *param_token) {
+            if(token.type == ATOM || (token.type == KEYWORD && token.content != "quote")) {
+                cout<<"Error: Params can't have atoms or keywords\n";
+                exit(2);
+            }
+        }
+        Syntaxer param_syntaxer(param_token);
+        param_root = param_syntaxer.get_root();
+        if (param_root == NULL) {
+            param_syntaxer.print_errors();
+            exit(3);
+        }
+        Semantixer param_semantixer(param_root,false);
+        param_root = param_semantixer.traverse();
+        if (param_root == NULL) {
+            param_semantixer.print_errors();
+            exit(4);
+        }
+        param_semantixer.print("sample.sem");
+        if((int)param_root->children.size() != prog_params) {
+            cout<<"Error: Prog has "<<prog_params<<" params but got "<<(int)param_root->children.size()<<endl;
+            exit(4);
+        }
+    }
+    Interpreter interpreter(root,param_root);
     interpreter.interpret();
     file.close();
     return 0;

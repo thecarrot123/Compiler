@@ -21,6 +21,19 @@ public:
     virtual bool typecheck() = 0;
 };
 
+class NodeBody : public Node {
+public:
+    NodeBody(NodeBody const& other) : Node(other){};
+
+    NodeBody(int* bracket_info, vector <Token> &tokenized_code, pair<int,int> interval) {
+        type = Body;
+        terminal = false;
+        this->interval = interval;
+        this->tokenized_code = tokenized_code;
+        this->bracket_info = bracket_info;
+    }
+};
+
 class QuoteSF : public NodeSpecialForm{
 public:
     QuoteSF(QuoteSF const& other) : NodeSpecialForm(other){};

@@ -6,11 +6,11 @@ Node* Semantixer::traverse(){
     first_traversal(root);
     second_traversal(root, false);
     third_traversal(root);
-    if (!dynamic_cast<ProgSF*>(root->children.back())){
+    if (!dynamic_cast<ProgSF*>(root->children.back()) && prog_flag){
         error = 1;
         error_messages.push_back("Error: Prog should be the last definition.");
     }
-    if (prog_count != 1){
+    if (prog_count != 1 && prog_flag){
         error = 1;
         error_messages.push_back("Error: There can be one and only one definition of prog.");
     }
@@ -160,6 +160,22 @@ void Semantixer::third_traversal(Node* node){
     for (auto& next_node: node->children){
         NodeSpecialForm* nodeSF = dynamic_cast<NodeSpecialForm*>(next_node);
         if (nodeSF){
+            string name = dynamic_cast<NodeTerminal*>(next_node->children[1])->get_name();
+            if (name == "func" || name == "prog" || name == "lambda" || name == "while"){
+                int idx = 3 + (name == "func");
+                pair <int,int> interval = {next_node->children[idx]->get_interval().first,
+                                           next_node->children[next_node->children.size() - 2]->get_interval().second};
+                NodeBody* newNode = new NodeBody(next_node->get_bracket_info(), next_node->get_tokenized_code(), interval);
+                for (int i = idx; i < next_node->children.size()-1; i++){
+                    newNode->children.push_back(next_node->children[i]);
+                }
+                vector<Node*> _children;
+                for (int i = 0; i < idx; i++)
+                    _children.push_back(next_node->children[i]);
+                _children.push_back(newNode);
+                _children.push_back(next_node->children.back());
+                next_node->children = _children;
+            }
             if (!nodeSF->typecheck()){
                 error = 1;
                 error_messages.push_back("Error: Wrong usage of a special form at line " + 
@@ -167,17 +183,20 @@ void Semantixer::third_traversal(Node* node){
             }
         }
         if (dynamic_cast<ProgSF*> (nodeSF))
+        {
             prog_count++;
+            prog_params = (nodeSF->children[2]->children.size()) - 2;
+        }
         third_traversal(next_node);
     }
 }
 
 void Semantixer::add_to_body_table(string atom, Node* value, int line){
-    if (body_table[atom]){
+    /*if (body_table[atom]){
         error = 1;
         error_messages.push_back("Error: Redefinition of an atom/function at line " + 
             to_string(line));
-    }
+    }*/
     body_table[atom] = value;
 }
 

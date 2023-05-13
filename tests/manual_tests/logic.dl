@@ -1,0 +1,32 @@
+(func pushNot (a lst)
+  (cons (not a) lst))
+
+(func pushAnd (a b lst)
+  (cons (and a b) lst))
+
+(func pushOr (a b lst)
+  (cons (or a b) lst))
+
+(func pushXor (a b lst)
+  (cons (xor a b) lst))
+
+(func reverse (lst)
+  (setq ret '())
+  (while (not (isempty lst))
+    (setq ret (cons (head lst) ret))
+    (setq lst (tail lst)))
+  ret)
+
+(prog (a b)
+  (setq lst '())
+  (setq lst (cons 'not lst))
+  (setq lst (pushNot a lst))
+  (setq lst (cons 'not lst))
+  (setq lst (pushNot b lst))
+  (setq lst (cons 'and lst))
+  (setq lst (pushAnd a b lst))
+  (setq lst (cons 'or lst))
+  (setq lst (pushOr a b lst))
+  (setq lst (cons 'xor lst))
+  (setq lst (pushXor a b lst))
+  (return (reverse lst)))

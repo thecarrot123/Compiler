@@ -62,4 +62,15 @@ public:
     Node* run() override;
 };
 
+class EvalFun : public ListFun {
+public:
+    void typecheck() override;
+
+    EvalFun(NodeList *params, vector <Token> &vec) : ListFun(_isempty,params,vec) {
+        strip(1);
+    }
+
+    Node* run() override;
+};
+
 #endif

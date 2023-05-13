@@ -4,7 +4,7 @@
 #include "token.hpp"
 
 using namespace std;
-int line_cnt = 1;
+
 
 string Lexer::next_token_content() {
     while (ind < code.size() && (code[ind] == ' ' || code[ind] == '\n' || code[ind] == '\t')) {
@@ -64,6 +64,10 @@ void Lexer::scan_code() {
     string input;
     while (getline(fin, input)) {
         code+= input + '\n';
+    }
+    if(code.size() == 0) {
+        error_messages->push_back("Lexer Error:Input cannot be empty\n");
+        return;
     }
     Token token(next_token());
     while (token.content != "") {
