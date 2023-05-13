@@ -7,6 +7,7 @@ private:
     Node* root;
     Node* param_root;
     map<string, Node*> context;
+    string ans = "";
 public:
     Interpreter(Node *root){
         this->root = root;

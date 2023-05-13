@@ -22,9 +22,8 @@ void Interpreter::interpret(){
     Node* node = reduce(root->children[root->children.size()-1]);
     cout <<"done interpreting\n";
     root = node;
-    print("testing.pp");
     print_code(node);
-    cout <<endl;
+    ans +="\n";
 }
 
 void Interpreter::print_error(string error_message, int error_number){
@@ -259,21 +258,21 @@ void Interpreter::print_code(Node *node){
         NodeTerminal* _node = dynamic_cast<NodeTerminal*>(node);
         if (node->type == boolean){
             if (get<bool>(_node->value))
-                cout << "true ";
+                ans+= "true ";
             else
-                cout << "false ";
+                ans+= "false ";
         }
         else if (node->type == integer){
-            cout << get<int>(_node->value) <<" ";
+            ans+= to_string(get<int>(_node->value)) +" ";
         }
         else if (node->type == real){
-            cout << get<double>(_node->value) <<" ";
+            ans+= to_string(get<double>(_node->value)) + " ";
         }
         else if (node->type == null){
-            cout << "null ";
+            ans+= "null ";
         }
         else
-            cout << _node->get_name()<<" ";
+            ans+= _node->get_name()+" ";
         return;
     }
     for (int i = 0; i < node->children.size();i ++){
