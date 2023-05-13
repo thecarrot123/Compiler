@@ -1,0 +1,35 @@
+(func pushIsList (a lst)
+  (cons (islist a) lst))
+
+(func pushIsInt (a lst)
+  (cons (isint a) lst))
+
+(func pushIsReal (a lst)
+  (cons (isreal a) lst))
+
+(func pushIsNull (a lst)
+  (cons (isnull a) lst))
+
+(func pushIsAtom (a lst)
+  (cons (isatom a) lst))
+
+(func reverse (lst)
+  (setq ret '())
+  (while (not (isempty lst))
+    (setq ret (cons (head lst) ret))
+    (setq lst (tail lst)))
+  ret)
+
+(prog (a)
+  (setq lst '())
+  (setq lst (cons 'islist lst))
+  (setq lst (pushIsList a lst))
+  (setq lst (cons 'isint lst))
+  (setq lst (pushIsInt a lst))
+  (setq lst (cons 'isreal lst))
+  (setq lst (pushIsReal a lst))
+  (setq lst (cons 'isnull lst))
+  (setq lst (pushIsNull a lst))
+  (setq lst (cons 'isatom lst))
+  (setq lst (pushIsAtom a lst))
+  (return (reverse lst)))
