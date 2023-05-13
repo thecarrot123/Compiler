@@ -19,8 +19,12 @@
 
 (prog (a b)
   (setq lst '())
+  (setq lst (cons 'equal lst))
   (setq lst (pushEqual a b lst))
+  (setq lst (cons 'nonequal lst))
   (setq lst (pushNoneEqual a b lst))
+  (setq lst (cons 'greater lst))
   (setq lst (pushGreater a b lst))
+  (setq lst (cons 'less lst))
   (setq lst (pushLess a b lst))
   (return (reverse lst)))

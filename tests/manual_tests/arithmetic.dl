@@ -19,8 +19,12 @@
 
 (prog (a b)
   (setq lst '())
+  (setq lst (cons 'plus lst))
   (setq lst (pushPlus a b lst))
+  (setq lst (cons 'minus lst))
   (setq lst (pushMinus a b lst))
+  (setq lst (cons 'times lst))
   (setq lst (pushTimes a b lst))
+  (setq lst (cons 'divide lst))
   (setq lst (pushDivide a b lst))
   (return (reverse lst)))

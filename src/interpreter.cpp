@@ -65,6 +65,8 @@ Node* Interpreter::reduce(Node *node) {
                 return_index = i;
                 break;
             }
+            if (break_flag)
+                break;
         }
         node = node->children[return_index];
     }
