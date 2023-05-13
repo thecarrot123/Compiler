@@ -1,0 +1,26 @@
+(func pushEqual (a b lst)
+  (cons (equal a b) lst))
+
+(func pushNoneEqual (a b lst)
+  (cons (nonequal a b) lst))
+
+(func pushGreater (a b lst)
+  (cons (greater a b) lst))
+
+(func pushLess (a b lst)
+  (cons (less a b) lst))
+
+(func reverse (lst)
+  (setq ret '())
+  (while (not (isempty lst))
+    (setq ret (cons (head lst) ret))
+    (setq lst (tail lst)))
+  ret)
+
+(prog (a b)
+  (setq lst '())
+  (setq lst (pushEqual a b lst))
+  (setq lst (pushNoneEqual a b lst))
+  (setq lst (pushGreater a b lst))
+  (setq lst (pushLess a b lst))
+  (return (reverse lst)))

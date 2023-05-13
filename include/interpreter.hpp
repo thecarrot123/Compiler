@@ -9,7 +9,8 @@ private:
     map<string, Node*> context;
     bool return_flag = false;
     bool break_flag = false;
-    string ans = "";
+    void print_code(Node* node);
+
 public:
     Interpreter(Node *root){
         this->root = root;
@@ -23,7 +24,7 @@ public:
     Node* expand(Node *node);
     void interpret();
     void print_error(string error_message, int error_number);
-    void print_code(Node* node);
+    void print_code();
     void print(string filename);
     void print(ostream& fout, Node* node);
 };

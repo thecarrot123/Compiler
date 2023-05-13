@@ -192,11 +192,11 @@ void Semantixer::third_traversal(Node* node){
 }
 
 void Semantixer::add_to_body_table(string atom, Node* value, int line){
-    if (body_table[atom]){
+    /*if (body_table[atom]){
         error = 1;
         error_messages.push_back("Error: Redefinition of an atom/function at line " + 
             to_string(line));
-    }
+    }*/
     body_table[atom] = value;
 }
 
@@ -220,7 +220,7 @@ void Semantixer::forth_traversal(Node *node){
     if (dynamic_cast<SetqSF*>(node)){
         string atom = node->children[2]->get_tokenized_code()[node->get_interval().first + 2].content;
         Node* value = node->children[3];
-        //add_to_body_table(atom, value, node->get_tokenized_code()[node->get_interval().first + 1].line);
+        add_to_body_table(atom, value, node->get_tokenized_code()[node->get_interval().first + 1].line);
         node->body_table = body_table;
         node->param_table = param_table;
         forth_traversal(value);

@@ -1,0 +1,26 @@
+(func pushPlus (a b lst)
+  (cons (plus a b) lst))
+
+(func pushMinus (a b lst)
+  (cons (minus a b) lst))
+
+(func pushTimes (a b lst)
+  (cons (times a b) lst))
+
+(func pushDivide (a b lst)
+  (cons (divide a b) lst))
+
+(func reverse (lst)
+  (setq ret '())
+  (while (not (isempty lst))
+    (setq ret (cons (head lst) ret))
+    (setq lst (tail lst)))
+  ret)
+
+(prog (a b)
+  (setq lst '())
+  (setq lst (pushPlus a b lst))
+  (setq lst (pushMinus a b lst))
+  (setq lst (pushTimes a b lst))
+  (setq lst (pushDivide a b lst))
+  (return (reverse lst)))

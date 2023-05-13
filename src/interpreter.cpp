@@ -22,8 +22,7 @@ void Interpreter::interpret(){
     Node* node = reduce(root->children[root->children.size()-1]);
     cout <<"done interpreting\n";
     root = node;
-    print_code(node);
-    ans +="\n";
+    print_code();
 }
 
 void Interpreter::print_error(string error_message, int error_number){
@@ -157,8 +156,8 @@ Node* Interpreter::reduce(Node *node) {
                 nullptr);
         }
         else if (name == "return"){
-            return_flag = true;
             node = reduce(node->children[2]);
+            return_flag = true;
         }
     }
     else if (node->type == List){
@@ -302,6 +301,12 @@ Node* Interpreter::reduce(Node *node) {
         }
         node = context[name];
     }
+    else if (node->isTerminal()){
+        return node;
+    }
+    else{
+        print_error("Unknown error.", 69);
+    }
     return node;
 }
 
@@ -310,26 +315,38 @@ void Interpreter::print_code(Node *node){
         NodeTerminal* _node = dynamic_cast<NodeTerminal*>(node);
         if (node->type == boolean){
             if (get<bool>(_node->value))
-                ans+= "true ";
+                cout<< "true ";
             else
-                ans+= "false ";
+                cout<< "false ";
         }
         else if (node->type == integer){
-            ans+= to_string(get<int>(_node->value)) +" ";
+            cout<< to_string(get<int>(_node->value)) << " ";
         }
         else if (node->type == real){
-            ans+= to_string(get<double>(_node->value)) + " ";
+            cout<< to_string(get<double>(_node->value)) << " ";
         }
         else if (node->type == null){
-            ans+= "null ";
+            cout<< "null ";
         }
         else
-            ans+= _node->get_name()+" ";
+            cout<< _node->get_name() << " ";
         return;
     }
-    for (int i = 0; i < node->children.size();i ++){
-        print_code(node->children[i]);
+    if(node->children.size() > 2 && dynamic_cast<NodeTerminal*>(node->children[1]) 
+        && dynamic_cast<NodeTerminal*>(node->children[1])->get_name() == "quote") {
+        cout<<"\'";
+        print_code(node->children[2]);
     }
+    else {
+        for (int i = 0; i < node->children.size();i ++){
+            print_code(node->children[i]);
+        }
+    }
+}
+
+void Interpreter::print_code() {
+    print_code(root);
+    cout<<endl;
 }
 
 void Interpreter::print(ostream& fout, Node* node){
