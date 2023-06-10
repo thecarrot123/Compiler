@@ -19,7 +19,8 @@ void Interpreter::interpret(){
             context[param->get_name()] = new NodeTerminal(*param_value);
         }
     }
-    Node* node = reduce(root->children[root->children.size()-1]);
+    root = root->children.back();
+    Node* node = reduce(root);
     cout <<"done interpreting\n";
     root = node;
     print_code();
@@ -45,8 +46,7 @@ bool Interpreter::ispredefined(Node *node){
 
 Node* Interpreter::expand(Node* node){
     string name = dynamic_cast<NodeTerminal*>(node)->get_name();
-    ///TOOD: change to node instead of root
-    node = new Node(*(root->children.back())->body_table[name]);
+    node = new Node(*context[name]);
     return node;
 }
 
@@ -91,7 +91,15 @@ Node* Interpreter::reduce(Node *node) {
                 null,
                 nullptr);
         }
-        else if (name == "func" || name == "lambda"){
+        else if (name == "lambda"){
+            if (!lambda_flag){
+                print_error("Inappropriate use of a lambda function.", 16);
+            }
+            lambda_flag = false;
+            param_context[lambda_param] = new Node(*(node->children[2]));
+            context[lambda_param] = new Node(*(node->children[3]));
+        }
+        else if (name == "func"){
             print_error("Nested function is not supported!", 10);
         }
         else if (name == "cond"){
@@ -164,7 +172,8 @@ Node* Interpreter::reduce(Node *node) {
     }
     else if (node->type == List){
         for (int i = node->children.size()-2 ; i > 1 ;i--){
-            node->children[i] = reduce(node->children[i]);
+            if (!dynamic_cast<LambdaSF*>(node->children[i]))
+                node->children[i] = reduce(node->children[i]);
         }
         if (ispredefined(node->children[1])){
             string name = dynamic_cast<NodeTerminal*>(node->children[1])->get_name();
@@ -275,19 +284,35 @@ Node* Interpreter::reduce(Node *node) {
         else if (node->children[1]->type == atom){
             string name = dynamic_cast<NodeTerminal*>(node->children[1])->get_name();
             node->children[1] = expand(node->children[1]);
-            Node* params = new Node(*(root->children.back())->param_table[name]);
+            Node* params = param_context[name];
             map <string, Node*> _context = context;
+            map <string, Node*> _param_context = param_context;
             for (int i = 2; i < node->children.size() -1 ; i++){
                 string param_name = dynamic_cast<NodeTerminal*>(params->children[i-1])->get_name();
-                if (dynamic_cast<NodeTerminal*>(node->children[i]))
-                    context[param_name] = new NodeTerminal(*dynamic_cast<NodeTerminal*>(node->children[i]));
-                if (!context[param_name])
+                if ((node->children[i])->isTerminal())
+                {
+                    string temp = dynamic_cast<NodeTerminal*>(node->children[i])->get_name();
+                   if (param_context[temp])
+                    {
+                        param_context[param_name] = new Node (*param_context[temp]);
+                        context[param_name] = new Node (*context[temp]);
+                    }
+                    else
+                        context[param_name] = new NodeTerminal(*dynamic_cast<NodeTerminal*>(node->children[i]));
+                }
+                else if (dynamic_cast<QuoteSF*>(node->children[i]))
                 {
                     context[param_name] = new QuoteSF(*(dynamic_cast<QuoteSF*>(node->children[i])));
+                }
+                else{
+                    lambda_flag = true;
+                    lambda_param = param_name;
+                    node->children[i] = reduce(node->children[i]);
                 }
             }
             node = reduce(node->children[1]);
             context = _context;
+            param_context = _param_context;
         }
         else{
             node->children[1] = reduce(node->children[1]);
@@ -299,9 +324,13 @@ Node* Interpreter::reduce(Node *node) {
     else if (node->type == atom){
         string name = dynamic_cast<NodeTerminal*>(node)->get_name();
         if (!context[name]){
+            cout <<name<<endl;
             print_error("Unresolved variable", 12);
         }
-        node = context[name];
+        if (!param_context[name])
+        {
+            node = context[name];
+        }
     }
     else if (node->isTerminal()){
         return node;

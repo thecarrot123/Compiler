@@ -67,7 +67,7 @@ Node* consturct_quote(NodeList *lst) {
         lst->get_bracket_info(),
         lst->get_tokenized_code(),
         make_pair(lst->get_interval().first-1, lst->get_interval().first-1),
-        atom
+        keyword
     );
     NodeList *ret = new NodeList();
     vector <Node *> &children = ret->children;
@@ -122,7 +122,6 @@ void IsEmptyFun::typecheck() {
 Node *IsEmptyFun::run() {
     typecheck();
     NodeList *p1 = dynamic_cast<NodeList *>(params->children[1]);
-
     bool v = (p1_size() == 0);
     NodeTerminal *ret = new NodeTerminal {
         p1->get_bracket_info(),

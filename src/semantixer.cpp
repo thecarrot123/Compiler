@@ -295,6 +295,7 @@ void Semantixer::forth_traversal(Node *node){
                 to_string(node->get_tokenized_code()[node->get_interval().first].line));
         }
         else if (!node->param_table[atom]){
+            return;
             error = 1;
             error_messages.push_back("Error: atom \'" + atom + "\' is not a function in line " + 
                 to_string(node->get_tokenized_code()[node->get_interval().first].line));
