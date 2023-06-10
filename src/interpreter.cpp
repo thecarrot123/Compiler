@@ -292,7 +292,7 @@ Node* Interpreter::reduce(Node *node) {
                 if ((node->children[i])->isTerminal())
                 {
                     string temp = dynamic_cast<NodeTerminal*>(node->children[i])->get_name();
-                   if (param_context[temp])
+                    if (param_context[temp])
                     {
                         param_context[param_name] = new Node (*param_context[temp]);
                         context[param_name] = new Node (*context[temp]);
@@ -300,9 +300,9 @@ Node* Interpreter::reduce(Node *node) {
                     else
                         context[param_name] = new NodeTerminal(*dynamic_cast<NodeTerminal*>(node->children[i]));
                 }
-                else if (dynamic_cast<QuoteSF*>(node->children[i]))
+                else if (dynamic_cast<NodeTerminal*>(node->children[i]->children[1])->get_name() == "quote")
                 {
-                    context[param_name] = new QuoteSF(*(dynamic_cast<QuoteSF*>(node->children[i])));
+                    context[param_name] = new Node(*(node->children[i]));
                 }
                 else{
                     lambda_flag = true;
@@ -324,7 +324,6 @@ Node* Interpreter::reduce(Node *node) {
     else if (node->type == atom){
         string name = dynamic_cast<NodeTerminal*>(node)->get_name();
         if (!context[name]){
-            cout <<name<<endl;
             print_error("Unresolved variable", 12);
         }
         if (!param_context[name])
