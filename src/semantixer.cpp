@@ -256,6 +256,7 @@ void Semantixer::forth_traversal(Node *node){
         remove_local_context(params);
     }
     else if (dynamic_cast<QuoteSF*>(node)){
+        return;
         node->body_table = body_table;
         node->param_table = param_table; 
         if (dynamic_cast<NodeList*> (node->children[2])){
