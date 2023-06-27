@@ -11,6 +11,7 @@ private:
     bool return_flag = false;
     bool break_flag = false;
     bool lambda_flag = false;
+    int while_counter = 0;
     string lambda_param;
     void print_code(Node* node);
 

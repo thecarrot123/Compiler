@@ -61,12 +61,16 @@ Node* Interpreter::reduce(Node *node) {
             node->children[i] = reduce(node->children[i]);
             if (return_flag)
             {
-                return_flag = false;
+                if (!while_counter)
+                    return_flag = false;
                 return_index = i;
                 break;
             }
             if (break_flag)
+            {
+                return_index = i;
                 break;
+            }
         }
         node = node->children[return_index];
     }
@@ -124,6 +128,7 @@ Node* Interpreter::reduce(Node *node) {
         else if (name == "while"){
             Node* condition = new Node(*node->children[2]);
             Node* body = new Node(*node->children[3]);
+            while_counter++;
 
             while (true){
                 if (break_flag){
@@ -143,6 +148,10 @@ Node* Interpreter::reduce(Node *node) {
                 if (get<bool>(_node->value)){
                     condition = new Node(*node->children[2]);
                     body = reduce(body);
+                    if (return_flag){
+                        node = body;
+                        break;
+                    }
                     body = new Node(*(node->children[3]));
                 }
                 else{
@@ -154,7 +163,8 @@ Node* Interpreter::reduce(Node *node) {
                         nullptr);
                     break;
                 }
-            }    
+            }  
+            while_counter--;  
         }
         else if (name == "break"){
             break_flag = true;
