@@ -58,7 +58,10 @@ Node* Interpreter::reduce(Node *node) {
     else if (node->type == Body){
         int return_index = node->children.size() - 1;
         for (int i = 0 ; i < node->children.size(); i++){
+            int _while_counter = while_counter;
+            while_counter = 0;
             node->children[i] = reduce(node->children[i]);
+            while_counter = _while_counter;
             if (return_flag)
             {
                 if (!while_counter)
@@ -141,7 +144,10 @@ Node* Interpreter::reduce(Node *node) {
                         nullptr);
                     break;
                 }
+                int _while_counter = while_counter;
+                while_counter = 0;
                 condition = reduce(condition);
+                while_counter = _while_counter;
                 if (condition->type != boolean)
                     print_error("Error: Condition statement isn't boolean!", 13);
                 NodeTerminal* _node = dynamic_cast<NodeTerminal*>(condition);
