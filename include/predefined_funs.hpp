@@ -7,6 +7,7 @@ enum PredefinedFunTypes {
     _minus,
     _times,
     _divide,
+    _mod,
     _equal,
     _nonequal,
     _less,

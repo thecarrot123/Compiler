@@ -36,6 +36,8 @@ void Semantixer::preprocessing(){
     body_table["times"] = new Node;
     param_table["divide"] = new NodeParams(trash);
     body_table["divide"] = new Node;
+    param_table["mod"] = new NodeParams(trash);
+    body_table["mod"] = new Node;
     param_table["cons"] = new NodeParams(trash);
     body_table["cons"] = new Node;
     param_table["equal"] = new NodeParams(trash);

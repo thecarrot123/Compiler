@@ -47,6 +47,17 @@ public:
 
 };
 
+class ModFun : public ArithmeticFun {
+private:
+
+    void typecheck() override;
+
+public:
+    ModFun(NodeList *params, vector <Token> &vec) : ArithmeticFun(_mod,params,vec) {}
+
+    Node* run() override;
+};
+
 #endif
 
 

@@ -35,7 +35,7 @@ bool Interpreter::ispredefined(Node *node){
     if (!dynamic_cast<NodeTerminal*>(node))
         return false;
     string name = dynamic_cast<NodeTerminal*>(node)->get_name();
-    if (name == "plus" || name == "minus" || name == "times" || name == "divide" || name == "head" 
+    if (name == "plus" || name == "minus" || name == "times" || name == "divide" || name == "mod" || name == "head" 
         || name == "tail" || name == "cons" || name == "equal" || name == "nonequal" || name == "less"
         || name == "lesseq" || name == "greater" || name == "greatereq" || name == "isint" || name == "isreal"
         || name == "isbool" || name == "isnull" || name == "isatom" || name == "islist" || name == "and"
@@ -209,6 +209,10 @@ Node* Interpreter::reduce(Node *node) {
             } 
             else if (name == "divide"){
                 DivideFun x(params, node->get_tokenized_code());
+                node = x.run();
+            } 
+            else if (name == "mod"){
+                ModFun x(params, node->get_tokenized_code());
                 node = x.run();
             }
             else if (name == "head"){

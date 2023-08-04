@@ -112,7 +112,7 @@ void DivideFun::typecheck() {
     ArithmeticFun::typecheck();
     NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
     if (get_arithmetic_val(p2) == 0) {
-        print_error("Dividing on 0",5);
+        print_error("Dividing by 0",5);
     }
 }
 
@@ -143,4 +143,31 @@ Node* DivideFun::run() {
         ); 
         return ret;
     }
+}
+
+void ModFun::typecheck() {
+    ArithmeticFun::typecheck();
+    NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
+    NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
+    if(p1->type != integer || p2->type != integer) {
+        print_error("mod function expecting integers",55);
+    }
+    if (get_arithmetic_val(p2) == 0) {
+        print_error("Dividing by 0",5);
+    }
+}
+
+Node* ModFun::run() {
+    typecheck();
+    NodeTerminal *p1 = dynamic_cast<NodeTerminal *>(params->children[1]);
+    NodeTerminal *p2 = dynamic_cast<NodeTerminal *>(params->children[2]);
+    int val = get<int>(p1->value) % get<int>(p2->value);
+    auto ret = new NodeTerminal(
+        p2->get_bracket_info(),
+        tokenized_code,
+        make_pair(p1->get_interval().first,p2->get_interval().second),
+        integer,
+        val
+    );
+    return ret;
 }
